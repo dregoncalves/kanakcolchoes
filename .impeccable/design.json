@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-21T13:12:00Z",
+  "title": "Design System: Kanak Colchões",
+  "extensions": {
+    "colorMeta": {
+      "kanak-bordo-900": { "role": "primary", "displayName": "Bordô Escuro", "canonical": "#3D0609" },
+      "kanak-bordo-800": { "role": "primary", "displayName": "Bordô Marca", "canonical": "#57090C" },
+      "kanak-bordo-700": { "role": "primary", "displayName": "Bordô Ação", "canonical": "#7A1420" },
+      "kanak-bordo-600": { "role": "primary", "displayName": "Bordô Ação Hover", "canonical": "#93202C" },
+      "kanak-areia-100": { "role": "neutral", "displayName": "Areia 100", "canonical": "#F6F1E7" },
+      "kanak-areia-200": { "role": "neutral", "displayName": "Areia 200", "canonical": "#E1D3B0" },
+      "kanak-ouro-500": { "role": "secondary", "displayName": "Ouro 500", "canonical": "#C8952A" },
+      "kanak-ouro-400": { "role": "secondary", "displayName": "Ouro 400", "canonical": "#E4BE63" },
+      "kanak-tinta-900": { "role": "neutral", "displayName": "Tinta 900", "canonical": "#1A1614" },
+      "kanak-tinta-700": { "role": "neutral", "displayName": "Tinta 700", "canonical": "#3D3733" },
+      "kanak-tinta-500": { "role": "neutral", "displayName": "Tinta 500", "canonical": "#6B625B" },
+      "kanak-linha": { "role": "neutral", "displayName": "Linha", "canonical": "#E3DCD2" },
+      "kanak-papel": { "role": "neutral", "displayName": "Papel (Branco)", "canonical": "#FFFFFF" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Fraunces Display", "purpose": "Títulos principais e destaque numérico" },
+      "title": { "displayName": "Archivo Title", "purpose": "Subtítulos, UI e Rótulos" },
+      "body": { "displayName": "Inter Body", "purpose": "Leitura e parágrafos" }
+    },
+    "shadows": [
+      { "name": "elevation", "value": "0 2px 8px rgba(26,22,20,0.06)", "purpose": "Cards flutuantes e botões fixos" }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1440px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botão Primário",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "CTA principal do projeto",
+      "html": "<button class=\"ds-btn-primary\">FALE COM NOSSOS ESPECIALISTAS</button>",
+      "css": ".ds-btn-primary { background: #7A1420; color: #FFFFFF; font-family: 'Archivo', sans-serif; font-weight: 600; padding: 0 24px; height: 52px; border-radius: 8px; border: none; cursor: pointer; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; letter-spacing: 0.02em; display: inline-flex; align-items: center; justify-content: center; } .ds-btn-primary:hover { background: #93202C; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(26,22,20,0.06); } .ds-btn-primary:focus-visible { outline: 2px solid #C8952A; outline-offset: 2px; }"
+    },
+    {
+      "name": "Card Base",
+      "kind": "card",
+      "refersTo": "",
+      "description": "Contêiner de exibição de conteúdo (fotos ou depoimentos)",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-img\"></div><div class=\"ds-card-content\"><h3>Molas Ensacadas</h3><p>Conforto e estabilidade.</p></div></div>",
+      "css": ".ds-card { background: #FFFFFF; border: 1px solid #E3DCD2; border-radius: 16px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; cursor: pointer; max-width: 300px; } .ds-card:hover { transform: scale(1.01); box-shadow: 0 2px 8px rgba(26,22,20,0.06); } .ds-card-img { height: 160px; background: #F6F1E7; } .ds-card-content { padding: 20px; } .ds-card-content h3 { font-family: 'Archivo', sans-serif; font-size: 20px; color: #1A1614; margin: 0 0 8px 0; } .ds-card-content p { font-family: 'Inter', sans-serif; font-size: 16px; color: #6B625B; margin: 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Quarto de verdade, fotografado com calma, sobre papel claro",
+    "overview": "O design do site institucional da Kanak foca no produto como ele vive no ambiente real: uma cama completa e elegante, não um objeto técnico cheio de setas e promessas. O que traz o aspecto premium para a interface não é o excesso de ornamentos, mas o espaço em branco, o ritmo de escala tipográfica (foto grande → texto curto → grade de cards) e o silêncio visual entre as seções. O bordô é tratado com parcimônia, funcionando como assinatura e não como preenchimento massivo de ambiente.",
+    "keyCharacteristics": [
+      "Muito respiro e fundos claros neutros dominantes",
+      "Bordô reservado para detalhes, CTAs e no máximo dois blocos escuros por página",
+      "Tipografia quieta com grandes contrastes de tamanho",
+      "Fotografias reais de quarto/showroom, evitando banco de imagens genérico"
+    ],
+    "rules": [
+      { "name": "The No-Green Rule", "body": "O uso da cor verde está estritamente proibido no site inteiro, com a única exceção do interior do ícone do WhatsApp.", "section": "colors" },
+      { "name": "The Bordeaux Signature Rule", "body": "Fundo padrão é claro. Bloco escuro em bordô: no máximo dois por página, e nunca seguidos.", "section": "colors" },
+      { "name": "The No-Uppercase-Headline Rule", "body": "Caixa alta é estritamente para rótulos de seção e botões — nunca em headlines de hero ou seções, pois isso confere tom panfletário.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Sem sombra colorida, dupla ou efeitos de brilho/glow. Sombras existem apenas para flutuação de cards, botão flutuante e interações de hover.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do aplique overlay medido em todo hero/texto sobre foto: gradiente linear de rgba(26,22,20,0.72) para 0.15 cobrindo exatamente a área do texto para garantir contraste AA (4.5:1).",
+      "Do tratar fotografias com luz quente e brancos neutralizados, mantendo o tom fotográfico unificado. O texto sobre imagem é sempre Branco ou Areia 100.",
+      "Do projetar para celular primeiro: o botão flutuante nunca deve cobrir um CTA nem o último parágrafo (preserve 88px no rodapé)."
+    ],
+    "donts": [
+      "Don't utilizar banco de imagens genérico de pessoas (ex: médica com luz azul, idosos com tablet) ou renders \"tecnológicos\" irrealistas flutuando no vazio.",
+      "Don't empregar selos promocionais, badges vermelhos de garantia, gradientes e fitas de desconto.",
+      "Don't alinhar texto longo justificado (use sempre alinhamento à esquerda).",
+      "Don't usar autoplay, parallax ou animações complexas. Movimento deve ser sutil e respeitar prefers-reduced-motion."
+    ]
+  }
+}

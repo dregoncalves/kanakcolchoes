@@ -1,3 +1,10 @@
+---
+description: Regras do projeto Kanak Colchões — copy imutável, specs como fonte de verdade
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
 # Kanak Colchões — regras do projeto
 
 Redesign do site institucional da Kanak Colchões (kanakcolchoes.com.br), hoje no ar em WordPress, reconstruído em Next.js dentro de `my-app/`. Não é projeto novo: é redesign, mantendo 100% da copy escrita pelo cliente.
