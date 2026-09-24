@@ -10,8 +10,17 @@ import { Marca } from "./Marca";
  * Rodapé, igual na Home e na landing — só muda a origem dos três telefones.
  * ⏳ PENDENTE: endereço, horário, CNPJ, razão social, redes e mapa. Enquanto
  * não chegarem, ficam como espaço reservado, nunca preenchidos por conta própria.
+ *
+ * `linksInternos`: só a Home passa (com o link do Blog). A landing não
+ * recebe — lá todo clique vai para o WhatsApp (specs/site.md §6.2).
  */
-export function Rodape({ origensTelefone }: { origensTelefone: readonly Origem[] }) {
+export function Rodape({
+  origensTelefone,
+  linksInternos,
+}: {
+  origensTelefone: readonly Origem[];
+  linksInternos?: readonly { rotulo: string; href: string }[];
+}) {
   return (
     <footer aria-labelledby="rodape-titulo" className="sobre-vinho bg-vinho-700 text-on-dark">
       <Container className="flex flex-col gap-7 py-12 md:gap-10 md:py-16">
@@ -24,6 +33,19 @@ export function Rodape({ origensTelefone }: { origensTelefone: readonly Origem[]
             <p className="text-body-sm text-on-dark-muted">
               {EMPRESA.endereco ?? "[Endereço completo]"}
             </p>
+            {linksInternos && linksInternos.length > 0 ? (
+              <nav aria-label="Links do site" className="flex flex-col gap-1 pt-1">
+                {linksInternos.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-body-sm text-on-dark no-underline hover:text-apricot-cream"
+                  >
+                    {link.rotulo}
+                  </a>
+                ))}
+              </nav>
+            ) : null}
           </div>
 
           <div className="flex flex-col gap-2.5 text-body-sm">

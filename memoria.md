@@ -4,13 +4,22 @@ Histórico vivo das decisões. Registrar decisão, data e motivo em uma linha; n
 
 ## Decisões aprovadas
 
+- **2026-09-24 — Hospedagem: app Node (`next start`) na Hostinger, plano Business.** Encerra a pendência do tipo de plano. Decidido com dado medido em produção, não estimativa: `next/image` reduziu `banner-king.png` de 4.159 KB para 63 KB em AVIF no app já publicado. Exportação estática foi descartada: sem ISR (rebuild inteiro a cada post do blog), sem `redirects()`, imagens cruas de 3–4 MB.
+- **2026-09-24 — Site publicado, provisoriamente, no domínio temporário da Hostinger** `https://beige-octopus-880165.hostingersite.com`. **`kanakcolchoes.com.br` é outro site, em produção, e não é tocado por este projeto** até a virada (sem data definida). `AGENTS.md`/`CLAUDE.md` diziam "substitui o WordPress atual em kanakcolchoes.com.br" — ajustado para não instruir errado sessões futuras.
+- **2026-09-24 — Blog reaberto como etapa própria, escopo base.** Substitui a decisão de 2026-09-23 que tirou o blog desta entrega. Escopo: `/blog` (lista) e `/blog/[slug]` (artigo), sem categorias, tags, busca, autor ou relacionados. Construído direto do design system, sem prancheta no Claude Design — o blog não tinha wireframe.
+- **2026-09-24 — WordPress headless do blog em instalação nova, `cms.kanakcolchoes.com.br`.** Já existe (nome "CMS Kanak" no hPanel), `noindex` a confirmar (hoje o `robots.txt` dele ainda permite indexação — ver Problemas). O WordPress de `kanakcolchoes.com.br` (produção) não é usado como CMS; hoje tem 0 posts e não tinha nada a migrar.
+- **2026-09-24 — Navegação ganha "Blog" no cabeçalho e no rodapé.** Substitui a decisão de 2026-09-23 de cabeçalho só com âncoras. As âncoras (`#colchoes`, `#como-escolher`, `#contato`) viram absolutas (`/#colchoes`) para funcionar a partir do `/blog`.
+- **2026-09-24 — Mapa de CTAs ganha `blog_lista` e `blog_artigo`.** Mensagem começa com "Olá! Vim pelo blog…"/"Olá! Vim de um artigo do blog…", número principal. `specs/site.md` §7.3 atualizado; `pnpm conferir:ctas` confere 43 CTAs.
+- **2026-09-24 — Ampliação de stack: `sanitize-html`.** Limpa o HTML de `content.rendered`/`excerpt.rendered`/`title.rendered` do WordPress antes de qualquer componente renderizar — allowlist de tags, sem `script`/`style`/`on*`. Roda no servidor, sem `jsdom`.
+- **2026-09-24 — Revalidação do blog por ISR de 5 minutos** (`revalidate = 300` em `lib/wordpress.ts` e nas rotas). Sem webhook no WordPress: post publicado aparece sozinho, sem mexer no CMS.
+- **2026-09-24 — Indexação por busca controlada por `SITE_INDEXAVEL`.** Desligada por padrão (`lib/site.ts`, `INDEXAVEL`): toda página sai `noindex, nofollow` via meta tag (não via `robots.txt` — achado de 2026-09-24: a Hostinger sobrepõe esse arquivo no domínio temporário e só bloqueia o Googlebot) e o sitemap fica vazio. Liga com `SITE_INDEXAVEL=1` na virada para o domínio final.
 - **2026-09-24 — Banner da Home: título em `display-xl` com entrelinha 1.15.** Substitui, no mesmo dia, o `display-lg`: o título ficou pequeno. A entrelinha 1.04 da prancheta não volta. A faixa de camas segue na largura do container; no hover a escolhida cresce para `flex-grow: 1.65` e as outras não passam do mínimo que cabe o nome.
 - **2026-09-24 — Card Solteiro do banner usa a foto real do showroom** (`solteiro com pillow top - verde showroom com recamier.jpeg`, copiada para `public/images/home/banner-solteiro.jpg`). Não fecha a pendência 12: ainda falta a frontal na mesma luz e ângulo das outras três.
 - **2026-09-23 — Movimento: cada seção tem um gesto próprio.** Substitui, no mesmo dia, a regra que limitava a animação a três lugares e proibia entrada de seção. Motivo: a página ficou estática demais. O gesto muda conforme a seção (lençol, camadas, escala, série, virada de página, cortina), no mesmo assentamento. O momento autoral segue a faixa de camas. Biblioteca inalterada (`motion` via `LazyMotion` + `domAnimation`). Registrado em `specs/design.md` §9.
 - **2026-09-23 — Tipografia: Instrument Sans substitui Instrument Serif.** Autorizado por você após a revisão da skill `design-taste-frontend`. Títulos em 600 com tracking negativo (-0,035em a -0,02em), logotipo em 700; o realce continua sendo itálico **da mesma família**, que é o gesto das pranchetas. Consequência aceita: as pranchetas do Claude Design seguem com a serif e ficam desalinhadas do site nesse ponto.
 - **2026-09-23 — Ícones: Phosphor (`@phosphor-icons/react`), peso `regular`.** Substitui os SVGs desenhados à mão, que misturavam `strokeWidth` 1.5 e 1.8. Import por `/dist/ssr`: renderiza SVG puro, então os botões continuam Server Components. Cama vista de cima e diagrama de camadas ficam desenhados em código — são ilustração de produto, não ícone.
 - **2026-09-23 — Animação: biblioteca `motion`, sempre via `LazyMotion` + `domAnimation`.** Autorizada como ampliação de stack. Subconjunto de DOM (~18 kB) em vez do pacote inteiro (~30 kB), porque a landing recebe tráfego pago de celular. Entradas em série, aviso de cookies e menu do celular passaram do CSS para `components/motion/Revela.tsx` e `Aparicao.tsx`; a faixa de camas segue em CSS puro.
-- **2026-09-23 — Escopo desta entrega: só a Home e a Landing Google Ads.** Substitui a decisão "Blog: estrutura dentro do escopo desta entrega", do mesmo dia. Motivo: o usuário fechou as duas páginas no Claude Design e exportou o HTML para `referencias-site/`; só elas vão ser construídas agora. O blog volta em etapa própria.
+- ~~**2026-09-23 — Escopo desta entrega: só a Home e a Landing Google Ads.**~~ **Substituída em 2026-09-24: o blog volta ao escopo** (ver decisão do topo). Motivo original: o usuário fechou as duas páginas no Claude Design e exportou o HTML para `referencias-site/`; só elas seriam construídas naquele momento.
 - **2026-09-23 — Uso de imagens geradas por IA aprovado.** Encerra a pendência 12. As 14 imagens de `my-app/public/img` entram no site, renomeadas para `my-app/public/images/`; quatro seguem marcadas como `-PLACEHOLDER` (corte do colchão, magnético em dois lugares, showroom) até chegar foto real.
 - **2026-09-23 — Ajustes de copy da Home H1–H10 aprovados em bloco** (`specs/site.md` §6.4). Os rótulos de H6 ("Descubra o colchão ideal para você!") e H10 ("Fale com nossos especialistas!") já estão no Mapa de CTAs; `data-origem` e mensagens não mudaram. Segue pendente só a confirmação de H3 (regulação térmica em todos os modelos).
 - **2026-09-23 — Logotipo em texto no cabeçalho e no rodapé** ("Kanak" em Instrument Serif + "COLCHÕES" em Inter), como nas pranchetas. Substitui a regra de `specs/design.md` §8 de usar `logo.webp` nos dois lugares: o arquivo tem fundo branco opaco e não funciona sobre o vinho do rodapé.
@@ -31,8 +40,8 @@ Histórico vivo das decisões. Registrar decisão, data e motivo em uma linha; n
 - **2026-09-23 — Ofertas confirmadas:** 55% OFF é real; 12x sem juros no cartão; há desconto no PIX.
 - **2026-09-23 — Fabricação:** a Kanak fabrica os colchões — "direto da fábrica" pode ser usado.
 - **2026-09-23 — Escopo:** páginas de produto ficam para depois. Nesta entrega: Home e landing (o blog saiu no mesmo dia).
-- **2026-09-23 — Cabeçalho da Home:** links são âncoras (`#colchoes`, `#como-escolher`, `#contato`), conforme wireframe.
-- **2026-09-23 — Hospedagem:** Hostinger. WordPress no mesmo lugar, usado só como CMS headless do blog (Next.js lê a REST API). Stack ampliada com autorização do usuário.
+- ~~**2026-09-23 — Cabeçalho da Home:** links são âncoras (`#colchoes`, `#como-escolher`, `#contato`), conforme wireframe.~~ **Substituída em 2026-09-24** (ver decisão do topo): âncoras absolutas + "Blog".
+- ~~**2026-09-23 — Hospedagem:** Hostinger. WordPress no mesmo lugar, usado só como CMS headless do blog.~~ **Substituída em 2026-09-24**: o CMS fica numa instalação nova em `cms.kanakcolchoes.com.br`, não na mesma instalação de `kanakcolchoes.com.br` (que é outro site, em produção). Stack ampliada com autorização do usuário.
 - ~~**2026-09-23 — Blog:** estrutura dentro do escopo desta entrega, com conteúdo vindo do WordPress.~~ **Substituída em 2026-09-23:** o blog sai desta entrega e volta em etapa própria.
 - **2026-09-23 — Aviso de cookies (LGPD):** entra no site; GA4 e Meta Pixel só carregam após consentimento.
 - **2026-09-23 — Escala tipográfica de celular** aprovada (36/30/24 nos títulos; ver `specs/design.md`).
@@ -63,7 +72,12 @@ Histórico vivo das decisões. Registrar decisão, data e motivo em uma linha; n
 
 - **2026-09-23:** Home (`/`) e landing (`/lp/[slug]`) implementadas em `my-app/`, na ordem de seções das pranchetas. Tokens do design system expostos ao Tailwind v4 por `@theme inline` (`pnpm sync:tokens` copia `design-system/tokens.css`); fontes por `next/font`; as 14 imagens renomeadas para `my-app/public/images/`; Mapa de CTAs em `content/ctas.ts`, conferido por `pnpm conferir:ctas` (41 CTAs). GA4 e Meta Pixel com Consent Mode v2 negado por padrão, atrás do aviso de cookies. As duas páginas saem estáticas no build.
 
+- **2026-09-24:** Blog implementado — `/blog` (lista, paginada) e `/blog/[slug]` (artigo), lendo `cms.kanakcolchoes.com.br` pela REST API (`lib/wordpress.ts`, ISR de 5 min, `sanitize-html` antes de renderizar). `CardPost`, `Paginacao`, `.prose-kanak` em `globals.css`. Navegação ganhou "Blog" (cabeçalho + rodapé), âncoras viraram absolutas. CTAs `blog_lista`/`blog_artigo` — 43 CTAs conferidos. `next.config.ts` ganhou `remotePatterns` para as imagens do WordPress. `sitemap.ts` virou assíncrono (Home + `/blog` + posts) e, com `robots.ts`/`app/layout.tsx`, passou a respeitar `SITE_INDEXAVEL` — nada indexável enquanto o site estiver no domínio temporário. Build de produção e `pnpm start` testados: `/`, `/blog`, `/blog/hello-world` (post de exemplo do WordPress) e `/lp/55-off` respondendo 200.
+
 ## Problemas encontrados
+
+- **2026-09-24 — `robots.txt` sobrescrito pela Hostinger no domínio temporário:** o arquivo servido em produção (`Googlebot: Disallow /`, `*: Allow /`) não é o de `app/robots.ts` (que tem `Disallow: /lp/`). Corrigido com meta tag `robots` em `app/layout.tsx`, que a Hostinger não sobrepõe.
+- **2026-09-24 — `cms.kanakcolchoes.com.br` já existe, mas sem Yoast e sem "não indexar" marcado.** `yoast_head_json` vem vazio (o `generateMetadata` do artigo já cai no fallback de título/resumo); o `robots.txt` de lá não bloqueia indexação. Registrado em Próximos passos.
 
 - **2026-09-23 — Escala tipográfica:** as pranchetas desenham títulos maiores que a escala de `specs/design.md` §4 (banner 48 → 72 px, título de seção 36 → 54 px, contra 36/56 e 30/40 dos tokens). A implementação seguiu as pranchetas, com tamanho fluido entre 390 e 1440 px. Precisa de aprovação para virar token.
 
@@ -85,15 +99,19 @@ Histórico vivo das decisões. Registrar decisão, data e motivo em uma linha; n
 4. Confirmar o mais vendido (King?).
 5. Dados técnicos por modelo e garantia do magnético — em espera.
 6. Rodapé: endereço, horário, CNPJ, razão social, redes sociais — fica para depois.
-7. Plano da Hostinger (hospedagem com Node.js, Cloud ou VPS) e subdomínio do WordPress — fica para depois.
-8. Volume de artigos do blog — só quando o blog entrar (fora desta entrega).
+7. ~~Plano da Hostinger e subdomínio do WordPress~~ — resolvido em 2026-09-24.
+8. Volume de artigos do blog — o blog entrou em 2026-09-24; hoje só existe o post de exemplo ("Hello world!") em `cms.kanakcolchoes.com.br`.
 9. IDs de GA4 e Meta Pixel.
 10. Logo em SVG ou PNG transparente em alta resolução, com versão clara para o rodapé vinho.
 11. Fotos pedidas pelos wireframes, 6 depoimentos reais, arte do banner da campanha.
 12. As quatro fotos do banner não formam família. Queen, King e Casal são frontais geradas; o Solteiro entrou em 2026-09-24 com a foto real do showroom (verde, pillow top, três quartos). Medir a régua de escala e gerar a frontal do Solteiro antes de publicar.
+13. Data da virada de `kanakcolchoes.com.br` para este site — sem previsão.
+14. Reencodar os 14 PNGs de `public/images/` (3–4 MB cada) para WebP a ~2000 px — pesa a cada otimização em runtime, plano compartilhado.
 
 ## Próximos passos
 
-1. Implementar a Home e a landing conforme o plano aprovado em 2026-09-23 (fundação com tokens e CTAs → Home → landing → mensuração → acabamento).
+1. Implementar a Home e a landing conforme o plano aprovado em 2026-09-23 (fundação com tokens e CTAs → Home → landing → mensuração → acabamento). **Concluído.**
 2. Resolver a régua de escala das quatro fotos do banner (pendência 12).
 3. Aprovar os dois tokens novos propostos para as cores de wireframe que não são token: superfície sobre vinho e texto secundário sobre vinho.
+4. No hPanel: definir `SITE_INDEXAVEL=1` e trocar `NEXT_PUBLIC_SITE_URL`/`WORDPRESS_API_URL` só na virada para o domínio final.
+5. Em `cms.kanakcolchoes.com.br`: instalar o Yoast SEO (hoje `yoast_head_json` vem vazio — `generateMetadata` já cai no fallback) e marcar "não indexar" em Configurações → Leitura (hoje o `robots.txt` de lá permite indexação).

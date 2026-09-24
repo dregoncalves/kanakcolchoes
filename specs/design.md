@@ -114,6 +114,8 @@ Regras: títulos em caixa alta-baixa (sem caixa alta longa na interface — a co
 | Banner promocional | Campanha pontual | Fundo `surface-900`, título em `ouro`, texto `on-dark`; trocável por campanha |
 | Depoimento | Prova social | Só depoimentos reais com autorização; nome e cidade quando fornecidos |
 | Lista de telefones | Dúvidas e rodapé | Três números, cada um como link de WhatsApp/telefone com rótulo |
+| Card de post (blog) | Item da lista `/blog` | Foto 4:3 (`radius-lg`), data, título `display-sm`, resumo em 3 linhas truncadas. Sem preço nem badge |
+| Corpo de artigo (`.prose-kanak`) | Texto do post em `/blog/[slug]` | HTML do WordPress, sanitizado antes de renderizar; só tokens já aprovados — títulos em Instrument Sans, corpo em Inter, largura ~65ch |
 
 ## 8. Fotografia
 

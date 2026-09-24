@@ -192,6 +192,82 @@
 }
 
 @layer components {
+  /*
+    Corpo do artigo do blog. Só tokens já aprovados (design-system/tokens.css):
+    títulos em Instrument Sans 600 com o tracking da escala, corpo em Inter
+    body-lg, largura de leitura ~65ch, links em vinho, citação com barra
+    apricot-cream. HTML vem sanitizado por lib/wordpress.ts antes de chegar aqui.
+  */
+  .prose-kanak {
+    max-width: 65ch;
+    font-size: var(--text-body-lg);
+    line-height: var(--text-body-lg--line-height);
+    color: var(--ink);
+  }
+  .prose-kanak > * + * {
+    margin-top: 1.25em;
+  }
+  .prose-kanak h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    font-size: var(--text-display-sm);
+    line-height: var(--text-display-sm--line-height);
+    margin-top: 1.75em;
+  }
+  .prose-kanak h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-size: var(--text-body-lg);
+    line-height: 1.4;
+    margin-top: 1.5em;
+  }
+  .prose-kanak p {
+    color: var(--ink);
+  }
+  .prose-kanak ul,
+  .prose-kanak ol {
+    padding-inline-start: 1.25em;
+  }
+  .prose-kanak li + li {
+    margin-top: 0.4em;
+  }
+  .prose-kanak a {
+    color: var(--vinho);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose-kanak a:hover {
+    color: var(--vinho-700);
+  }
+  .prose-kanak blockquote {
+    border-inline-start: 3px solid var(--apricot-cream);
+    padding-inline-start: 1.25em;
+    color: var(--ink-60);
+    font-style: italic;
+  }
+  .prose-kanak img {
+    border-radius: var(--radius-lg);
+    width: 100%;
+    height: auto;
+  }
+  .prose-kanak table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-body-sm);
+  }
+  .prose-kanak th,
+  .prose-kanak td {
+    border: 1px solid var(--borda);
+    padding: 0.5em 0.75em;
+    text-align: start;
+  }
+  .prose-kanak hr {
+    border: none;
+    border-top: 1px solid var(--borda);
+  }
+
   /* na landing do celular, o aviso de cookies nunca cobre o CTA fixo */
   body:has(.barra-fixa-whatsapp) .aviso-cookies {
     bottom: 88px;

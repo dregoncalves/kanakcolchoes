@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Instrument_Sans, Inter } from "next/font/google";
-import { ANALYTICS, SITE } from "@/lib/site";
+import { ANALYTICS, INDEXAVEL, SITE } from "@/lib/site";
 import { AvisoCookies } from "@/components/analytics/AvisoCookies";
 import { Medicao } from "@/components/analytics/Medicao";
 import { RastreioCliques } from "@/components/analytics/RastreioCliques";
@@ -37,6 +37,10 @@ export const metadata: Metadata = {
     description: SITE.descricao,
   },
   twitter: { card: "summary_large_image" },
+  // O robots.txt do domínio temporário é sobrescrito pela Hostinger e só
+  // bloqueia o Googlebot (achado de 2026-09-24). A meta tag é o controle
+  // confiável enquanto INDEXAVEL estiver desligado.
+  robots: INDEXAVEL ? undefined : { index: false, follow: false },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

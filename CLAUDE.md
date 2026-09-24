@@ -1,6 +1,6 @@
 # Kanak Colchões — instruções do projeto
 
-Site institucional (catálogo) + blog + landing pages de anúncio da Kanak Colchões (Curitiba/PR). Substitui o WordPress atual em kanakcolchoes.com.br. **Não é e-commerce**: todo CTA leva ao WhatsApp.
+Site institucional (catálogo) + blog + landing pages de anúncio da Kanak Colchões (Curitiba/PR). Publicado, provisoriamente, em um domínio temporário da Hostinger; vai substituir o WordPress atual em kanakcolchoes.com.br na virada (sem data definida) — até lá, kanakcolchoes.com.br é outro site, em produção, e não é tocado por este projeto. **Não é e-commerce**: todo CTA leva ao WhatsApp.
 
 ## Fontes de verdade (ler antes de qualquer tarefa)
 

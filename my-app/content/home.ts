@@ -5,10 +5,14 @@
  */
 
 export const HOME = {
+  // Âncoras absolutas (/#colchoes, não #colchoes): o cabeçalho também
+  // aparece no blog, fora da Home. "Blog" entra em 2026-09-24, substituindo
+  // a decisão de 2026-09-23 (cabeçalho só com âncoras) — memoria.md.
   navegacao: [
-    { rotulo: "Colchões", href: "#colchoes" },
-    { rotulo: "Como escolher", href: "#como-escolher" },
-    { rotulo: "Contato", href: "#contato" },
+    { rotulo: "Colchões", href: "/#colchoes" },
+    { rotulo: "Como escolher", href: "/#como-escolher" },
+    { rotulo: "Blog", href: "/blog" },
+    { rotulo: "Contato", href: "/#contato" },
   ],
 
   banner: {

@@ -88,6 +88,15 @@ export const CTAS = {
     "Olá! Vim pelo site, vi os depoimentos e quero conhecer os colchões Kanak.",
     "Tenha seu colchão dos sonhos!",
   ),
+  // Blog: origens novas, aprovadas em 2026-09-24 (memoria.md).
+  blog_lista: principal(
+    "Olá! Vim pelo blog da Kanak e quero ajuda para escolher meu colchão.",
+    "Fale com um especialista!",
+  ),
+  blog_artigo: principal(
+    "Olá! Vim de um artigo do blog da Kanak e quero ajuda para escolher meu colchão.",
+    "Fale com um especialista!",
+  ),
   // rótulo ajustado pelo item H10 de specs/site.md §6.4 (aprovado em 2026-09-23)
   showroom: principal(
     "Olá! Vim pelo site e quero falar com um especialista sobre pagamento, entrega e atendimento.",

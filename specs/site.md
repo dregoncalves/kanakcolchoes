@@ -59,10 +59,10 @@ Português do Brasil em todo o site, nos metadados, nos `alt` e nas mensagens pr
 | Home institucional | `/` | Layout do site | Dentro do escopo |
 | Landing Google Ads | `/lp/[slug]` | Layout próprio, sem menu do site; rodapé igual ao da Home | Dentro do escopo |
 | Páginas de produto/categoria | — | Layout do site | **Fora desta entrega** (fica para depois) |
-| Blog | `/blog`, `/blog/[slug]` | Layout do site; conteúdo vindo do WordPress (CMS headless) | **Fora desta entrega** (decisão de 2026-09-23 substituída no mesmo dia: esta entrega é só Home e landing) |
+| Blog | `/blog`, `/blog/[slug]` | Layout do site; conteúdo vindo do WordPress (CMS headless) | **Dentro do escopo** (reaberto em 2026-09-24, escopo base: lista + artigo, sem categorias/tags/busca/autor) |
 | Landing pages futuras | `/lp/[slug]` | Mesmo layout da landing | Estrutura preparada |
 
-Links do cabeçalho da Home são âncoras na própria página: Colchões → `#colchoes` (seção 4), Como escolher → `#como-escolher` (seção 3), Contato → `#contato` (Dúvidas).
+Links do cabeçalho: Colchões → `/#colchoes` (seção 4), Como escolher → `/#como-escolher` (seção 3), Blog → `/blog`, Contato → `/#contato` (Dúvidas). Âncoras absolutas (com `/` na frente): o cabeçalho também aparece no blog, fora da Home — substitui a decisão de 2026-09-23 de cabeçalho só com âncoras relativas (memoria.md, 2026-09-24). "Blog" entra também no rodapé.
 
 ## 6. Seções por página (ordem dos wireframes)
 
@@ -179,6 +179,8 @@ Transcrito dos wireframes (prancheta "Mapa de CTAs do WhatsApp" + código dos bo
 | 8 Dúvidas | Fale agora com um especialista Kanak. | `duvidas` | Olá! Vim pelo site e tenho uma dúvida sobre os colchões Kanak. |
 | 8 Dúvidas | Os 3 telefones (cada um o seu número) | `duvidas_fone_1`, `_2`, `_3` | Olá! Vim pelo site e tenho uma dúvida sobre os colchões Kanak. |
 | Rodapé | Os 3 telefones (cada um o seu número) | `rodape_fone_1`, `_2`, `_3` | Olá! Vim pelo site e quero falar com a Kanak. |
+| Blog · lista | Fale com um especialista! | `blog_lista` | Olá! Vim pelo blog da Kanak e quero ajuda para escolher meu colchão. |
+| Blog · artigo | Fale com um especialista! | `blog_artigo` | Olá! Vim de um artigo do blog da Kanak e quero ajuda para escolher meu colchão. |
 
 **Landing Google Ads** (mensagens começam com "Olá! Vim pelo anúncio…")
 
@@ -208,12 +210,14 @@ Condições confirmadas pelo cliente: "até 55% OFF" é real; parcelamento em 12
 ## 9. Stack técnica
 
 - Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, pnpm.
-- `@phosphor-icons/react` (ícones, import por `/dist/ssr`) e `motion` (animação, sempre via `LazyMotion` + `domAnimation`). Ambos autorizados em 2026-09-23.
+- `@phosphor-icons/react` (ícones, import por `/dist/ssr`) e `motion` (animação, sempre via `LazyMotion` + `domAnimation`). Ambos autorizados em 2026-09-23. `sanitize-html` autorizado em 2026-09-24, para limpar o HTML vindo do WordPress antes de renderizar (`lib/wordpress.ts`).
 - Projeto em `my-app/`.
 - Tokens de `design-system/tokens.css` expostos ao Tailwind v4 via `@theme` no CSS global.
 - Fontes com `next/font`, imagens com `next/image`.
-- Hospedagem: **Hostinger**. No mesmo lugar roda um WordPress usado só como CMS do blog (headless): o Next.js lê os posts pela REST API do WordPress (`/wp-json/wp/v2/`). O WordPress não renderiza páginas públicas do site.
-- Tipo de plano na Hostinger (hospedagem com Node.js, Cloud ou VPS) e subdomínio do WordPress (ex.: `cms.`): ⏳ PENDENTE. Define se o Next.js roda como servidor Node (ISR para o blog) ou como exportação estática (rebuild a cada post).
+- Hospedagem: **Hostinger, app Node (`next start`)**, plano Business. Decidido em 2026-09-24 com dado medido em produção: `next/image` reduziu um banner de 4.159 KB para 63 KB em AVIF — só existe com servidor Node. Exportação estática foi descartada (sem ISR, sem `redirects()`, imagens cruas).
+- O site está publicado, provisoriamente, no domínio temporário da Hostinger `https://beige-octopus-880165.hostingersite.com`. **`kanakcolchoes.com.br` é outro site, em produção, e não é tocado por este projeto** até a virada (sem data definida).
+- WordPress headless do blog: instalação **nova e dedicada**, em `cms.kanakcolchoes.com.br`, `noindex`. O Next.js lê os posts pela REST API (`/wp-json/wp/v2/`, ver `WORDPRESS_API_URL`). O WordPress de `kanakcolchoes.com.br` (produção) não é usado como CMS.
+- Indexação por busca controlada por `SITE_INDEXAVEL` (variável de ambiente): desligada no domínio temporário, liga na virada. Sem ela, toda página sai `noindex, nofollow` e o sitemap fica vazio.
 - Alterar a stack exige autorização.
 
 ## 10. Requisitos não funcionais
@@ -225,11 +229,11 @@ Condições confirmadas pelo cliente: "até 55% OFF" é real; parcelamento em 12
 
 ## 11. Escopo
 
-**Dentro:** Home (desktop + mobile), Landing Google Ads (desktop + mobile), estrutura para landing pages futuras, mensuração de cliques no WhatsApp.
+**Dentro:** Home (desktop + mobile), Landing Google Ads (desktop + mobile), estrutura para landing pages futuras, mensuração de cliques no WhatsApp, Blog (lista + artigo, WordPress headless).
 
-**Depois:** páginas de produto/categoria e blog.
+**Depois:** páginas de produto/categoria; categorias/tags/busca/autor no blog.
 
-**Blog:** **fora desta entrega** (decisão de 2026-09-23 substituída no mesmo dia). Volta em etapa própria, com o WordPress headless.
+**Blog:** reaberto em 2026-09-24 (a decisão de 2026-09-23 que tirou o blog desta entrega fica substituída). Escopo desta etapa: `/blog` (lista) e `/blog/[slug]` (artigo), sem categorias, tags, busca, autor ou relacionados.
 
 **Fora:** carrinho, checkout, pagamento online, login, área do cliente.
 
@@ -239,8 +243,8 @@ Condições confirmadas pelo cliente: "até 55% OFF" é real; parcelamento em 12
 2. Confirmação de qual tamanho é o mais vendido (cliente acha que é o King).
 3. Densidade, firmeza, peso suportado, Inmetro, tecido por modelo; garantia do magnético; espessura das camadas — em espera por decisão do cliente.
 4. Rodapé: endereço, horário, CNPJ, razão social, redes sociais (fica para depois).
-5. Volume de artigos do blog (só quando o blog entrar; fora desta entrega).
-6. Plano da Hostinger (Node.js, Cloud ou VPS) e subdomínio do WordPress (fica para depois).
+5. Volume de artigos do blog (o blog entrou em 2026-09-24; hoje só o post de exemplo do WordPress).
+6. ~~Plano da Hostinger e subdomínio do WordPress~~ — resolvido em 2026-09-24: Business, app Node, `cms.kanakcolchoes.com.br`.
 7. IDs de GA4 e Meta Pixel.
 8. Logo em SVG ou PNG transparente em alta resolução, com versão para fundo escuro (hoje só `my-app/public/logo.webp`, 300 × 152, fundo branco).
 9. Fotos pedidas pelo wireframe: 4 camas verticais (mesma luz e ângulo), corte do colchão, uma foto por modelo, showroom com atendimento; 6 depoimentos reais com autorização; arte do banner da campanha (1440×600 + vertical).
