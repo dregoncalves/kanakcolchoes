@@ -4,6 +4,7 @@ Histórico vivo das decisões. Registrar decisão, data e motivo em uma linha; n
 
 ## Decisões aprovadas
 
+- **2026-09-24 — Landing da campanha 55% OFF em `/lp/5771`.** Substitui o slug `55-off`. `/lp/55-off` redireciona em definitivo para o endereço novo.
 - **2026-09-24 — Hospedagem: app Node (`next start`) na Hostinger, plano Business.** Encerra a pendência do tipo de plano. Decidido com dado medido em produção, não estimativa: `next/image` reduziu `banner-king.png` de 4.159 KB para 63 KB em AVIF no app já publicado. Exportação estática foi descartada: sem ISR (rebuild inteiro a cada post do blog), sem `redirects()`, imagens cruas de 3–4 MB.
 - **2026-09-24 — Site publicado, provisoriamente, no domínio temporário da Hostinger** `https://beige-octopus-880165.hostingersite.com`. **`kanakcolchoes.com.br` é outro site, em produção, e não é tocado por este projeto** até a virada (sem data definida). `AGENTS.md`/`CLAUDE.md` diziam "substitui o WordPress atual em kanakcolchoes.com.br" — ajustado para não instruir errado sessões futuras.
 - **2026-09-24 — Blog reaberto como etapa própria, escopo base.** Substitui a decisão de 2026-09-23 que tirou o blog desta entrega. Escopo: `/blog` (lista) e `/blog/[slug]` (artigo), sem categorias, tags, busca, autor ou relacionados. Construído direto do design system, sem prancheta no Claude Design — o blog não tinha wireframe.
@@ -56,6 +57,7 @@ Histórico vivo das decisões. Registrar decisão, data e motivo em uma linha; n
 
 ## Alterações realizadas
 
+- **2026-09-24:** slug da campanha 55% OFF passou de `55-off` para `5771` (`content/campanhas/55-off.ts`); `/lp/55-off` redireciona para `/lp/5771` (`next.config.ts`).
 - **2026-09-23:** criado o cérebro documental — `CLAUDE.md`, `AGENTS.md`, `.cursor/rules/project.mdc`, `specs/site.md`, `specs/design.md`, `memoria.md`. Acrescentado ponteiro para as regras da raiz em `my-app/AGENTS.md`, abaixo do bloco `nextjs-agent-rules` (bloco intacto).
 - **2026-09-23:** wireframes lidos no Claude Design; transcritos Mapa de CTAs, Ajustes de copy, ordem das seções e fundos por seção para as specs.
 - **2026-09-23:** fonte de títulos trocada para Instrument Serif em `design-system/tokens.css`, `tokens.json`, `DESIGN_SYSTEM.md` e `specs/design.md` (pesos display 600 → 400).

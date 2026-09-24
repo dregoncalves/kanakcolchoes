@@ -1,7 +1,7 @@
 import type { Campanha } from "./index";
 
 export const campanha55Off: Campanha = {
-  slug: "55-off",
+  slug: "5771",
   banner: {
     tituloInicio: "A Noite de Sono Perfeita Começa ",
     tituloRealce: "Aqui",

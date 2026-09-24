@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     // ⏳ PENDENTE: levantar as URLs do WordPress atual (specs/site.md §10).
-    return [];
+    return [{ source: "/lp/55-off", destination: "/lp/5771", permanent: true }];
   },
 };
 
