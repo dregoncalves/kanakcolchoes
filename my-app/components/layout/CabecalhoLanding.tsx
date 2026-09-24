@@ -7,7 +7,7 @@ import { Marca } from "./Marca";
 /** Cabeçalho da landing: só marca e CTA. Sem menu — todo clique vai ao WhatsApp. */
 export function CabecalhoLanding() {
   return (
-    <header className="bg-surface-100">
+    <header className="sticky top-0 z-40 border-b border-borda bg-surface-200">
       <Container className="flex h-16 items-center justify-between gap-4 md:h-20">
         <Marca />
 

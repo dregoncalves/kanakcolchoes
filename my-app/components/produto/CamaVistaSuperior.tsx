@@ -39,8 +39,8 @@ export function CamaVistaSuperior({
         className="flex gap-1.5 rounded-lg border-2 border-vinho bg-surface-200 p-1.5"
         initial={semMovimento ? false : { scale: 0.92 }}
         whileInView={{ scale: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: semMovimento ? 0 : 0.52, ease: EASE }}
+        viewport={{ once: true, amount: 0.55, margin: "0px 0px -12% 0px" }}
+        transition={{ duration: semMovimento ? 0 : 1.05, ease: EASE }}
       >
         {Array.from({ length: travesseiros }, (_, indice) => (
           <span key={indice} className="h-3.5 grow rounded-sm bg-apricot-cream" />

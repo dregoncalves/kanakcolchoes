@@ -4,6 +4,8 @@ Histórico vivo das decisões. Registrar decisão, data e motivo em uma linha; n
 
 ## Decisões aprovadas
 
+- **2026-09-24 — Banner da Home: título em `display-xl` com entrelinha 1.15.** Substitui, no mesmo dia, o `display-lg`: o título ficou pequeno. A entrelinha 1.04 da prancheta não volta. A faixa de camas segue na largura do container; no hover a escolhida cresce para `flex-grow: 1.65` e as outras não passam do mínimo que cabe o nome.
+- **2026-09-24 — Card Solteiro do banner usa a foto real do showroom** (`solteiro com pillow top - verde showroom com recamier.jpeg`, copiada para `public/images/home/banner-solteiro.jpg`). Não fecha a pendência 12: ainda falta a frontal na mesma luz e ângulo das outras três.
 - **2026-09-23 — Movimento: cada seção tem um gesto próprio.** Substitui, no mesmo dia, a regra que limitava a animação a três lugares e proibia entrada de seção. Motivo: a página ficou estática demais. O gesto muda conforme a seção (lençol, camadas, escala, série, virada de página, cortina), no mesmo assentamento. O momento autoral segue a faixa de camas. Biblioteca inalterada (`motion` via `LazyMotion` + `domAnimation`). Registrado em `specs/design.md` §9.
 - **2026-09-23 — Tipografia: Instrument Sans substitui Instrument Serif.** Autorizado por você após a revisão da skill `design-taste-frontend`. Títulos em 600 com tracking negativo (-0,035em a -0,02em), logotipo em 700; o realce continua sendo itálico **da mesma família**, que é o gesto das pranchetas. Consequência aceita: as pranchetas do Claude Design seguem com a serif e ficam desalinhadas do site nesse ponto.
 - **2026-09-23 — Ícones: Phosphor (`@phosphor-icons/react`), peso `regular`.** Substitui os SVGs desenhados à mão, que misturavam `strokeWidth` 1.5 e 1.8. Import por `/dist/ssr`: renderiza SVG puro, então os botões continuam Server Components. Cama vista de cima e diagrama de camadas ficam desenhados em código — são ilustração de produto, não ícone.
@@ -12,6 +14,8 @@ Histórico vivo das decisões. Registrar decisão, data e motivo em uma linha; n
 - **2026-09-23 — Uso de imagens geradas por IA aprovado.** Encerra a pendência 12. As 14 imagens de `my-app/public/img` entram no site, renomeadas para `my-app/public/images/`; quatro seguem marcadas como `-PLACEHOLDER` (corte do colchão, magnético em dois lugares, showroom) até chegar foto real.
 - **2026-09-23 — Ajustes de copy da Home H1–H10 aprovados em bloco** (`specs/site.md` §6.4). Os rótulos de H6 ("Descubra o colchão ideal para você!") e H10 ("Fale com nossos especialistas!") já estão no Mapa de CTAs; `data-origem` e mensagens não mudaram. Segue pendente só a confirmação de H3 (regulação térmica em todos os modelos).
 - **2026-09-23 — Logotipo em texto no cabeçalho e no rodapé** ("Kanak" em Instrument Serif + "COLCHÕES" em Inter), como nas pranchetas. Substitui a regra de `specs/design.md` §8 de usar `logo.webp` nos dois lugares: o arquivo tem fundo branco opaco e não funciona sobre o vinho do rodapé.
+- **2026-09-23 — Banner da Home com vídeo de fundo.** `public/magnific_create-a-scrollstopping-9_3zXqgxhREY.mp4`, mudo, em loop, escurecido e sob véu `surface-100`. Substitui, só nesse banner, a proibição de vídeo em autoplay acima da dobra. Some com redução de movimento. A faixa de camas permanece como estava antes do ajuste de overflow.
+- **2026-09-23 — Cabeçalho branco, sticky, com `logo.webp`.** O wordmark sai do cabeçalho (Home e landing). O rodapé vinho continua em texto: `logo.webp` tem fundo branco opaco e não há versão escura. Entradas de seção esperam o bloco estar mais dentro da tela e duram mais (~1–1,4 s); a faixa de camas no desktop deixa de herdar o overflow do trilho.
 - **2026-09-23 — Referência visual:** eightsleep.com é a referência única, só como direção de estrutura e atmosfera (respiro, fotografia grande, hierarquia limpa). Nada de copiar textos, marca, imagens ou layouts idênticos.
 - **2026-09-23 — Paleta:** vinho `#680B0E` (marca) + apricot cream `#FFD29D` (realces e selos), fundo creme `surface-100`, texto `ink`; `surface-900` com `ouro`/`on-dark` só em banners e tarjas promocionais pontuais. Tokens em `design-system/`.
 - ~~**2026-09-23 — Tipografia:** Instrument Serif 400 (títulos e destaques, itálico para realce) + Inter (leitura e interface).~~ **Substituída em 2026-09-23 pela Instrument Sans** (ver acima). Inter segue no texto de leitura e interface.
@@ -86,7 +90,7 @@ Histórico vivo das decisões. Registrar decisão, data e motivo em uma linha; n
 9. IDs de GA4 e Meta Pixel.
 10. Logo em SVG ou PNG transparente em alta resolução, com versão clara para o rodapé vinho.
 11. Fotos pedidas pelos wireframes, 6 depoimentos reais, arte do banner da campanha.
-12. As quatro fotos do banner não formam família: três frontais (grafite, bege, vinho) e uma em três quartos (terracota); nenhuma tem a largura de cabeceira do Solteiro. Medir a régua de escala e regerar a que faltar antes de publicar.
+12. As quatro fotos do banner não formam família. Queen, King e Casal são frontais geradas; o Solteiro entrou em 2026-09-24 com a foto real do showroom (verde, pillow top, três quartos). Medir a régua de escala e gerar a frontal do Solteiro antes de publicar.
 
 ## Próximos passos
 

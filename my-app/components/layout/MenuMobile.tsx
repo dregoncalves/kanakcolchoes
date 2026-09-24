@@ -47,7 +47,7 @@ export function MenuMobile({ itens }: { itens: readonly { rotulo: string; href: 
         aberto={aberto}
         de="topo"
         id={idMenu}
-        className="absolute inset-x-0 top-full z-20 flex flex-col border-b border-borda bg-surface-100 px-5 pb-4 md:hidden"
+        className="absolute inset-x-0 top-full z-20 flex flex-col border-b border-borda bg-surface-200 px-5 pb-4 md:hidden"
       >
         <nav aria-label="Navegação principal" className="flex flex-col">
           {itens.map((item, indice) => (

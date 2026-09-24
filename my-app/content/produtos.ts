@@ -78,9 +78,12 @@ export const TAMANHOS: Tamanho[] = [
     travesseiros: 1,
     origemHero: "hero_solteiro",
     origemCard: "tamanho_solteiro",
-    // ⏳ PENDENTE: falta a foto vertical do Solteiro na mesma luz e ângulo
-    // das outras três (memoria.md, pendência 12). Até lá, espaço reservado.
-    foto: null,
+    // Foto real do showroom. Ainda não é a frontal da família do banner
+    // (memoria.md, pendência 12).
+    foto: {
+      src: "/images/home/banner-solteiro.jpg",
+      alt: "Cama Solteiro no showroom, com cabeceira capitonê verde, colchão com pillow top branco, uma almofada e baú de veludo verde ao pé da cama.",
+    },
   },
 ];
 

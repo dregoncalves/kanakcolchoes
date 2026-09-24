@@ -11,12 +11,12 @@ const CHEIO = {
   cortina: {
     initial: { clipPath: "inset(10% 10% 10% 10%)" },
     animate: { clipPath: "inset(0% 0% 0% 0%)" },
-    duration: 0.75,
+    duration: 1.35,
   },
   numero: {
     initial: { opacity: 0, y: 22 },
     animate: { opacity: 1, y: 0 },
-    duration: 0.7,
+    duration: 1.2,
   },
 } as const;
 
@@ -48,7 +48,7 @@ export function AoEntrar({
         className={className}
         initial={semMovimento ? { opacity: gesto === "cortina" ? 0.65 : 0 } : cheio.initial}
         whileInView={semMovimento ? { opacity: 1 } : cheio.animate}
-        viewport={{ once: true, amount: 0.01 }}
+        viewport={{ once: true, amount: 0.45, margin: "0px 0px -10% 0px" }}
         transition={{
           duration: semMovimento ? 0.22 : cheio.duration,
           ease: EASE,

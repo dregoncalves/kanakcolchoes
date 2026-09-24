@@ -28,10 +28,10 @@ export function Empilha({
             key={indice}
             initial={semMovimento ? { opacity: 0 } : { opacity: 0, y: 16 }}
             whileInView={semMovimento ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.55, margin: "0px 0px -12% 0px" }}
             transition={{
-              duration: semMovimento ? 0.22 : 0.55,
-              delay: semMovimento ? 0 : Math.min(ultimo - indice, 3) * 0.1,
+              duration: semMovimento ? 0.22 : 1.15,
+              delay: semMovimento ? 0 : Math.min(ultimo - indice, 3) * 0.16,
               ease: EASE,
             }}
           >

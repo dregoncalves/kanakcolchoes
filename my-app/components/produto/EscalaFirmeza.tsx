@@ -20,10 +20,10 @@ export function EscalaFirmeza() {
               className={`h-2.5 origin-left rounded-full ${cores[indice]}`}
               initial={semMovimento ? { opacity: 0.45 } : { scaleX: 0 }}
               whileInView={semMovimento ? { opacity: 1 } : { scaleX: 1 }}
-              viewport={{ once: true, amount: 0.8 }}
+              viewport={{ once: true, amount: 0.8, margin: "0px 0px -8% 0px" }}
               transition={{
-                duration: semMovimento ? 0.22 : 0.5,
-                delay: semMovimento ? 0 : indice * 0.07,
+                duration: semMovimento ? 0.22 : 1,
+                delay: semMovimento ? 0 : indice * 0.14,
                 ease: EASE,
               }}
             />

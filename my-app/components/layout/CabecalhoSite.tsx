@@ -9,7 +9,7 @@ import { MenuMobile } from "./MenuMobile";
 /** Cabeçalho da Home: marca, âncoras da própria página e CTA de WhatsApp. */
 export function CabecalhoSite() {
   return (
-    <header className="relative border-b border-borda bg-surface-100">
+    <header className="sticky top-0 z-40 border-b border-borda bg-surface-200">
       <Container className="flex h-16 items-center justify-between gap-4 md:h-22">
         <a
           href="#conteudo"

@@ -70,7 +70,13 @@
 @layer base {
   html {
     /* respiro ao parar numa âncora (#colchoes, #como-escolher, #contato) */
-    scroll-padding-top: 1.5rem;
+    scroll-padding-top: 4.5rem;
+  }
+
+  @media (width >= 48rem) {
+    html {
+      scroll-padding-top: 6rem;
+    }
   }
 
   body {
@@ -114,10 +120,26 @@
   --duracao-toque: 120ms;
   --duracao-estado: 220ms;
   --duracao-foco: 520ms;
-  --duracao-entrada: 680ms;
+  --duracao-entrada: 1400ms;
 }
 
 @layer components {
+  /*
+    O vídeo da hero fica atrás do conteúdo. À esquerda o creme cobre o
+    título; à direita um véu de surface-900 só abaixa o contraste do filme;
+    embaixo ele dissolve na cor da página.
+  */
+  .veu-hero {
+    background:
+      linear-gradient(to top, var(--surface-100) 0%, transparent 34%),
+      linear-gradient(
+        102deg,
+        var(--surface-100) 0%,
+        color-mix(in srgb, var(--surface-100) 82%, transparent) 40%,
+        color-mix(in srgb, var(--surface-900) 48%, transparent) 100%
+      );
+  }
+
   /*
     Momento autoral · banner da Home, no desktop. As quatro camas dividem a
     faixa; ao passar o ponteiro (ou ao receber foco pelo teclado), a escolhida
@@ -131,7 +153,8 @@
   @media (width >= 48rem) {
     .camas > .cama {
       flex: 1 1 0;
-      min-width: 0;
+      /* 11rem cabe "Queen Size" numa linha; no desktop estreito divide a faixa para não estourar o container. */
+      min-width: min(11rem, calc((100% - 2.25rem) / 4));
       transition: flex-grow var(--duracao-foco) var(--ease-chegada);
     }
     .camas > .cama img {
@@ -139,7 +162,6 @@
       max-width: none;
       inset-inline: auto;
       left: 50%;
-      transform: translateX(-50%);
     }
     /* A legenda acompanha: fica discreta na faixa em repouso e assume quando a cama abre. */
     .camas > .cama .placa {
@@ -150,12 +172,12 @@
 
     @media (hover: hover) and (pointer: fine) {
       .camas:hover > .cama {
-        flex-grow: 0.85;
+        flex-grow: 1;
       }
     }
     .camas > .cama:hover,
     .camas > .cama:has(a:focus-visible) {
-      flex-grow: 1.9;
+      flex-grow: 1.65;
     }
     .camas > .cama:hover .placa,
     .camas > .cama:has(a:focus-visible) .placa {
@@ -202,7 +224,7 @@
       .lencol-ao-rolar {
         animation: lencol var(--duracao-entrada) var(--ease-chegada) both;
         animation-timeline: view();
-        animation-range: entry 0% entry 35%;
+        animation-range: entry 30% cover 45%;
       }
     }
 

@@ -42,5 +42,5 @@ export function Container({
   className?: string;
   children: ReactNode;
 }) {
-  return <div className={`mx-auto w-full max-w-[1200px] px-5 md:px-10 ${className}`}>{children}</div>;
+  return <div className={`mx-auto w-full max-w-[1300px] px-5 md:px-10 ${className}`}>{children}</div>;
 }

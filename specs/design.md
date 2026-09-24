@@ -123,7 +123,7 @@ Regras: títulos em caixa alta-baixa (sem caixa alta longa na interface — a co
 - Banner com área calma para o texto; texto nunca sobre região com muito detalhe. Se preciso, véu escuro suave para garantir contraste AA.
 - Proporções previstas: banner 21:9 / 16:9 no desktop e 4:5 no celular; cards 4:3 ou 1:1; detalhes 3:2.
 - Uso de imagens geradas por IA (arquivo `imagens-prompt.md`): **aprovado em 2026-09-23**. As 14 imagens do plano entram no site; as fotos reais de `referencias-site/meus-produtos/` seguem como referência obrigatória de produto. Quatro arquivos vão ao ar marcados como `-PLACEHOLDER` (corte do colchão, magnético em dois lugares, showroom) e trocam por foto real assim que chegarem.
-- Logo: **logotipo em texto no cabeçalho e no rodapé** ("Kanak" em Instrument Sans 700, tracking -0,045em + "COLCHÕES" em Inter, caixa alta, espaçada), como nas pranchetas — decisão de 2026-09-23, que substitui a regra anterior de usar `my-app/public/logo.webp` nos dois lugares. Motivo: `my-app/public/logo.webp` (300 × 152 px, letras "KANAK" em vermelho com traço preto embaixo) não tem SVG, fica nítido só até ~150 px de largura em telas retina, e o fundo branco vira um retângulo sobre o creme `surface-100` e sobre o vinho do rodapé. O arquivo volta quando chegar um SVG ou PNG transparente em alta resolução, com versão para fundo escuro. O vermelho do logo é mais vivo que o `vinho` da paleta; o logo não altera a paleta.
+- Logo: **`my-app/public/logo.webp` no cabeçalho** (Home e landing), sobre fundo branco sticky. No rodapé vinho continua o wordmark ("Kanak" em Instrument Sans 700, tracking -0,045em + "COLCHÕES" em Inter, caixa alta): o arquivo tem fundo branco opaco, 300 × 152 px, e não há versão para fundo escuro. O vermelho do logo é mais vivo que o `vinho` da paleta; o logo não altera a paleta.
 - `alt` descritivo em português em todas as fotos.
 
 ## 9. Movimento
@@ -132,7 +132,7 @@ O material é o assentamento: cada coisa chega ao lugar como o corpo no colchão
 
 | Seção | Gesto |
 |---|---|
-| Home · Banner | O realce do título entra sob um lençol (recorte vertical, 680ms, CSS, no carregamento). No desktop, a cama escolhida abre, 520ms; a foto tem largura fixa, então quem muda é o recorte. |
+| Home · Banner | O realce do título entra sob um lençol (recorte vertical, 1400ms, CSS, no carregamento). No desktop, a cama escolhida abre, 520ms; a foto tem largura fixa, então quem muda é o recorte. |
 | Home · Ciência | As três camadas empilham de baixo para cima (`components/motion/Empilha.tsx`). |
 | Home · Como escolher | A escala de firmeza cresce da esquerda para a direita. Os cards de tecnologia entram em série. |
 | Home · Colchões | Os trilhos entram em série. O desenho da cama vista de cima assenta na proporção real. |
@@ -147,9 +147,9 @@ O material é o assentamento: cada coisa chega ao lugar como o corpo no colchão
 
 Entrada em série: `components/motion/Revela.tsx`, atraso limitado a quatro passos. `eixo="x"` só na grade de argumentos. Retorno de toque: `.recuo-no-toque`, 120ms. Sobreposições: `components/motion/Aparicao.tsx`. Entradas que não são lista: `components/motion/AoEntrar.tsx`.
 
-Biblioteca: `motion`, sempre por `LazyMotion` + `domAnimation`. Nunca o pacote inteiro. O lençol dos dois banners é CSS, para não esperar o JavaScript acima da dobra. `prefers-reduced-motion` tira deslocamento, recorte e escala; ficam uma opacidade curta, a cor, o foco e o aviso de troca de página. Sem parallax, sem pinagem de scroll, sem desfoque, sem vídeo em autoplay acima da dobra. Se o script não rodar, nada começa escondido no CSS — o lençol dos banners é a única entrada que existe sem JavaScript, e some com redução de movimento.
+Biblioteca: `motion`, sempre por `LazyMotion` + `domAnimation`. Nunca o pacote inteiro. O lençol dos dois banners é CSS, para não esperar o JavaScript acima da dobra. `prefers-reduced-motion` tira deslocamento, recorte e escala; ficam uma opacidade curta, a cor, o foco e o aviso de troca de página. Sem parallax, sem pinagem de scroll, sem desfoque. Vídeo em autoplay acima da dobra só no banner da Home: o arquivo `magnific_create-a-scrollstopping-9_3zXqgxhREY.mp4` fica de fundo, levemente escurecido, e dissolve no `surface-100` do lado do título (véu de `surface-900` só no lado das camas). Some com `prefers-reduced-motion`. Se o script não rodar, nada começa escondido no CSS — o lençol dos banners é a única entrada que existe sem JavaScript, e some com redução de movimento.
 
-Tokens em `app/globals.css`: `--ease-chegada`, `--duracao-toque` 120ms, `--duracao-estado` 220ms, `--duracao-foco` 520ms, `--duracao-entrada` 680ms.
+Tokens em `app/globals.css`: `--ease-chegada`, `--duracao-toque` 120ms, `--duracao-estado` 220ms, `--duracao-foco` 520ms, `--duracao-entrada` 1400ms. As entradas por script só começam com o bloco já dentro da tela (cerca de metade visível) e duram cerca de 1–1,4 s, para não terminarem enquanto o elemento ainda entra.
 
 ## 10. Desktop e celular
 

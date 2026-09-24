@@ -52,10 +52,10 @@ export function Revela({
             className={classeItem}
             initial={inicial}
             whileInView={visivel}
-            viewport={{ once: true, amount: 0.25 }}
+            viewport={{ once: true, amount: 0.55, margin: "0px 0px -12% 0px" }}
             transition={{
-              duration: semMovimento ? 0.22 : 0.45,
-              delay: semMovimento ? 0 : Math.min(indice, 3) * 0.06,
+              duration: semMovimento ? 0.22 : 1.05,
+              delay: semMovimento ? 0 : Math.min(indice, 3) * 0.14,
               ease: [0.16, 1, 0.3, 1],
             }}
           >
