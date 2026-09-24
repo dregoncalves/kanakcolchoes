@@ -22,7 +22,7 @@ export function BannerCampanha({ campanha }: { campanha: Campanha }) {
         <LinkWhatsApp
           origem="lp_banner"
           rotuloAcessivel={`${banner.ofertaDestaque}. ${cta("lp_banner").rotulo}`}
-          className="sobre-vinho flex flex-col overflow-hidden rounded-3xl bg-vinho text-on-dark no-underline md:grid md:h-150 md:grid-cols-2 md:rounded-[28px]"
+          className="sobre-vinho group flex flex-col overflow-hidden rounded-3xl bg-vinho text-on-dark no-underline md:grid md:h-150 md:grid-cols-2 md:rounded-[28px]"
         >
           <div className="relative h-70 md:order-last md:h-auto">
             <FotoArteDirigida
@@ -55,7 +55,7 @@ export function BannerCampanha({ campanha }: { campanha: Campanha }) {
                 {banner.ofertaComplemento}
               </span>
             </p>
-            <span className="flex min-h-14 items-center justify-center gap-2.5 rounded-md bg-apricot-cream px-7 font-semibold text-vinho md:min-h-15 md:self-start md:text-[17px]">
+            <span className="lp-toque flex min-h-14 items-center justify-center gap-2.5 rounded-md bg-apricot-cream px-7 font-semibold text-vinho md:min-h-15 md:self-start md:text-[17px]">
               <IconeWhatsApp />
               {cta("lp_banner").rotulo}
             </span>

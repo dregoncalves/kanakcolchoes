@@ -73,6 +73,12 @@
     scroll-padding-top: 4.5rem;
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   @media (width >= 48rem) {
     html {
       scroll-padding-top: 6rem;
@@ -343,6 +349,43 @@
     transform: scale(0.985);
   }
 
+  /*
+    Landing. O toque responde no pressionar, antes do clique. A foto do
+    banner não escala: só o botão, que é o alvo. O cabeçalho continua
+    branco e opaco; a linha vira sombra só quando o conteúdo passa por baixo.
+  */
+  .lp-toque {
+    transition:
+      transform 100ms ease-out,
+      background-color var(--duracao-estado) ease-out,
+      color var(--duracao-estado) ease-out;
+  }
+  .lp-toque:active,
+  .group:active .lp-toque {
+    transform: scale(0.97);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      .cabecalho-lp {
+        animation: sombra-cabecalho linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 12px;
+      }
+    }
+  }
+
+  @keyframes sombra-cabecalho {
+    from {
+      box-shadow: 0 0 0 rgb(36 21 18 / 0);
+      border-bottom-color: var(--borda);
+    }
+    to {
+      box-shadow: 0 10px 28px rgb(36 21 18 / 0.08);
+      border-bottom-color: transparent;
+    }
+  }
+
   /* trilho horizontal com encaixe, sem biblioteca (specs/design.md §10) */
   .trilho {
     display: flex;
@@ -411,7 +454,9 @@
     }
   }
   /* o retorno de toque vira só cor, sem o afundar do botão */
-  .recuo-no-toque:active {
+  .recuo-no-toque:active,
+  .lp-toque:active,
+  .group:active .lp-toque {
     transform: none;
   }
 }
