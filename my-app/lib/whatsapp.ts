@@ -1,17 +1,11 @@
-export const WHATSAPP_E164 = "5541998425771";
-export const WHATSAPP_DISPLAY = "(41) 99842-5771";
+import { CTAS, type Origem } from "@/content/ctas";
 
-export type OrigemWhatsApp = {
-  pagina: string;
-  secao: string;
-  campanha?: string;
-};
+/** Monta o link de conversa: wa.me + mensagem pré-preenchida (specs/site.md §7.1). */
+export function linkWhatsApp(origem: Origem): string {
+  const { numero, mensagem } = CTAS[origem];
+  return `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+}
 
-export function urlWhatsApp(origem: OrigemWhatsApp): string {
-  const partes = [`página ${origem.pagina}`, `seção ${origem.secao}`];
-  if (origem.campanha) {
-    partes.push(`campanha ${origem.campanha}`);
-  }
-  const mensagem = `Olá, vim pela ${partes.join(", ")} e gostaria de falar com a equipe Kanak.`;
-  return `https://wa.me/${WHATSAPP_E164}?text=${encodeURIComponent(mensagem)}`;
+export function cta(origem: Origem) {
+  return CTAS[origem];
 }

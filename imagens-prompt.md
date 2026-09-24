@@ -1,4771 +1,1138 @@
-# imagens-prompt.md — Todos os prompts de geração
+# imagens-prompt.md — Plano de produção das imagens
 
-Gerado a partir de @imagens.md em 21/09/2026, na mesma ordem das fichas.
-Cada prompt já vem com o **PROMPT-BASE DE CONSISTÊNCIA** embutido no início — nenhum prompt depende de outro trecho deste arquivo. Copie um bloco inteiro e cole no gerador.
+Versão 3.0 · 23/09/2026 (Família A refeita do zero com as fotos reais de showroom em referencias-site/refs-banner/: prompts curtos, baú SEM pé apoiado no chão, sem imagem-guia nem quarto 00; cores passam a vinho/verde). Versão 2.6 · 23/09/2026 (baú ainda saindo estreito mesmo com texto explícito: reintroduzida a imagem-guia de proporção — referencias-site/geradas/guia-banner-*.png — como referência extra só de largura, anexada junto das fotos reais; adicionado fallback de esticar o baú na edição). Versão 2.5 · 23/09/2026 (baú: caixa estofada com a largura total da base; pezinhos pequenos e recuados, sem estreitar a caixa). Versão 2.4 · 23/09/2026 (baú: mesma largura da base, mas com pezinhos de madeira visíveis, erguido do chão, nunca colado nela). Versão 2.2 · 23/09/2026 (baú com a mesma largura da cama em todos os prompts; pillow top integrado). Versão 2.1 · 23/09/2026 (revisão da família A, banner da Home: escala e fidelidade). Versão 2 · 23/09/2026. Substitui a versão de 21/09/2026 (88 imagens, muitas fora dos wireframes). Uma cópia dela ficou em `referencias-site/_arquivo/imagens-prompt-v1-2026-09-21.md`.
 
-As fichas completas (objetivo, composição, área livre, restrições, pendências) continuam em @imagens.md. Aqui ficam só os prompts.
+Este plano cobre **só o que os wireframes pedem** (Home e Landing, desktop e celular), mais uma pequena reserva opcional (seção 7). Nada aqui foi gerado. Nada aqui foi programado.
+
+> **Bloqueio de uso:** `specs/design.md` §8 e `memoria.md` (pendência 12) dizem que o uso de imagens geradas por IA é **decisão futura** e que, até lá, só entram fotos reais. Este arquivo é o plano para quando essa decisão for tomada. Nenhuma imagem gerada vai ao ar antes de você aprovar o uso de IA e registrar em `memoria.md`.
 
 ---
 
-## Como usar
+## 1. Fontes analisadas
 
-### Para gerar em lote
+| Fonte | O que foi usado |
+| --- | --- |
+| `CLAUDE.md`, `specs/site.md`, `specs/design.md`, `memoria.md` | Seções, ordem, público, paleta, regras de fotografia, pendências |
+| Wireframe "Kanak · Home" (Claude Design): Home desktop 1440, Mobile parte 1 e parte 2 (390) | Cada espaço de foto, com tamanho em px, posição e fundo |
+| Wireframe "Kanak · Landing Google Ads": desktop 1440 e mobile 390 | Idem |
+| `referencias-site/eight-sleep/` (print de página inteira) | Direção: foto grande, muito respiro, cards de foto ocupando o card inteiro |
+| `referencias-site/meus-produtos/imagens colchões Kanak/` | 44 arquivos, 42 únicos (2 cópias exatas: "(copia)") |
+| `referencias-site/kanak/` (briefing) | Público B−/C+, foco em kit, o que não comunicar |
 
-Envie esta instrução antes de colar os prompts:
+`referencias-site/wireframes` não existe no computador. Os wireframes foram lidos direto dos canvases (links em `specs/site.md` §0), como já registrado em `memoria.md`.
+
+---
+
+## 2. Diagnóstico das fotos reais
+
+### 2.1 O que existe
+
+| Tamanho | Com pillow top | Sem pillow top |
+| --- | --- | --- |
+| Solteiro | verde | vinho |
+| Casal | azul (ripado), vinho | bege (4 fotos), caramelo, cinza, cinza ripado, marrom (2), terracota (2), verde, vermelho, vinho (2) |
+| Queen | marrom, rosé, terracota (2), vinho | bege, rosé, verde |
+| King | cinza (5, incluindo render e variações), marrom, vinho | azul (2), bege (render), mostarda (3), preto (2) |
+
+Cores de tecido que aparecem: bege, caramelo, terracota, rosé, vermelho, vinho, marrom, mostarda, verde, azul-marinho, cinza, preto (12). A lista oficial precisa ser confirmada com o cliente.
+
+### 2.2 O produto, como ele é de verdade
+
+Isto corrige a descrição da versão anterior (que falava em cantos arredondados na cabeceira, pés inclinados e colchão todo creme):
+
+- **Cabeceira:** painel retangular alto, **cantos retos**, capitonê em losango no painel inteiro, **botão de cristal** em cada ponto. Existe também uma cabeceira **ripada** (canais verticais), vista no casal azul e no casal cinza ripado.
+- **Colchão:** tampo branco/off-white acolchoado, com desenho damasco/floral tom sobre tom dentro do matelassê em losango; **debrum branco** na borda superior; **a lateral do colchão é revestida no mesmo veludo da cor do kit**; um **ilhós metálico redondo** na lateral. Com pillow top: uma camada creme a mais em cima, com faixa lateral creme e debrum próprio. Exceção: o kit preto tem tampo preto/cinza com estampa floral.
+- **Base box:** caixa de veludo liso na cor do kit, sem capitonê; linha branca de debrum na junção colchão/base; **pés de madeira cônicos, retos, marrom-médio**. Queen e King às vezes aparecem bipartidos.
+- **Baú (recamier):** caixa de veludo na cor do kit, corpo liso, tampa em capitonê com os mesmos botões de cristal, bem baixa, quase no chão. **Mesma largura da cama em todos os tamanhos**: as laterais do baú alinham com as laterais da base. Os renders do King cinza mostram um baú mais estreito; isso é erro do render, não seguir.
+- **Almofadas:** duas pequenas, de veludo, na cor do kit.
+- **Não há** logotipo, etiqueta, bordado ou selo visível no produto.
+
+### 2.3 Por que as fotos reais não resolvem sozinhas
+
+1. **Resolução baixa:** a maior tem 1200 × 1600. A maioria tem 720–900 px de largura. Os espaços do site pedem até 2880 px de largura (retina).
+2. **Ângulo e luz inconsistentes:** celular, grande-angular com distorção, luz de tubo fluorescente no teto, alturas de câmera diferentes. O wireframe exige "mesma luz e ângulo" nas quatro camas.
+3. **Elementos que não podem aparecer:** letreiro "KANAK" na parede (texto na imagem), bandeirinhas de festa junina (`casal sem pillow top - bege showroom com recamier.jpeg`), quadro de leão, cortina lilás.
+4. **Parte do acervo parece render ou foto tratada**, não foto de produto: os dois arquivos marcados "render 3d" e, pelo aspecto, `caramelo suite prateleira`, `terracota suite decorada`, `cinza e terracota suite dois leitos`, `cinza suite decorada com tapete` (3 versões), `mostarda suite luxo`, `terracota suite boiserie` (2), `vinho suite boiserie`, `bege suite lustre anel`, `bege e terracota studio dois leitos`. Confirmar com o cliente. Alguns desses ambientes (lustre, boiserie, "suíte luxo") são mais luxuosos do que o público B−/C+ pede.
+5. **Nenhuma foto** mostra o interior do colchão, molas, espuma, o magnético, atendimento no showroom ou macro de tecido.
+6. **Nenhuma foto identifica o modelo** (molas, anatômico, magnético). O nome dos arquivos só diz tamanho, cor e pillow top.
+
+**Conclusão:** as fotos reais são a **referência obrigatória de produto** para todas as imagens geradas, e servem como **substituto provisório** onde indicado. Nenhuma atende sozinha aos espaços dos wireframes com a qualidade pedida.
+
+---
+
+## 3. Inventário — tudo o que os wireframes pedem
+
+Legenda da coluna Origem: **REAL** = foto real que já serve · **GERAR** = gerar por IA · **PLACEHOLDER** = gerar só para montar o layout, marcado para substituir por foto real · **NÃO É IMAGEM** = resolvido em código ou com outro tipo de conteúdo.
+
+### 3.1 Home
+
+| Seção | Espaço no wireframe (desktop / celular) | Foto real que serve? | Origem | Nº |
+| --- | --- | --- | --- | --- |
+| 1 Banner · base de cena | — | — | GERAR (quarto vazio, só referência de trabalho) | 00 |
+| 1 Banner · Queen | coluna vertical 155–294 × 600 px (expande no hover) / card 240 × 380, carrossel | Não (ver 2.3). Referência: `queensize com pillow top - terracota suite boiserie com recamier.jpeg` | GERAR | 01 |
+| 1 Banner · King | idem | Não. Referência: `kingsize com pillow top - cinza suite decorada com tapete (1024x1024).jpeg` | GERAR | 02 |
+| 1 Banner · Casal | idem | Não. Referência: `casal sem pillow top - bege showroom com recamier.jpeg` | GERAR | 03 |
+| 1 Banner · Solteiro | idem | Não. Referência: `solteiro sem pillow top - vinho showroom com recamier.jpeg` | GERAR | 04 |
+| 2 Ciência do Conforto | hoje é um **desenho em código** das 3 camadas (≈ 560 × 340 / 350 × 220). A foto de corte é pedida no plano, não no wireframe | Não existe | PLACEHOLDER (substituir por foto real do corte) | 05 |
+| 3 Qual colchão · Molas ensacadas | miniatura 120 × 120 / 88 × 88 | Não existe | GERAR | 06 |
+| 3 Qual colchão · Espuma de alta densidade | idem | Não existe | GERAR | 07 |
+| 3 Qual colchão · Magnético | idem | Não existe | PLACEHOLDER (substituir) | 08 |
+| 4 Conheça · Cards de tamanho (4) | **desenho vetorial** da cama vista de cima, em código | — | NÃO É IMAGEM | — |
+| 4 Conheça · Modelo Molas Ensacadas | 378 × 260 / 280 × 220 | Não (nenhuma foto identifica o modelo) | GERAR | 09 |
+| 4 Conheça · Modelo Anatômico Ortopédico | idem | Não | GERAR | 10 |
+| 4 Conheça · Modelo Magnético | idem | Não | PLACEHOLDER parcial (substituir) | 11 |
+| 5 Depoimentos (6) | avatar redondo 40 px | — | NÃO É IMAGEM GERADA: fotos reais do Google, com autorização. **Nunca gerar rostos de clientes** | — |
+| 7 Showroom com atendimento | 560 × 500 sobre fundo vinho / 350 × 240 | Parcial: o showroom aparece em várias fotos, mas sem atendimento e com letreiro, fluorescente e bandeirinhas | PLACEHOLDER (substituir por foto real) | 12 |
+| 9 Rodapé · mapa | 160 px de altura | — | NÃO É IMAGEM (mapa incorporado) | — |
+
+### 3.2 Landing Google Ads
+
+| Seção | Espaço no wireframe (desktop / celular) | Foto real que serve? | Origem | Nº |
+| --- | --- | --- | --- | --- |
+| 1 Banner da campanha | metade direita de um banner de 1360 × 600 (arte prevista em 1440 × 600) / 366 × 280 no topo de um card vertical | Não. Provisório possível: `kingsize com pillow top - cinza suite decorada com tapete (widescreen).jpeg`, só em 1x | GERAR, **trocado a cada campanha** | 13 (desktop), 14 (celular) |
+| 2 Acordar cansado | sem imagem (número "1/3" em tipografia) | — | NÃO É IMAGEM | — |
+| 3 Cards de tamanho (3) | desenho vetorial em código | — | NÃO É IMAGEM | — |
+| 3 Modelos (3) | 378 × 300 / 290 × 240 | — | Reaproveita **09, 10, 11** | — |
+| 4 Por que a Kanak | sem imagem; depoimentos reais | — | NÃO É IMAGEM | — |
+| 5 Fechamento | sem imagem | — | — | — |
+| 6 Rodapé · mapa | igual à Home | — | NÃO É IMAGEM | — |
+
+### 3.3 Itens citados no pedido que não estão nos wireframes
+
+| Item | Situação | Onde está no plano |
+| --- | --- | --- |
+| Kits completos (colchão + base + cabeceira + baú) | Os kits já aparecem inteiros nas imagens 01–04 e 13–14. Não há espaço próprio para foto de kit nos wireframes | Reserva R1 (seção 7) |
+| Detalhes de acabamento (tecido, costura, pillow top) | Sem espaço nos wireframes. Úteis para as páginas de produto (fora desta entrega) | Reserva R2–R4 |
+| Swatches de cor | Sem espaço nos wireframes. O ideal é foto real das amostras de tecido, não IA (cor gerada não é confiável) | Reserva R5 |
+| Fundos e texturas | **Não são necessários.** O design separa seções por cor sólida dos tokens e por espaço (`specs/design.md` §5) | — |
+
+### 3.4 Resumo
+
+- **Produzir para o layout:** 14 imagens (01–14). Destas, 4 são placeholders marcados para substituir (05, 08, 11 parcial, 12).
+- **Reserva opcional:** R1–R5.
+- **Não gerar:** depoimentos, cards de tamanho, mapa, fundos.
+
+---
+
+## 4. Tamanhos: de onde vêm as resoluções
+
+Resolução mínima = maior tamanho de exibição × 2 (retina; × 3 no celular). Cada imagem tem **um arquivo-mestre** que serve desktop e celular, com recorte feito no código (`object-fit: cover` + `object-position`). Por isso cada ficha define uma **zona segura** onde o assunto principal precisa ficar.
+
+| Nº | Maior exibição | Proporções de recorte usadas | Arquivo-mestre |
+| --- | --- | --- | --- |
+| 01–04 | 294 × 600 (desktop, hover) · 240 × 380 (celular) | de 0,26:1 a 0,63:1 (muito vertical) | 2:3 · 1400 × 2100 |
+| 05 | 560 × 340 | 5:3 e 4:3 | 3:2 · 1800 × 1200 |
+| 06–08 | 120 × 120 | 1:1 | 1:1 · 800 × 800 |
+| 09–11 | 378 × 300 | 1,45:1 (Home desktop) · 1,26:1 (Landing) · 1,21–1,27:1 (celular) | 3:2 · 1800 × 1200 |
+| 12 | 560 × 500 | 9:8 (desktop) · 3:2 (celular) | 4:3 · 1600 × 1200 |
+| 13 | 1360 × 600 (ou 1440 × 600 sangrado) | 12:5 inteira ou metade direita ≈ 9:8 | 12:5 · 2880 × 1200 |
+| 14 | 366 × 280 | ≈ 4:3 | 4:3 · 1200 × 900 |
+
+Entrega: JPG qualidade 85–90, sRGB. O `next/image` gera os tamanhos menores e o WebP/AVIF.
+
+Pasta sugerida: `my-app/public/images/` com subpastas `home/`, `lp/` e `shared/`.
+
+---
+
+## 5. PROMPT-BASE DE CONSISTÊNCIA
+
+Este bloco abre **todos** os prompts da seção 6 — já está colado dentro de cada um, para que qualquer prompt funcione sozinho. Está aqui inteiro para consulta.
 
 ```text
-Gere todas as imagens descritas abaixo.
+PROMPT-BASE DE CONSISTÊNCIA — KANAK
 
-Cada resultado deve ser gerado como uma imagem separada, seguindo sua própria proporção e composição.
+BRAND
+Kanak is a Brazilian mattress manufacturer that sells complete upholstered bed sets: mattress, box base, headboard and a storage bench for the foot of the bed. Visual identity: warm, calm, adult, trustworthy, editorial. Brand palette: cream (#FBF3E8), deep wine (#680B0E), apricot cream (#FFD29D), light natural wood, warm natural daylight. Premium product photography with a lot of breathing room — like a good furniture store, never a clearance ad, never a luxury hotel.
 
-Não monte colagens e não coloque várias imagens dentro do mesmo arquivo.
+AUDIENCE AND SETTING
+Brazilian families, ages 25 to 60, middle class. Rooms must feel real and attainable: an ordinary Brazilian apartment or house bedroom of about 10 to 14 square meters, smooth painted walls, light-wood laminate floor, a simple sheer linen curtain, at most one simple bedside table and one lamp. No chandeliers, no marble, no gold fixtures, no ornate wall moulding, no walk-in closets, no skyline views, no hotel suites, no mansion interiors.
 
-Siga fielmente as referências visuais do produto anexadas.
+PRODUCT — FOLLOW THE ATTACHED KANAK REFERENCES EXACTLY
+The Kanak bed set has four parts, all upholstered in the same short-pile suede-like velvet, in one solid color per set:
+1. HEADBOARD: tall rectangular panel with square corners, deep diamond capitonê tufting across the whole panel, a small clear crystal-look button at every tufting point, same width as the bed.
+2. MATTRESS: flat white to off-white quilted top panel with a tone-on-tone damask floral pattern inside diamond quilting; thin white piping along the top edge; the side border of the mattress is upholstered in the same colored velvet as the set, with one small round metal eyelet on the side. Pillow-top version: one extra cream quilted layer sewn onto the top, with its own cream side band and piping, clearly thicker — part of the mattress, never a loose topper or folded quilt. Version without pillow top: a single flat quilted top.
+3. BOX BASE: plain velvet box, no tufting, same color as the set, a thin white piping line where the mattress meets the base, short straight tapered wooden legs in medium brown.
+4. STORAGE BENCH (baú): low rectangular velvet box at the foot of the bed, exactly as wide as the box base, about as tall as the top of the base. It has NO legs, no feet and no casters: it sits directly on the floor, the fabric goes all the way down and touches the floor, no gap underneath. Plain front with a small fabric pull tab under the lid; puffy, deeply capitonê-tufted lid with crystal-look buttons.
+Two small velvet throw pillows in the set color lean against the headboard.
+Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Do not invent logos, labels, tags, embroidery, extra seams, handles, buttons, legs, lights or any detail that is not visible in the references.
+
+LIGHT
+Soft warm natural daylight, about 3500 to 4500 K, from a side window through a sheer linen curtain. Gentle falloff, open soft shadows, realistic contact shadows under the furniture. No fluorescent ceiling tubes, no flash, no harsh highlights, no colored light, no blue cast.
+
+PHOTOGRAPHIC DIRECTION
+Editorial premium product photography: calm, uncluttered, generous empty space around the subject. Full-frame camera; 35 to 50 mm lens for rooms, 90 to 100 mm macro lens for details. Straight verticals, corrected perspective, no wide-angle distortion. Natural color, gentle contrast, fine grain, no HDR look, no heavy color grading, no oversaturation.
+
+REALISM AND QUALITY
+Photorealistic and indistinguishable from a real photograph. Visible velvet nap, real quilting stitches, believable fabric weight and folds, correct scale between bed, bench and room. High resolution, sharp focus on the product.
+
+RESTRICTIONS
+No text, letters, numbers, logos, brand signs, wall lettering, labels, price tags or watermarks anywhere in the image.
+No people unless the image brief explicitly asks for them; never a close or recognizable face; nothing that looks like a customer testimonial portrait.
+No pets, no clutter, no party decorations, no cables, no screens.
+No luxury excess (see setting). No collage, no split screen, no multiple variations in one file, no illustration, no cartoon or plastic 3D look, no border, no frame.
 ```
 
-Anexe sempre as mesmas três referências de produto, para que o gerador tenha o mesmo ponto de partida em todas as imagens:
+---
 
-1. `referencias-site/meus-produtos/imagens colchões Kanak/casal sem pillow top - vinho parede leao com recamier.jpeg` — kit completo, cores e capitonê
-2. `referencias-site/meus-produtos/imagens colchões Kanak/kingsize com pillow top - cinza render 3d suite com recamier.jpeg` — padrão de acabamento e ambientação
-3. `referencias-site/meus-produtos/imagens colchões Kanak/casal sem pillow top - bege showroom com recamier.jpeg` — proporções reais e detalhes da base
+## 6. Fichas e prompts
 
-### Quando o produto sair diferente da referência
+Como usar cada ficha:
+
+1. Anexe ao gerador as **referências** listadas na ficha (fotos reais de `referencias-site/meus-produtos/imagens colchões Kanak/`).
+2. Cole o prompt inteiro.
+3. Uma imagem por arquivo. Nunca colagem.
+4. Confira o resultado com o checklist da seção 8.
+
+Se o produto sair diferente das referências, use este complemento:
 
 ```text
 Follow the supplied product references exactly.
-
-Correct the product so it matches the reference images in shape, proportions, material, color, finish, sensor placement and internal details.
-
+Correct the product so it matches the reference images in shape, proportions, material, color, finish and details: square-cornered capitonê headboard with crystal-look buttons, mattress with white quilted top and side border in the same colored velvet, round metal eyelet on the mattress side, white piping at the mattress-base joint, plain velvet box base on short straight tapered wooden legs, low capitonê storage bench.
 Do not redesign, stylize or add new details to the product.
 ```
 
-> Observação: o produto Kanak **não tem sensores**. A menção a *sensor placement* vem do texto padrão de correção — no caso da Kanak ela simplesmente não se aplica, e nenhum sensor deve ser adicionado. Ver @imagens.md, seção 5.
-
-### Regras que valem para todas as gerações
+---
 
-- Uma imagem por arquivo. Nunca colagem, nunca grade de variações dentro do mesmo arquivo.
-- A proporção declarada em cada prompt é obrigatória; a resolução é o mínimo aceitável.
-- Imagens de um mesmo par desktop/celular precisam ter a **mesma luz, a mesma cor de veludo e o mesmo produto**. Gere-as na mesma sessão.
-- Imagens de uma mesma família (25, 32, 34, 40, 48) precisam ser geradas na mesma sessão, com a mesma semente sempre que a ferramenta permitir.
-- Nada de texto, logotipo, letreiro, etiqueta, selo ou número dentro da imagem.
-- Sete pendências ainda bloqueiam parte da produção — ver @imagens.md, seção 22. As mais críticas: **P1** (acabamento oficial do colchão de cada linha) afeta 08, 09, 10, 20, 22, 29, 32 e 34; **P2** (lista oficial das 11 cores) afeta a família 40, cujas cores abaixo são hipótese de trabalho.
+### Família A — Banner da Home (01–04) · revisão 3, 23/09/2026 (refeita do zero)
 
----
+#### Por que a revisão 2 falhava
 
-## Índice
-
-| # | Arquivo | Proporção | Resolução |
-| --- | --- | --- | --- |
-| 01 | `hero/hero-home-king-cinza-desktop-21x9.jpg` | 21:9 | 2560 × 1097 |
-| 02 | `hero/hero-home-king-cinza-mobile-4x5.jpg` | 4:5 | 1080 × 1350 |
-| 03 | `produto/kit-completo-bege-packshot-1x1.jpg` | 1:1 | 1400 × 1400 |
-| 04 | `ambiente/tamanho-solteiro-verde-card-4x3.jpg` | 4:3 | 1200 × 900 |
-| 05 | `ambiente/tamanho-casal-terracota-card-4x3.jpg` | 4:3 | 1200 × 900 |
-| 06 | `ambiente/tamanho-queen-vinho-card-4x3.jpg` | 4:3 | 1200 × 900 |
-| 07 | `ambiente/tamanho-king-mostarda-card-4x3.jpg` | 4:3 | 1200 × 900 |
-| 08 | `produto/linha-molas-ensacadas-1x1.jpg` | 1:1 | 1400 × 1400 |
-| 09 | `produto/linha-anatomico-ortopedico-1x1.jpg` | 1:1 | 1400 × 1400 |
-| 10 | `produto/linha-magnetico-1x1.jpg` | 1:1 | 1400 × 1400 |
-| 11 | `ambiente/cores-trio-bege-terracota-cinza-16x9.jpg` | 16:9 | 2000 × 1125 |
-| 12 | `textura/roupa-de-cama-manha-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 13 | `institucional/showroom-panoramico-4x3.jpg` | 4:3 | 1200 × 900 |
-| 14 | `hero/cta-final-quarto-entardecer-desktop-21x9.jpg` | 21:9 | 2560 × 1097 |
-| 15 | `hero/cta-final-quarto-entardecer-mobile-4x5.jpg` | 4:5 | 1080 × 1350 |
-| 16 | `hero/lp-kit-king-terracota-desktop-16x9.jpg` | 16:9 | 2400 × 1350 |
-| 17 | `hero/lp-kit-king-terracota-mobile-4x5.jpg` | 4:5 | 1080 × 1350 |
-| 18 | `produto/kit-composicao-explodida-terracota-1x1.jpg` | 1:1 | 1400 × 1400 |
-| 19 | `detalhe/bau-aberto-terracota-4x3.jpg` | 4:3 | 1200 × 900 |
-| 20 | `comparativo/tamanhos-topdown-16x9.jpg` | 16:9 | 2000 × 1125 |
-| 21 | `comparativo/espaco-no-quarto-king-16x9.jpg` | 16:9 | 2000 × 1125 |
-| 22 | `comparativo/pillow-top-vs-sem-pillow-top-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 23 | `detalhe/macro-pillow-top-vies-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 24 | `og/og-lp-kit-1200x630.jpg` | 1,91:1 | 1200 × 630 |
-| 25.1 | `hero/lp-kit-queen-vinho-desktop-16x9.jpg` | 16:9 | 2400 × 1350 |
-| 25.2 | `hero/lp-kit-queen-vinho-mobile-4x5.jpg` | 4:5 | 1080 × 1350 |
-| 25.3 | `hero/lp-kit-casal-bege-desktop-16x9.jpg` | 16:9 | 2400 × 1350 |
-| 25.4 | `hero/lp-kit-casal-bege-mobile-4x5.jpg` | 4:5 | 1080 × 1350 |
-| 25.5 | `hero/lp-kit-solteiro-verde-desktop-16x9.jpg` | 16:9 | 2400 × 1350 |
-| 25.6 | `hero/lp-kit-solteiro-verde-mobile-4x5.jpg` | 4:5 | 1080 × 1350 |
-| 26 | `detalhe/macro-capitone-botao-cristal-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 27 | `detalhe/macro-veludo-terracota-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 28 | `detalhe/macro-pe-madeira-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 29 | `detalhe/macro-matelasse-colchao-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 30 | `detalhe/macro-acabamento-base-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 31 | `detalhe/macro-tampa-bau-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 32.1 | `comparativo/topdown-solteiro-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 32.2 | `comparativo/topdown-casal-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 32.3 | `comparativo/topdown-queen-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 32.4 | `comparativo/topdown-king-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 33 | `comparativo/casal-vs-queen-mesmo-quarto-16x9.jpg` | 16:9 | 2000 × 1125 |
-| 34.1 | `hero/linha-molas-ensacadas-16x9.jpg` | 16:9 | 2400 × 1350 |
-| 34.2 | `hero/linha-anatomico-ortopedico-16x9.jpg` | 16:9 | 2400 × 1350 |
-| 34.3 | `hero/linha-magnetico-16x9.jpg` | 16:9 | 2400 × 1350 |
-| 35 | `produto/base-box-cinza-packshot-1x1.jpg` | 1:1 | 1400 × 1400 |
-| 36 | `produto/base-com-bau-frontal-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 37 | `produto/cabeceira-vinho-packshot-1x1.jpg` | 1:1 | 1400 × 1400 |
-| 38 | `ambiente/cabeceira-aplicada-parede-3x4.jpg` | 3:4 | 900 × 1200 |
-| 39 | `produto/bau-bege-packshot-1x1.jpg` | 1:1 | 1400 × 1400 |
-| 40.1 | `cores/swatch-bege-1x1.jpg` | 1:1 | 600 × 600 |
-| 40.2 | `cores/swatch-cinza-1x1.jpg` | 1:1 | 600 × 600 |
-| 40.3 | `cores/swatch-terracota-1x1.jpg` | 1:1 | 600 × 600 |
-| 40.4 | `cores/swatch-caramelo-1x1.jpg` | 1:1 | 600 × 600 |
-| 40.5 | `cores/swatch-marrom-1x1.jpg` | 1:1 | 600 × 600 |
-| 40.6 | `cores/swatch-vinho-1x1.jpg` | 1:1 | 600 × 600 |
-| 40.7 | `cores/swatch-vermelho-1x1.jpg` | 1:1 | 600 × 600 |
-| 40.8 | `cores/swatch-rose-1x1.jpg` | 1:1 | 600 × 600 |
-| 40.9 | `cores/swatch-mostarda-1x1.jpg` | 1:1 | 600 × 600 |
-| 40.10 | `cores/swatch-verde-1x1.jpg` | 1:1 | 600 × 600 |
-| 40.11 | `cores/swatch-azul-1x1.jpg` | 1:1 | 600 × 600 |
-| 41 | `cores/aplicacao-cabeceiras-trio-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 42 | `ambiente/casal-escolhendo-quarto-16x9.jpg` | 16:9 | 2000 × 1125 |
-| 43 | `detalhe/mao-testando-firmeza-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 44 | `ambiente/pes-descalcos-tapete-manha-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 45 | `institucional/atendimento-showroom-4x3.jpg` | 4:3 | 1200 × 900 |
-| 46 | `institucional/showroom-corredor-cores-3x4.jpg` | 3:4 | 900 × 1200 |
-| 47 | `ambiente/quarto-vazio-luz-404-4x3.jpg` | 4:3 | 1200 × 900 |
-| 48.1 | `blog/capa-como-escolher-colchao-16x9.jpg` | 16:9 | 1600 × 900 |
-| 48.2 | `blog/capa-tamanho-ideal-quarto-16x9.jpg` | 16:9 | 1600 × 900 |
-| 48.3 | `blog/capa-cuidados-colchao-16x9.jpg` | 16:9 | 1600 × 900 |
-| 48.4 | `blog/capa-quarto-acolhedor-16x9.jpg` | 16:9 | 1600 × 900 |
-| 49 | `og/og-default-1200x630.jpg` | 1,91:1 | 1200 × 630 |
-| 50 | `textura/linho-areia-2400.jpg` | livre | 2400 de largura |
-| 51 | `textura/veludo-vinho-2400.jpg` | livre | 2400 de largura |
-| 52.1 | `hero/linha-molas-ensacadas-mobile-4x5.jpg` | 4:5 | 1080 × 1350 |
-| 52.2 | `hero/linha-anatomico-ortopedico-mobile-4x5.jpg` | 4:5 | 1080 × 1350 |
-| 52.3 | `hero/linha-magnetico-mobile-4x5.jpg` | 4:5 | 1080 × 1350 |
-| 53.1 | `cores/swatch-creme-1x1.jpg` | 1:1 | 600 × 600 |
-| 53.2 | `cores/swatch-preto-1x1.jpg` | 1:1 | 600 × 600 |
-| 54.1 | `hero/lp-campanha-marrom-desktop-16x9.jpg` | 16:9 | 2400 × 1350 |
-| 54.2 | `hero/lp-campanha-marrom-mobile-4x5.jpg` | 4:5 | 1080 × 1350 |
-| 55.1 | `detalhe/firmeza-macio-4x3.jpg` | 4:3 | 1200 × 900 |
-| 55.2 | `detalhe/firmeza-intermediario-4x3.jpg` | 4:3 | 1200 × 900 |
-| 55.3 | `detalhe/firmeza-firme-4x3.jpg` | 4:3 | 1200 × 900 |
-| 55.4 | `detalhe/firmeza-extrafirme-4x3.jpg` | 4:3 | 1200 × 900 |
-| 56.1 | `ambiente/rotina-noite-desktop-3x2.jpg` | 3:2 | 1600 × 1067 |
-| 56.2 | `ambiente/rotina-noite-mobile-4x5.jpg` | 4:5 | 1080 × 1350 |
-| 57.1 | `ambiente/acordar-cansado-4x3.jpg` | 4:3 | 1200 × 900 |
+1. **Prompt enorme e contraditório.** Cada prompt tinha ~60 linhas; o gerador pega só parte do texto e mistura o resto.
+2. **Baú com pé.** A revisão 2 mandava o baú ter pezinhos de madeira. **Errado: o baú não tem pé nenhum, ele é apoiado direto no chão.** Só a base box tem pés.
+3. **Imagem-guia e quarto 00 como referências extras.** Anexar desenho técnico + quarto vazio + fotos faz o gerador “fazer a média” e se afastar do produto. Saem os dois.
+4. **Pedir para girar a cama para frontal.** Obriga o gerador a reinventar o produto. Agora cada prompt usa o ângulo da foto de referência.
 
-**Total: 88 imagens.**
+#### Como gerar agora
 
----
+1. Anexe **só as fotos listadas na ficha** (pasta `referencias-site/refs-banner/`). Nada de quarto 00, imagem-guia ou banner já gerado.
+2. Cole o prompt da ficha inteiro. Ele é curto de propósito — não acrescente o prompt-base da seção 5.
+3. As fotos são do showroom: o prompt manda trocar o fundo por um quarto e **tirar o letreiro da Kanak**. Se o letreiro insistir, apague na edição.
+4. Confira com o checklist abaixo antes de aprovar.
 
-# BLOCO A — PROMPT-BASE DE CONSISTÊNCIA
+#### Mapa de cores (as refs só têm vinho e verde)
 
-Este bloco já está embutido no início de cada um dos prompts abaixo. Está reproduzido aqui inteiro para consulta e para o caso de você querer enviá-lo uma única vez, antes do lote.
+| Imagem | Tamanho | Cor | Pillow top | Refs |
+| --- | --- | --- | --- | --- |
+| 01 | Queen | Vinho | Sim | `ref-vinho-pillowtop-frontal.jpg` + `ref-vinho-pillowtop-angulo.jpg` |
+| 02 | King | Verde-musgo | Não | `ref-verde-sem-pillowtop-angulo.jpg` |
+| 03 | Casal | Vinho | Não | `ref-vinho-sem-pillowtop-frente.jpg` |
+| 04 | Solteiro | Verde-musgo | Sim | `ref-verde-solteiro-pillowtop.jpg` |
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Vinho e verde alternados no banner. Arquivos: `my-app/public/images/home/banner-queen-vinho.jpg`, `banner-king-verde.jpg`, `banner-casal-vinho.jpg`, `banner-solteiro-verde.jpg` (atualizar os caminhos no código se ainda apontam para terracota/cinza/bege).
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+#### Como o produto é (tirado das fotos reais)
 
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
+- **Cabeceira:** painel retangular de veludo, cantos retos, largura da cama, presa na parede; capitonê em losango com botões de cristal só na faixa de cima (2–3 fileiras), parte de baixo escondida atrás do colchão.
+- **Colchão:** tampo branco matelassê com floral tom sobre tom e vivo branco. Com pillow top: camada extra com faixa lateral **bege/creme** e vivo branco, costurada no colchão. Sem pillow top: tampo branco direto sobre a lateral de veludo.
+- **Base box:** laterais lisas de veludo da cor do kit, vivo branco na junta com o colchão, ilhoses redondos cromados pequenos na lateral, **pés curtos de madeira** (só a base tem pé).
+- **Baú:** caixa de veludo com a **largura da base**, altura mais ou menos até o topo da base; **sem pés, sem rodízio, sem vão — o tecido desce até o chão e encosta no piso**. Tampo acolchoado e fofo, capitonê fundo com alguns botões de cristal; frente lisa com uma **alcinha pequena de tecido** no centro, logo abaixo do tampo.
 
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+#### Checklist
 
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-```
+- [ ] Baú encostado no chão, sem nenhum pé ou vão embaixo
+- [ ] Baú com a largura da base (nem mais estreito, nem mais largo)
+- [ ] Pés de madeira aparecem só na base box
+- [ ] Cor igual à da ref (vinho é bordô escuro, não vermelho vivo; verde é musgo escuro)
+- [ ] Pillow top só no 01 e no 04, faixa bege
+- [ ] Botões de cristal na cabeceira e no baú; nenhum logo, letreiro ou texto
+- [ ] Tamanho relativo certo: King > Queen > Casal > Solteiro (régua abaixo)
 
----
+#### Régua de escala
 
-# BLOCO B — OS PROMPTS
+Largura da cama no quadro (2:3, 1400 × 2100 px), na altura da cabeceira: Queen **56%**, King **69%**, Casal **49%**, Solteiro **31%**. Se passar de 3 pontos para mais ou menos, gere de novo ou ajuste no recorte.
 
 ---
 
-## 01 · `hero/hero-home-king-cinza-desktop-21x9.jpg`
+#### 01 · Banner Home — Queen vinho
 
-- **Número:** 01
-- **Nome do arquivo:** `hero/hero-home-king-cinza-desktop-21x9.jpg`
-- **Proporção:** 21:9
-- **Resolução:** 2560 × 1097
+Anexar: `ref-vinho-pillowtop-frontal.jpg` (principal) · `ref-vinho-pillowtop-angulo.jpg`
 
-**Prompt completo:**
-
 ```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Photorealistic interior photo, vertical 2:3, 1400 x 2100 px.
+Recreate EXACTLY the bed set in the attached reference photos — same product, same deep burgundy wine velvet, same details. Do not redesign it.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+PRODUCT (Queen size, 158 cm wide, with pillow top):
+- Headboard: rectangular burgundy velvet panel with square corners, same width as the bed, mounted on the wall; diamond capitonê tufting with small clear crystal buttons in the upper part.
+- Mattress: white quilted top with tone-on-tone floral pattern and white piping; pillow-top layer with a beige side band sewn on top.
+- Box base: plain burgundy velvet sides, thin white piping at the mattress joint, small round chrome eyelets on the side, short wooden legs.
+- Storage bench (baú) at the foot of the bed: burgundy velvet box exactly as wide as the bed base, puffy deep capitonê lid with crystal buttons, plain front with a small fabric pull tab under the lid. THE BENCH HAS NO LEGS: it sits directly on the floor, fabric touching the floor, no gap underneath.
+- Two small burgundy velvet throw pillows against the headboard.
 
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+SCENE: replace the showroom with a simple, calm Brazilian bedroom: smooth warm off-white wall, light wood laminate floor, sheer linen curtain on the left edge, soft warm daylight from the left. Nothing else in the room.
+CAMERA: frontal, same angle as the main reference, eye level about 110 cm, 35 mm, straight verticals. Bed centered, 56% of the frame width. Empty floor in the bottom 18%.
 
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 01 — hero/hero-home-king-cinza-desktop-21x9.jpg — aspect ratio 21:9 — 2560×1097 px
-
-Wide editorial interior photograph of a contemporary Brazilian master bedroom at late afternoon. The complete Kanak bed set in charcoal grey velvet occupies the right 55% of the frame: tufted headboard with crystal-look buttons against a light slatted wood panel, off-white pillow-top mattress with visible upper band, matching storage bench at the foot with a long soft shadow across a pale wool rug, honey oak floor. The left third of the frame is an empty plain warm-white plaster wall with soft light falloff and no objects. A linen curtain filters warm window light from the right; a small warm lamp glows in the background. Three-quarter view from the left foot of the bed, camera at 110 cm, 35 mm, f/5.6, straight verticals. Calm, quiet, premium, generous negative space on the left.
+Do not add legs, feet or casters to the storage bench. No logos, no wall sign, no letters, no text, no people.
 ```
 
 ---
-
-## 02 · `hero/hero-home-king-cinza-mobile-4x5.jpg`
 
-- **Número:** 02
-- **Nome do arquivo:** `hero/hero-home-king-cinza-mobile-4x5.jpg`
-- **Proporção:** 4:5
-- **Resolução:** 1080 × 1350
+#### 02 · Banner Home — King verde
 
-**Prompt completo:**
+Anexar: `ref-verde-sem-pillowtop-angulo.jpg`
 
 ```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+Photorealistic interior photo, vertical 2:3, 1400 x 2100 px.
+Recreate EXACTLY the bed set in the attached reference photo — same product, same dark moss green velvet, same details — but in King size (193 cm wide). Do not redesign it.
 
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
+PRODUCT (King size, no pillow top):
+- Headboard: rectangular dark green velvet panel with square corners, same width as the bed, mounted on the wall; diamond capitonê tufting with small clear crystal buttons in the upper part.
+- Mattress: flat white quilted top with white piping, no pillow top; side border in dark green velvet.
+- Box base: plain dark green velvet sides, thin white piping line, small round chrome eyelets on the side, short tapered wooden legs.
+- Storage bench (baú) at the foot of the bed: dark green velvet box exactly as wide as the bed base, puffy deep capitonê lid with a few crystal buttons, plain front with a small fabric pull tab under the lid. THE BENCH HAS NO LEGS: it sits directly on the floor, fabric touching the floor, no gap underneath.
+- Two small dark green velvet throw pillows against the headboard.
 
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+SCENE: replace the showroom with a simple, calm Brazilian bedroom: smooth warm off-white wall, light wood laminate floor, sheer linen curtain on the left edge, soft warm daylight from the left. Nothing else in the room.
+CAMERA: frontal, eye level about 110 cm, 35 mm, straight verticals. Bed centered, 69% of the frame width. Empty floor in the bottom 18%.
 
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 02 — hero/hero-home-king-cinza-mobile-4x5.jpg — aspect ratio 4:5 — 1080×1350 px
-
-Vertical interior photograph of the same contemporary bedroom and the same charcoal grey Kanak bed set, reframed for a phone screen. The bed occupies the lower 60% of the frame, seen three-quarter from the left foot; the tufted headboard and the upper half of the off-white pillow-top mattress are fully visible, the storage bench is cropped by the bottom edge. The upper 40% is an empty warm-white plaster wall with soft gradient light and no objects. Same late-afternoon window light from the right, same warm lamp glow. 50 mm, f/5.6, camera at 130 cm, straight verticals, calm and premium.
+Do not add legs, feet or casters to the storage bench. No logos, no wall sign, no letters, no text, no people.
 ```
 
----
+> Única ref do verde casal está em ângulo. Se o gerador deformar ao virar para frontal, aceite um leve ângulo de 3/4 igual ao da foto e mantenha a proporção da régua.
 
-## 03 · `produto/kit-completo-bege-packshot-1x1.jpg`
+---
 
-- **Número:** 03
-- **Nome do arquivo:** `produto/kit-completo-bege-packshot-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 1400 × 1400
+#### 03 · Banner Home — Casal vinho
 
-**Prompt completo:**
+Anexar: `ref-vinho-sem-pillowtop-frente.jpg`
 
 ```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+Photorealistic interior photo, vertical 2:3, 1400 x 2100 px.
+Recreate EXACTLY the bed set in the attached reference photo — same product, same wine red velvet, same details. Do not redesign it.
 
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
+PRODUCT (Casal / double size, 138 cm wide, no pillow top):
+- Headboard: rectangular wine velvet panel with square corners, same width as the bed, mounted on the wall; diamond capitonê tufting with small clear crystal buttons in the upper part.
+- Mattress: flat white quilted top with tone-on-tone floral pattern and white piping, no pillow top; side border in wine velvet.
+- Box base: plain wine velvet sides, small round chrome eyelets on the side.
+- Storage bench (baú) at the foot of the bed: wine velvet box exactly as wide as the bed base, puffy deep capitonê lid with crystal buttons, plain front with a small fabric pull tab under the lid. THE BENCH HAS NO LEGS: it sits directly on the floor, fabric touching the floor, no gap underneath.
+- Two small wine velvet throw pillows against the headboard.
 
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+SCENE: replace the showroom (remove the lion painting) with a simple, calm Brazilian bedroom: smooth warm off-white wall, light wood laminate floor, sheer linen curtain on the left edge, soft warm daylight from the left. Nothing else in the room.
+CAMERA: frontal, same angle as the reference, eye level about 110 cm, 35 mm, straight verticals. Bed centered, 49% of the frame width. Empty floor in the bottom 18%.
 
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 03 — produto/kit-completo-bege-packshot-1x1.jpg — aspect ratio 1:1 — 1400×1400 px
-
-Studio packshot of the complete Kanak bed set in beige velvet on a seamless warm sand background. The set is shown as one composition: box base with honey oak legs, diamond-tufted headboard with crystal-look buttons, off-white quilted mattress without pillow top, matching tufted storage bench at the foot, and four beige velvet pillows — two resting against the headboard, two stacked beside it. Classic three-quarter catalogue angle, 20 degrees to the left, camera at 100 cm, 50 mm, f/8. Large soft key light from the left, subtle fill from the right, short realistic contact shadow under the base and bench. No room, no floor pattern, no props, 12% margin around the product.
+Do not add legs, feet or casters to the storage bench. No logos, no wall sign, no letters, no text, no people.
 ```
 
 ---
 
-## 04 · `ambiente/tamanho-solteiro-verde-card-4x3.jpg`
+#### 04 · Banner Home — Solteiro verde
 
-- **Número:** 04
-- **Nome do arquivo:** `ambiente/tamanho-solteiro-verde-card-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
+Anexar: `ref-verde-solteiro-pillowtop.jpg`
 
-**Prompt completo:**
-
 ```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Photorealistic interior photo, vertical 2:3, 1400 x 2100 px.
+Recreate EXACTLY the single bed set in the attached reference photo — same product, same dark moss green velvet, same details. Do not redesign it.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+PRODUCT (Solteiro / single size, 88 cm wide, with pillow top):
+- Headboard: rectangular dark green velvet panel with square corners, same width as the bed, taller than it is wide, mounted on the wall; diamond capitonê tufting with small clear crystal buttons.
+- Mattress: white quilted top with tone-on-tone floral pattern and white piping; pillow-top layer with a beige side band sewn on top.
+- Box base: plain dark green velvet sides, thin white piping line, small round chrome eyelets on the side, short wooden legs.
+- Storage bench (baú) at the foot of the bed: dark green velvet box exactly as wide as the bed base, puffy deep capitonê lid, plain front with a small fabric pull tab under the lid. THE BENCH HAS NO LEGS: it sits directly on the floor, fabric touching the floor, no gap underneath.
+- One small dark green velvet throw pillow against the headboard.
 
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+SCENE: replace the showroom with a simple, calm Brazilian bedroom: smooth warm off-white wall, light wood laminate floor, sheer linen curtain on the left edge, soft warm daylight from the left. Nothing else in the room.
+CAMERA: frontal, eye level about 110 cm, 35 mm, straight verticals. Bed centered, only 31% of the frame width, lots of empty wall on both sides. Empty floor in the bottom 18%.
 
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 04 — ambiente/tamanho-solteiro-verde-card-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Interior photograph of a small adult bedroom with the Kanak single-size (solteiro) bed set in olive green velvet: tufted headboard with crystal-look buttons, off-white quilted mattress, matching tufted storage bench at the foot, honey oak legs. The bed sits against the right-hand wall; a narrow bedside table, a simple wall shelf and a linen curtain complete the room; free floor space is visible in front of the bed to show the compact footprint. Three-quarter view from the right foot, camera at 120 cm, 35 mm, f/5.6. Warm late-afternoon light from a window on the left, soft shadow on the light oak floor. Calm, adult, uncluttered — not a child's room.
+Do not add legs, feet or casters to the storage bench. No logos, no wall sign, no letters, no text, no people.
 ```
 
 ---
 
-## 05 · `ambiente/tamanho-casal-terracota-card-4x3.jpg`
 
-- **Número:** 05
-- **Nome do arquivo:** `ambiente/tamanho-casal-terracota-card-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
+### 05 · Ciência do Conforto — corte do colchão (PLACEHOLDER · SUBSTITUIR)
 
-**Prompt completo:**
+| Campo | Definição |
+| --- | --- |
+| Número | 05 |
+| Arquivo | `my-app/public/images/home/ciencia-corte-camadas-PLACEHOLDER.jpg` (o sufixo sai quando chegar a foto real) |
+| Seção | Home · 2 A Ciência do Conforto |
+| Foto real existente | Não existe. **Pedir ao cliente:** foto de um colchão real cortado (amostra de fábrica), de lado, com as camadas visíveis e a espessura de cada uma medida |
+| Origem | PLACEHOLDER — serve só para montar o layout. **Não publicar como definitiva**: mostraria uma estrutura interna que o cliente não confirmou |
+| Observação de layout | O wireframe hoje resolve esta seção com um **desenho em código** das três camadas (Regulação térmica, Suporte anatômico, Alta resiliência, espessuras ⏳ PENDENTE). A foto é uma alternativa ou um complemento ao desenho — decisão sua antes de implementar |
+| Referências a anexar | `kingsize com pillow top - cinza suite decorada com tapete (1024x1024).jpeg` (lateral do colchão, debrum, ilhós) |
+| Objetivo | Tornar visível que o colchão tem camadas com funções diferentes |
+| Elemento principal | Seção transversal de um colchão de molas ensacadas (as nove "células" do desenho do wireframe sugerem molas ensacadas) |
+| Composição | Colchão cortado atravessando o quadro na horizontal, camadas bem separadas de cima para baixo; fundo creme liso |
+| Enquadramento | Seção inteira na altura, com o corte ocupando 80% da largura |
+| Ângulo | Lateral, na altura do corte, levemente de cima (10°); 90 mm |
+| Cenário | Estúdio, fundo infinito creme `#FBF3E8` |
+| Iluminação | Luz suave lateral de janela grande, sombra de contato leve |
+| Cores | Creme, branco do tampo, veludo vinho na lateral, molas metálicas foscas em sacos de TNT branco, espuma off-white |
+| Proporção | 3:2 |
+| Resolução | 1800 × 1200 px |
+| Área livre para texto | Nenhuma dentro da imagem (legendas das camadas ficam no HTML, fora da foto) |
+| Versão | Desktop (recorte 5:3) e celular (recorte 4:3) do mesmo arquivo |
+| Restrições | Sem números, setas, legendas ou medidas na imagem; não sugerir espessuras; sem gel colorido, sem camadas "tecnológicas" azuis |
 
 ```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+PROMPT-BASE DE CONSISTÊNCIA — KANAK
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+BRAND
+Kanak is a Brazilian mattress manufacturer that sells complete upholstered bed sets: mattress, box base, headboard and a storage bench for the foot of the bed. Visual identity: warm, calm, adult, trustworthy, editorial. Brand palette: cream (#FBF3E8), deep wine (#680B0E), apricot cream (#FFD29D), light natural wood, warm natural daylight. Premium product photography with a lot of breathing room — like a good furniture store, never a clearance ad, never a luxury hotel.
 
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 05 — ambiente/tamanho-casal-terracota-card-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Interior photograph of a balanced couple's bedroom with the Kanak double-size (casal) bed set in terracotta velvet: diamond-tufted headboard with crystal-look buttons, off-white quilted mattress, matching tufted storage bench at the foot, honey oak legs. Symmetrical composition: matching slim bedside tables on both sides, subtle painted boiserie panelling on the wall behind, pale rug under the foot of the bed, beige curtain. Nearly frontal view offset 10 degrees to the right, camera at 125 cm, 35 mm, f/5.6. Diffused late-afternoon light from the right plus warm indirect cove lighting on the ceiling. Serene and grown-up.
-```
-
----
-
-## 06 · `ambiente/tamanho-queen-vinho-card-4x3.jpg`
+AUDIENCE AND SETTING
+Brazilian families, ages 25 to 60, middle class. Rooms must feel real and attainable: an ordinary Brazilian apartment or house bedroom of about 10 to 14 square meters, smooth painted walls, light-wood laminate floor, a simple sheer linen curtain, at most one simple bedside table and one lamp. No chandeliers, no marble, no gold fixtures, no ornate wall moulding, no walk-in closets, no skyline views, no hotel suites, no mansion interiors.
 
-- **Número:** 06
-- **Nome do arquivo:** `ambiente/tamanho-queen-vinho-card-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
+PRODUCT — FOLLOW THE ATTACHED KANAK REFERENCES EXACTLY
+The Kanak bed set has four parts, all upholstered in the same short-pile suede-like velvet, in one solid color per set:
+1. HEADBOARD: tall rectangular panel with square corners, deep diamond capitonê tufting across the whole panel, a small clear crystal-look button at every tufting point, same width as the bed.
+2. MATTRESS: flat white to off-white quilted top panel with a tone-on-tone damask floral pattern inside diamond quilting; thin white piping along the top edge; the side border of the mattress is upholstered in the same colored velvet as the set, with one small round metal eyelet on the side. Pillow-top version: one extra cream quilted layer sewn onto the top, with its own cream side band and piping, clearly thicker — part of the mattress, never a loose topper or folded quilt. Version without pillow top: a single flat quilted top.
+3. BOX BASE: plain velvet box, no tufting, same color as the set, a thin white piping line where the mattress meets the base, short straight tapered wooden legs in medium brown.
+4. STORAGE BENCH (baú): low rectangular velvet box at the foot of the bed, exactly as wide as the box base, about as tall as the top of the base. It has NO legs, no feet and no casters: it sits directly on the floor, the fabric goes all the way down and touches the floor, no gap underneath. Plain front with a small fabric pull tab under the lid; puffy, deeply capitonê-tufted lid with crystal-look buttons.
+Two small velvet throw pillows in the set color lean against the headboard.
 Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Do not invent logos, labels, tags, embroidery, extra seams, handles, buttons, legs, lights or any detail that is not visible in the references.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+LIGHT
+Soft warm natural daylight, about 3500 to 4500 K, from a side window through a sheer linen curtain. Gentle falloff, open soft shadows, realistic contact shadows under the furniture. No fluorescent ceiling tubes, no flash, no harsh highlights, no colored light, no blue cast.
 
 PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Editorial premium product photography: calm, uncluttered, generous empty space around the subject. Full-frame camera; 35 to 50 mm lens for rooms, 90 to 100 mm macro lens for details. Straight verticals, corrected perspective, no wide-angle distortion. Natural color, gentle contrast, fine grain, no HDR look, no heavy color grading, no oversaturation.
 
 REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 06 — ambiente/tamanho-queen-vinho-card-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Interior photograph of a spacious master bedroom with the Kanak queen-size bed set in deep wine velvet: diamond-tufted headboard with crystal-look buttons, off-white quilted mattress, matching tufted storage bench at the foot, honey oak legs. The bed sits slightly left of centre; a simple reading armchair occupies the right corner; a wool rug and a long linen curtain complete the room; generous circulation space in front of the bed. Three-quarter view from the left foot, camera at 120 cm, 35 mm, f/5.6. Late-afternoon light from a wide window on the left, long soft shadow from the bench. Warm, roomy, restrained.
-```
-
----
-
-## 07 · `ambiente/tamanho-king-mostarda-card-4x3.jpg`
+Photorealistic and indistinguishable from a real photograph. Visible velvet nap, real quilting stitches, believable fabric weight and folds, correct scale between bed, bench and room. High resolution, sharp focus on the product.
 
-- **Número:** 07
-- **Nome do arquivo:** `ambiente/tamanho-king-mostarda-card-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
+RESTRICTIONS
+No text, letters, numbers, logos, brand signs, wall lettering, labels, price tags or watermarks anywhere in the image.
+No people unless the image brief explicitly asks for them; never a close or recognizable face; nothing that looks like a customer testimonial portrait.
+No pets, no clutter, no party decorations, no cables, no screens.
+No luxury excess (see setting). No collage, no split screen, no multiple variations in one file, no illustration, no cartoon or plastic 3D look, no border, no frame.
 
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 07 — ambiente/tamanho-king-mostarda-card-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Interior photograph of a large master suite with the Kanak king-size bed set in muted mustard velvet: diamond-tufted headboard with crystal-look buttons, off-white quilted mattress, matching tufted storage bench at the foot, honey oak legs. The bed dominates the frame in a high-ceilinged room with a slatted wood panel behind the headboard, floor-length double curtains and a large pale rug. Three-quarter view from the right foot, camera at 115 cm, 35 mm, f/5.6. Strong warm late-afternoon side light grazing the velvet to reveal its nap. Spacious, top-of-the-range, quiet luxury.
+IMAGE BRIEF — 05 — Mattress cross-section, layout placeholder — landscape 3:2, 1800 x 1200 px
+Studio product photograph of a Kanak mattress section, without headboard, base or bench, cut cleanly straight through so the inside is visible from the side, like a factory sample cut with a blade. The cut face runs horizontally across the frame and shows three clearly separated horizontal layers, top to bottom:
+1. a comfort layer: the white quilted top panel with its tone-on-tone diamond quilting and white piping, over a soft off-white foam layer;
+2. a support core of individually pocketed steel springs, each spring wrapped in its own white non-woven fabric pocket, standing in a neat row;
+3. a dense, firm, off-white foam base layer with fine uniform cells.
+The outer side border of the mattress, visible at the ends of the cut, is deep wine velvet with a thin white piping line, as in the references.
+Side view at the height of the cut, camera tilted down about 10 degrees, 90 mm lens, the cut section filling about 80% of the frame width, centered. Seamless plain cream background (#FBF3E8), soft large window light from the left, light contact shadow under the section.
+Clean, factual, calm. The layers must look like real materials, not a diagram.
+No labels, arrows, numbers, measurement marks or callouts. No colored gel, no blue or glowing layers, no floating exploded parts.
 ```
 
 ---
-
-## 08 · `produto/linha-molas-ensacadas-1x1.jpg`
-
-- **Número:** 08
-- **Nome do arquivo:** `produto/linha-molas-ensacadas-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 1400 × 1400
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
 
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
+### Família B — Qual colchão combina com você (06–08)
 
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Três miniaturas quadradas (120 px no desktop, 88 px no celular). Precisam ser legíveis minúsculas: um único material, grande, fundo creme. Gerar as três na mesma sessão, com a mesma luz e o mesmo fundo.
 
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 08 — produto/linha-molas-ensacadas-1x1.jpg — aspect ratio 1:1 — 1400×1400 px
-
-Studio product photograph of a single Kanak mattress on a seamless warm sand background, no base, no bed frame. Off-white quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents, uniform single height with no pillow-top band. A loosely folded linen sheet rests at the foot for scale and texture. Three-quarter view rotated 25 degrees to the right, camera at 70 cm so both the top surface and the side panel are visible, 50 mm, f/8. Large soft key from the left, grazing light revealing the quilting relief, short realistic contact shadow.
-```
+#### 06 · Detalhe — Molas ensacadas
 
----
+| Campo | Definição |
+| --- | --- |
+| Número | 06 |
+| Arquivo | `my-app/public/images/home/tecnologia-molas-ensacadas.jpg` |
+| Seção | Home · 3 Qual colchão combina com você · card "Molas ensacadas" |
+| Foto real existente | Não existe. Ideal: foto de fábrica das molas ensacadas da Kanak |
+| Origem | GERAR (troca por foto real se o cliente enviar) |
+| Referências a anexar | Nenhuma de produto (estrutura interna não aparece nas fotos) |
+| Objetivo | Identificar a tecnologia num relance |
+| Elemento principal | Molas ensacadas em sacos de TNT branco |
+| Composição | Três a quatro molas ensacadas em primeiro plano, fileira saindo de foco para trás |
+| Enquadramento | Macro, molas ocupando 70% do quadro, centralizadas |
+| Ângulo | Três-quartos, levemente de cima (30°), 100 mm macro |
+| Cenário | Fundo creme liso |
+| Iluminação | Luz lateral suave, realçando a textura do tecido |
+| Cores | Branco, creme, cinza fosco do aço aparecendo pelo tecido |
+| Proporção | 1:1 |
+| Resolução | 800 × 800 px |
+| Área livre para texto | Nenhuma |
+| Versão | Desktop e celular (mesmo arquivo) |
+| Restrições | Sem molas nuas cromadas brilhantes, sem marca no TNT, sem mola azul |
 
-## 09 · `produto/linha-anatomico-ortopedico-1x1.jpg`
+```text
+PROMPT-BASE DE CONSISTÊNCIA — KANAK
 
-- **Número:** 09
-- **Nome do arquivo:** `produto/linha-anatomico-ortopedico-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 1400 × 1400
+BRAND
+Kanak is a Brazilian mattress manufacturer that sells complete upholstered bed sets: mattress, box base, headboard and a storage bench for the foot of the bed. Visual identity: warm, calm, adult, trustworthy, editorial. Brand palette: cream (#FBF3E8), deep wine (#680B0E), apricot cream (#FFD29D), light natural wood, warm natural daylight. Premium product photography with a lot of breathing room — like a good furniture store, never a clearance ad, never a luxury hotel.
 
-**Prompt completo:**
+AUDIENCE AND SETTING
+Brazilian families, ages 25 to 60, middle class. Rooms must feel real and attainable: an ordinary Brazilian apartment or house bedroom of about 10 to 14 square meters, smooth painted walls, light-wood laminate floor, a simple sheer linen curtain, at most one simple bedside table and one lamp. No chandeliers, no marble, no gold fixtures, no ornate wall moulding, no walk-in closets, no skyline views, no hotel suites, no mansion interiors.
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
+PRODUCT — FOLLOW THE ATTACHED KANAK REFERENCES EXACTLY
+The Kanak bed set has four parts, all upholstered in the same short-pile suede-like velvet, in one solid color per set:
+1. HEADBOARD: tall rectangular panel with square corners, deep diamond capitonê tufting across the whole panel, a small clear crystal-look button at every tufting point, same width as the bed.
+2. MATTRESS: flat white to off-white quilted top panel with a tone-on-tone damask floral pattern inside diamond quilting; thin white piping along the top edge; the side border of the mattress is upholstered in the same colored velvet as the set, with one small round metal eyelet on the side. Pillow-top version: one extra cream quilted layer sewn onto the top, with its own cream side band and piping, clearly thicker — part of the mattress, never a loose topper or folded quilt. Version without pillow top: a single flat quilted top.
+3. BOX BASE: plain velvet box, no tufting, same color as the set, a thin white piping line where the mattress meets the base, short straight tapered wooden legs in medium brown.
+4. STORAGE BENCH (baú): low rectangular velvet box at the foot of the bed, exactly as wide as the box base, about as tall as the top of the base. It has NO legs, no feet and no casters: it sits directly on the floor, the fabric goes all the way down and touches the floor, no gap underneath. Plain front with a small fabric pull tab under the lid; puffy, deeply capitonê-tufted lid with crystal-look buttons.
+Two small velvet throw pillows in the set color lean against the headboard.
 Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Do not invent logos, labels, tags, embroidery, extra seams, handles, buttons, legs, lights or any detail that is not visible in the references.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+LIGHT
+Soft warm natural daylight, about 3500 to 4500 K, from a side window through a sheer linen curtain. Gentle falloff, open soft shadows, realistic contact shadows under the furniture. No fluorescent ceiling tubes, no flash, no harsh highlights, no colored light, no blue cast.
 
 PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
+Editorial premium product photography: calm, uncluttered, generous empty space around the subject. Full-frame camera; 35 to 50 mm lens for rooms, 90 to 100 mm macro lens for details. Straight verticals, corrected perspective, no wide-angle distortion. Natural color, gentle contrast, fine grain, no HDR look, no heavy color grading, no oversaturation.
 
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
 REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 09 — produto/linha-anatomico-ortopedico-1x1.jpg — aspect ratio 1:1 — 1400×1400 px
-
-Studio product photograph of a single Kanak pillow-top mattress on a seamless warm sand background, framed exactly like the previous mattress image: same position, same 25-degree three-quarter rotation to the right, same camera height of 70 cm, same lighting, same 15% margin. Off-white quilted ticking with tone-on-tone diamond stitching, rounded corners, thin champagne piping, small round side vents, and one clearly visible pillow-top band along the upper edge that distinguishes it from the single-height version. 50 mm, f/8, large soft key from the left, grazing light on the quilting, short contact shadow.
-```
-
----
-
-## 10 · `produto/linha-magnetico-1x1.jpg`
-
-- **Número:** 10
-- **Nome do arquivo:** `produto/linha-magnetico-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 1400 × 1400
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Photorealistic and indistinguishable from a real photograph. Visible velvet nap, real quilting stitches, believable fabric weight and folds, correct scale between bed, bench and room. High resolution, sharp focus on the product.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+RESTRICTIONS
+No text, letters, numbers, logos, brand signs, wall lettering, labels, price tags or watermarks anywhere in the image.
+No people unless the image brief explicitly asks for them; never a close or recognizable face; nothing that looks like a customer testimonial portrait.
+No pets, no clutter, no party decorations, no cables, no screens.
+No luxury excess (see setting). No collage, no split screen, no multiple variations in one file, no illustration, no cartoon or plastic 3D look, no border, no frame.
 
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 10 — produto/linha-magnetico-1x1.jpg — aspect ratio 1:1 — 1400×1400 px
-
-Studio product photograph of a single Kanak pillow-top mattress on a seamless warm sand background with a very subtle terracotta gradient in the lower right corner. Framed exactly like the two previous mattress images: same 25-degree three-quarter rotation to the right, same camera height of 70 cm, same soft key from the left, same 15% margin. Off-white quilted ticking with tone-on-tone diamond stitching, rounded corners, thin champagne piping, small round side vents, one visible pillow-top band. 50 mm, f/8, grazing light on the quilting, short contact shadow.
+IMAGE BRIEF — 06 — Pocket springs detail — square 1:1, 800 x 800 px
+Macro studio photograph of mattress pocket springs: three or four individual steel coil springs, each fully wrapped in its own soft white non-woven fabric pocket, standing upright side by side in a row that recedes softly out of focus. The coil shape is visible through the thin fabric; the steel is matte, not chrome.
+Three-quarter view from about 30 degrees above, 100 mm macro lens, f/5.6, springs filling about 70% of the frame and centered. Plain seamless cream background (#FBF3E8). Soft warm side light from the left that reveals the fabric texture, gentle contact shadows.
+This image is displayed very small, so keep a single clear subject with strong, simple shapes.
+No bare shiny springs, no blue or colored springs, no printing on the fabric, no mattress cover, no hands.
 ```
 
 ---
 
-## 11 · `ambiente/cores-trio-bege-terracota-cinza-16x9.jpg`
+#### 07 · Detalhe — Espuma de alta densidade
 
-- **Número:** 11
-- **Nome do arquivo:** `ambiente/cores-trio-bege-terracota-cinza-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2000 × 1125
+| Campo | Definição |
+| --- | --- |
+| Número | 07 |
+| Arquivo | `my-app/public/images/home/tecnologia-espuma.jpg` |
+| Seção | Home · 3 Qual colchão combina com você · card "Espuma de alta densidade" |
+| Foto real existente | Não existe. Ideal: foto da espuma usada pela Kanak (a cor real da espuma pode variar) |
+| Origem | GERAR (troca por foto real se o cliente enviar) |
+| Referências a anexar | Nenhuma |
+| Objetivo | Identificar a tecnologia num relance |
+| Elemento principal | Bloco de espuma com a face de corte à mostra |
+| Composição | Bloco em canto (três-quartos), face de corte ocupando a maior parte do quadro |
+| Enquadramento | Macro, bloco ocupando 70% do quadro |
+| Ângulo | Três-quartos, 30° de cima, 100 mm macro |
+| Cenário / Iluminação | Iguais à 06 |
+| Cores | Off-white / creme claro; fundo creme |
+| Proporção | 1:1 |
+| Resolução | 800 × 800 px |
+| Área livre para texto | Nenhuma |
+| Versão | Desktop e celular (mesmo arquivo) |
+| Restrições | Sem valor de densidade, sem espuma colorida (azul, rosa, cinza-gel), sem mão pressionando |
 
-**Prompt completo:**
-
 ```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 11 — ambiente/cores-trio-bege-terracota-cinza-16x9.jpg — aspect ratio 16:9 — 2000×1125 px
-
-Wide interior photograph of a clean, spacious showroom floor with three identical Kanak bed sets standing in a row — one in beige velvet, one in terracotta velvet, one in charcoal grey velvet. Each set is complete: tufted headboard with crystal-look buttons, off-white quilted mattress, matching tufted storage bench at the foot, honey oak legs. The beds are staggered slightly in depth with equal spacing, all headboards at the same height, against a plain warm-white wall on a light oak floor. Slight three-quarter view, 15 degrees to the left, camera at 130 cm, 35 mm, f/8. Even, diffused late-afternoon light with no hard shadows between the beds. Upper 20% of the frame is empty wall.
-```
-
----
-
-## 12 · `textura/roupa-de-cama-manha-3x2.jpg`
+PROMPT-BASE DE CONSISTÊNCIA — KANAK
 
-- **Número:** 12
-- **Nome do arquivo:** `textura/roupa-de-cama-manha-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
+BRAND
+Kanak is a Brazilian mattress manufacturer that sells complete upholstered bed sets: mattress, box base, headboard and a storage bench for the foot of the bed. Visual identity: warm, calm, adult, trustworthy, editorial. Brand palette: cream (#FBF3E8), deep wine (#680B0E), apricot cream (#FFD29D), light natural wood, warm natural daylight. Premium product photography with a lot of breathing room — like a good furniture store, never a clearance ad, never a luxury hotel.
 
-**Prompt completo:**
+AUDIENCE AND SETTING
+Brazilian families, ages 25 to 60, middle class. Rooms must feel real and attainable: an ordinary Brazilian apartment or house bedroom of about 10 to 14 square meters, smooth painted walls, light-wood laminate floor, a simple sheer linen curtain, at most one simple bedside table and one lamp. No chandeliers, no marble, no gold fixtures, no ornate wall moulding, no walk-in closets, no skyline views, no hotel suites, no mansion interiors.
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
+PRODUCT — FOLLOW THE ATTACHED KANAK REFERENCES EXACTLY
+The Kanak bed set has four parts, all upholstered in the same short-pile suede-like velvet, in one solid color per set:
+1. HEADBOARD: tall rectangular panel with square corners, deep diamond capitonê tufting across the whole panel, a small clear crystal-look button at every tufting point, same width as the bed.
+2. MATTRESS: flat white to off-white quilted top panel with a tone-on-tone damask floral pattern inside diamond quilting; thin white piping along the top edge; the side border of the mattress is upholstered in the same colored velvet as the set, with one small round metal eyelet on the side. Pillow-top version: one extra cream quilted layer sewn onto the top, with its own cream side band and piping, clearly thicker — part of the mattress, never a loose topper or folded quilt. Version without pillow top: a single flat quilted top.
+3. BOX BASE: plain velvet box, no tufting, same color as the set, a thin white piping line where the mattress meets the base, short straight tapered wooden legs in medium brown.
+4. STORAGE BENCH (baú): low rectangular velvet box at the foot of the bed, exactly as wide as the box base, about as tall as the top of the base. It has NO legs, no feet and no casters: it sits directly on the floor, the fabric goes all the way down and touches the floor, no gap underneath. Plain front with a small fabric pull tab under the lid; puffy, deeply capitonê-tufted lid with crystal-look buttons.
+Two small velvet throw pillows in the set color lean against the headboard.
 Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Do not invent logos, labels, tags, embroidery, extra seams, handles, buttons, legs, lights or any detail that is not visible in the references.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+LIGHT
+Soft warm natural daylight, about 3500 to 4500 K, from a side window through a sheer linen curtain. Gentle falloff, open soft shadows, realistic contact shadows under the furniture. No fluorescent ceiling tubes, no flash, no harsh highlights, no colored light, no blue cast.
 
 PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Editorial premium product photography: calm, uncluttered, generous empty space around the subject. Full-frame camera; 35 to 50 mm lens for rooms, 90 to 100 mm macro lens for details. Straight verticals, corrected perspective, no wide-angle distortion. Natural color, gentle contrast, fine grain, no HDR look, no heavy color grading, no oversaturation.
 
 REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 12 — textura/roupa-de-cama-manha-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Close editorial photograph of rumpled off-white bed linen in warm morning light, no people. A cream sheet and a soft knitted throw fall diagonally across the frame; a pillow still holds a gentle indentation; the corner of the off-white quilted Kanak mattress and a strip of terracotta velvet from the base are visible at the right edge. High angle, about 45 degrees down, 50 mm, f/2.8, shallow depth of field on the far side. Soft side light from a window with small controlled highlights. The left half of the frame is calm, low-contrast fabric with room for text.
-```
-
----
-
-## 13 · `institucional/showroom-panoramico-4x3.jpg`
-
-- **Número:** 13
-- **Nome do arquivo:** `institucional/showroom-panoramico-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
-
-**Prompt completo:**
+Photorealistic and indistinguishable from a real photograph. Visible velvet nap, real quilting stitches, believable fabric weight and folds, correct scale between bed, bench and room. High resolution, sharp focus on the product.
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+RESTRICTIONS
+No text, letters, numbers, logos, brand signs, wall lettering, labels, price tags or watermarks anywhere in the image.
+No people unless the image brief explicitly asks for them; never a close or recognizable face; nothing that looks like a customer testimonial portrait.
+No pets, no clutter, no party decorations, no cables, no screens.
+No luxury excess (see setting). No collage, no split screen, no multiple variations in one file, no illustration, no cartoon or plastic 3D look, no border, no frame.
 
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 13 — institucional/showroom-panoramico-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Interior photograph of a spacious, tidy bed showroom with four or five complete Kanak bed sets receding in perspective — beige, terracotta, charcoal grey, wine and green velvet — each with tufted headboard, off-white quilted mattress and matching storage bench. Wide central aisle, light oak floor, warm white walls, warm recessed ceiling lighting and daylight coming from a shop window at the far end. Three-quarter view down the aisle, camera at 150 cm, 28 mm, f/8, straight verticals. Calm, professional, uncluttered.
+IMAGE BRIEF — 07 — High-density foam detail — square 1:1, 800 x 800 px
+Macro studio photograph of a block of high-density mattress foam, seen at a three-quarter angle so one clean cut face fills most of the frame. The foam is off-white to very light cream, with a fine, tight, uniform cell structure that reads as dense and firm; the cut edges are crisp and square.
+Three-quarter view from about 30 degrees above, 100 mm macro lens, f/5.6, the block filling about 70% of the frame and centered. Plain seamless cream background (#FBF3E8). Same soft warm side light from the left as the matching pocket-spring image, gentle contact shadow.
+This image is displayed very small, so keep a single clear subject with a strong simple shape.
+No colored foam (no blue, pink, green or grey gel), no hands pressing, no density numbers, no layered diagram.
 ```
 
 ---
-
-## 14 · `hero/cta-final-quarto-entardecer-desktop-21x9.jpg`
 
-- **Número:** 14
-- **Nome do arquivo:** `hero/cta-final-quarto-entardecer-desktop-21x9.jpg`
-- **Proporção:** 21:9
-- **Resolução:** 2560 × 1097
+#### 08 · Detalhe — Magnético (PLACEHOLDER · SUBSTITUIR)
 
-**Prompt completo:**
+| Campo | Definição |
+| --- | --- |
+| Número | 08 |
+| Arquivo | `my-app/public/images/home/tecnologia-magnetico-PLACEHOLDER.jpg` |
+| Seção | Home · 3 Qual colchão combina com você · card "Magnético" |
+| Foto real existente | Não existe. **Pedir ao cliente:** foto de detalhe do colchão magnético (tampo, tecido ou o elemento que o diferencia) e a descrição da estrutura |
+| Origem | PLACEHOLDER — a estrutura do magnético não foi informada; inventar ímãs, placas ou "campos" seria informação técnica falsa e aproximaria o site de promessa terapêutica (proibida em `specs/design.md` §11) |
+| Referências a anexar | `casal sem pillow top - vinho parede leao sem recamier.jpeg` (tampo acolchoado real) |
+| Objetivo | Manter o card com imagem enquanto a foto real não chega |
+| Elemento principal | Macro do tampo acolchoado branco do colchão |
+| Composição / Ângulo / Cenário / Iluminação | Iguais à 06 e à 07 |
+| Cores | Branco, off-white, creme |
+| Proporção | 1:1 |
+| Resolução | 800 × 800 px |
+| Área livre para texto | Nenhuma |
+| Versão | Desktop e celular (mesmo arquivo) |
+| Restrições | **Sem ímãs visíveis**, sem brilho, linhas de energia, ondas, aura ou qualquer efeito "terapêutico" |
 
 ```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 14 — hero/cta-final-quarto-entardecer-desktop-21x9.jpg — aspect ratio 21:9 — 2560×1097 px
-
-Wide atmospheric photograph of a bedroom corner at dusk, intentionally soft and low in contrast, meant to sit behind text. A complete Kanak bed set in wine velvet is visible on the right, clearly out of focus; the left side is a warm plaster wall catching the last daylight. A warm bedside lamp is lit; a linen curtain is half drawn. 35 mm, f/2.8, focus on the wall, strong background blur, camera at 140 cm. Deep warm shadows, muted mid-tones, no bright highlights, no detail competing for attention in the central 60% of the frame.
-```
+PROMPT-BASE DE CONSISTÊNCIA — KANAK
 
----
-
-## 15 · `hero/cta-final-quarto-entardecer-mobile-4x5.jpg`
+BRAND
+Kanak is a Brazilian mattress manufacturer that sells complete upholstered bed sets: mattress, box base, headboard and a storage bench for the foot of the bed. Visual identity: warm, calm, adult, trustworthy, editorial. Brand palette: cream (#FBF3E8), deep wine (#680B0E), apricot cream (#FFD29D), light natural wood, warm natural daylight. Premium product photography with a lot of breathing room — like a good furniture store, never a clearance ad, never a luxury hotel.
 
-- **Número:** 15
-- **Nome do arquivo:** `hero/cta-final-quarto-entardecer-mobile-4x5.jpg`
-- **Proporção:** 4:5
-- **Resolução:** 1080 × 1350
+AUDIENCE AND SETTING
+Brazilian families, ages 25 to 60, middle class. Rooms must feel real and attainable: an ordinary Brazilian apartment or house bedroom of about 10 to 14 square meters, smooth painted walls, light-wood laminate floor, a simple sheer linen curtain, at most one simple bedside table and one lamp. No chandeliers, no marble, no gold fixtures, no ornate wall moulding, no walk-in closets, no skyline views, no hotel suites, no mansion interiors.
 
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
+PRODUCT — FOLLOW THE ATTACHED KANAK REFERENCES EXACTLY
+The Kanak bed set has four parts, all upholstered in the same short-pile suede-like velvet, in one solid color per set:
+1. HEADBOARD: tall rectangular panel with square corners, deep diamond capitonê tufting across the whole panel, a small clear crystal-look button at every tufting point, same width as the bed.
+2. MATTRESS: flat white to off-white quilted top panel with a tone-on-tone damask floral pattern inside diamond quilting; thin white piping along the top edge; the side border of the mattress is upholstered in the same colored velvet as the set, with one small round metal eyelet on the side. Pillow-top version: one extra cream quilted layer sewn onto the top, with its own cream side band and piping, clearly thicker — part of the mattress, never a loose topper or folded quilt. Version without pillow top: a single flat quilted top.
+3. BOX BASE: plain velvet box, no tufting, same color as the set, a thin white piping line where the mattress meets the base, short straight tapered wooden legs in medium brown.
+4. STORAGE BENCH (baú): low rectangular velvet box at the foot of the bed, exactly as wide as the box base, about as tall as the top of the base. It has NO legs, no feet and no casters: it sits directly on the floor, the fabric goes all the way down and touches the floor, no gap underneath. Plain front with a small fabric pull tab under the lid; puffy, deeply capitonê-tufted lid with crystal-look buttons.
+Two small velvet throw pillows in the set color lean against the headboard.
 Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Do not invent logos, labels, tags, embroidery, extra seams, handles, buttons, legs, lights or any detail that is not visible in the references.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+LIGHT
+Soft warm natural daylight, about 3500 to 4500 K, from a side window through a sheer linen curtain. Gentle falloff, open soft shadows, realistic contact shadows under the furniture. No fluorescent ceiling tubes, no flash, no harsh highlights, no colored light, no blue cast.
 
 PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
+Editorial premium product photography: calm, uncluttered, generous empty space around the subject. Full-frame camera; 35 to 50 mm lens for rooms, 90 to 100 mm macro lens for details. Straight verticals, corrected perspective, no wide-angle distortion. Natural color, gentle contrast, fine grain, no HDR look, no heavy color grading, no oversaturation.
 
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
 REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 15 — hero/cta-final-quarto-entardecer-mobile-4x5.jpg — aspect ratio 4:5 — 1080×1350 px
-
-Vertical atmospheric photograph of the same bedroom corner at dusk, same wine velvet Kanak bed set, same warm bedside lamp, recomposed for a phone screen: the out-of-focus bed occupies the lower third, the upper two thirds are a warm plaster wall with soft gradient light and no detail. 35 mm, f/2.8, camera at 140 cm, deep warm shadows, muted mid-tones, nothing high-contrast in the upper area.
-```
-
----
+Photorealistic and indistinguishable from a real photograph. Visible velvet nap, real quilting stitches, believable fabric weight and folds, correct scale between bed, bench and room. High resolution, sharp focus on the product.
 
-## 16 · `hero/lp-kit-king-terracota-desktop-16x9.jpg`
+RESTRICTIONS
+No text, letters, numbers, logos, brand signs, wall lettering, labels, price tags or watermarks anywhere in the image.
+No people unless the image brief explicitly asks for them; never a close or recognizable face; nothing that looks like a customer testimonial portrait.
+No pets, no clutter, no party decorations, no cables, no screens.
+No luxury excess (see setting). No collage, no split screen, no multiple variations in one file, no illustration, no cartoon or plastic 3D look, no border, no frame.
 
-- **Número:** 16
-- **Nome do arquivo:** `hero/lp-kit-king-terracota-desktop-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2400 × 1350
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 16 — hero/lp-kit-king-terracota-desktop-16x9.jpg — aspect ratio 16:9 — 2400×1350 px
-
-Wide interior photograph of a warm master bedroom with the complete Kanak king-size bed set in terracotta velvet, made up and ready: diamond-tufted headboard with crystal-look buttons, off-white pillow-top mattress with cream bedding, matching tufted storage bench closed at the foot, honey oak legs. The bed occupies the right 60% of the frame against subtle painted boiserie panelling; the left 40% is an empty warm-white wall. Linen curtain, pale rug, small bedside plant. Three-quarter view from the left foot, camera at 115 cm, 35 mm, f/5.6. Late-afternoon window light from the right grazing the velvet nap. Inviting, complete, premium.
+IMAGE BRIEF — 08 — Magnetic mattress card, layout placeholder — square 1:1, 800 x 800 px
+Macro studio photograph of the corner of a Kanak mattress top: the white quilted top panel with its tone-on-tone damask floral pattern inside diamond quilting and the thin white piping along the edge, exactly as in the attached reference. The quilted surface fills most of the frame; the rounded piping edge crosses the lower part of the frame diagonally.
+Three-quarter view from about 30 degrees above, 100 mm macro lens, f/5.6. Plain seamless cream background (#FBF3E8) visible only at one corner. Same soft warm side light from the left as the matching pocket-spring and foam images, so the three small images read as one set.
+Nothing that suggests magnets or therapy: no visible magnets, no metal discs, no glow, no energy lines, no waves, no aura, no sparkles, no medical imagery.
 ```
 
 ---
-
-## 17 · `hero/lp-kit-king-terracota-mobile-4x5.jpg`
-
-- **Número:** 17
-- **Nome do arquivo:** `hero/lp-kit-king-terracota-mobile-4x5.jpg`
-- **Proporção:** 4:5
-- **Resolução:** 1080 × 1350
 
-**Prompt completo:**
+### Família C — Modelos (09–11) · Home e Landing
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Mesmos três arquivos na Home (seção 4) e na Landing (seção 3). Os espaços variam de 1,21:1 a 1,45:1, então o mestre é 3:2 com o assunto dentro de uma **zona segura central 5:4** (1500 × 1200 no centro do mestre).
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
+Por que um colchão sozinho com corte de canto: por fora os três modelos parecem iguais (e as fotos reais não dizem qual é qual). O corte no canto mostra a diferença sem inventar dados. Todos na mesma cor (bege claro, neutra e próxima do creme), para que a cor não pareça indicar o modelo.
 
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Pendência que afeta a família: acabamento oficial de cada linha (pillow top ou não, tecido do tampo). Até confirmar, os três saem **sem pillow top** e com o tampo padrão das fotos.
 
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 17 — hero/lp-kit-king-terracota-mobile-4x5.jpg — aspect ratio 4:5 — 1080×1350 px
-
-Vertical interior photograph of the same terracotta velvet Kanak king-size bed set in the same boiserie bedroom, recomposed for a phone screen: the tufted headboard, the pillows and the upper half of the off-white pillow-top mattress fill the lower 55% of the frame; the storage bench is cropped at the bottom edge; the upper 45% is an empty warm-white wall with soft gradient light. Three-quarter view, camera at 125 cm, 50 mm, f/5.6, same late-afternoon light from the right.
-```
+#### 09 · Modelo — Molas Ensacadas
 
----
+| Campo | Definição |
+| --- | --- |
+| Número | 09 |
+| Arquivo | `my-app/public/images/shared/modelo-molas-ensacadas.jpg` |
+| Seção | Home · 4 "Encontre o modelo que combina com você" (`modelo_molas`) · Landing · 3 "Escolha a Tecnologia" (`lp_modelo_molas`) |
+| Foto real existente | Nenhuma identifica o modelo. **Pedir ao cliente** quais fotos do acervo são de molas ensacadas |
+| Origem | GERAR |
+| Referências a anexar | `casal sem pillow top - bege showroom box sem recamier.jpeg`, `casal sem pillow top - bege showroom bau sem recamier.jpeg` (lateral bege, debrum, ilhós) |
+| Objetivo | Card clicável do modelo: reconhecer a estrutura e clicar para falar no WhatsApp |
+| Elemento principal | Colchão bege sem pillow top, com um corte de canto mostrando molas ensacadas |
+| Composição | Colchão em diagonal suave, canto frontal direito recortado em "L" (um quarto removido), mostrando o interior; colchão centralizado na zona 5:4 |
+| Enquadramento | Colchão inteiro no quadro, ocupando ~70% da largura; respiro em volta |
+| Ângulo | Três-quartos pela frente-direita, 35° de cima, 50 mm |
+| Cenário | Estúdio creme; colchão pousado direto sobre uma base baixa creme lisa (plinto), sem cabeceira |
+| Iluminação | Janela grande à esquerda, luz quente e suave |
+| Cores | Creme, bege claro, branco do tampo, TNT branco das molas |
+| Proporção | 3:2 |
+| Resolução | 1800 × 1200 px |
+| Área livre para texto | Nenhuma (título e texto do card ficam abaixo da foto) |
+| Versão | Um arquivo: Home desktop (1,45:1), Home celular (1,27:1), Landing desktop (1,26:1), Landing celular (1,21:1) |
+| Restrições | Sem etiqueta, sem camadas coloridas, sem medidas; o corte precisa parecer amostra real, não ilustração explodida |
 
-## 18 · `produto/kit-composicao-explodida-terracota-1x1.jpg`
+```text
+PROMPT-BASE DE CONSISTÊNCIA — KANAK
 
-- **Número:** 18
-- **Nome do arquivo:** `produto/kit-composicao-explodida-terracota-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 1400 × 1400
+BRAND
+Kanak is a Brazilian mattress manufacturer that sells complete upholstered bed sets: mattress, box base, headboard and a storage bench for the foot of the bed. Visual identity: warm, calm, adult, trustworthy, editorial. Brand palette: cream (#FBF3E8), deep wine (#680B0E), apricot cream (#FFD29D), light natural wood, warm natural daylight. Premium product photography with a lot of breathing room — like a good furniture store, never a clearance ad, never a luxury hotel.
 
-**Prompt completo:**
+AUDIENCE AND SETTING
+Brazilian families, ages 25 to 60, middle class. Rooms must feel real and attainable: an ordinary Brazilian apartment or house bedroom of about 10 to 14 square meters, smooth painted walls, light-wood laminate floor, a simple sheer linen curtain, at most one simple bedside table and one lamp. No chandeliers, no marble, no gold fixtures, no ornate wall moulding, no walk-in closets, no skyline views, no hotel suites, no mansion interiors.
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
+PRODUCT — FOLLOW THE ATTACHED KANAK REFERENCES EXACTLY
+The Kanak bed set has four parts, all upholstered in the same short-pile suede-like velvet, in one solid color per set:
+1. HEADBOARD: tall rectangular panel with square corners, deep diamond capitonê tufting across the whole panel, a small clear crystal-look button at every tufting point, same width as the bed.
+2. MATTRESS: flat white to off-white quilted top panel with a tone-on-tone damask floral pattern inside diamond quilting; thin white piping along the top edge; the side border of the mattress is upholstered in the same colored velvet as the set, with one small round metal eyelet on the side. Pillow-top version: one extra cream quilted layer sewn onto the top, with its own cream side band and piping, clearly thicker — part of the mattress, never a loose topper or folded quilt. Version without pillow top: a single flat quilted top.
+3. BOX BASE: plain velvet box, no tufting, same color as the set, a thin white piping line where the mattress meets the base, short straight tapered wooden legs in medium brown.
+4. STORAGE BENCH (baú): low rectangular velvet box at the foot of the bed, exactly as wide as the box base, about as tall as the top of the base. It has NO legs, no feet and no casters: it sits directly on the floor, the fabric goes all the way down and touches the floor, no gap underneath. Plain front with a small fabric pull tab under the lid; puffy, deeply capitonê-tufted lid with crystal-look buttons.
+Two small velvet throw pillows in the set color lean against the headboard.
 Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Do not invent logos, labels, tags, embroidery, extra seams, handles, buttons, legs, lights or any detail that is not visible in the references.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+LIGHT
+Soft warm natural daylight, about 3500 to 4500 K, from a side window through a sheer linen curtain. Gentle falloff, open soft shadows, realistic contact shadows under the furniture. No fluorescent ceiling tubes, no flash, no harsh highlights, no colored light, no blue cast.
 
 PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Editorial premium product photography: calm, uncluttered, generous empty space around the subject. Full-frame camera; 35 to 50 mm lens for rooms, 90 to 100 mm macro lens for details. Straight verticals, corrected perspective, no wide-angle distortion. Natural color, gentle contrast, fine grain, no HDR look, no heavy color grading, no oversaturation.
 
 REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 18 — produto/kit-composicao-explodida-terracota-1x1.jpg — aspect ratio 1:1 — 1400×1400 px
-
-Studio composition on a seamless warm sand background showing the four parts of the Kanak kit laid out separately, like an organised inventory: the diamond-tufted terracotta velvet headboard standing upright at the back, the off-white pillow-top mattress lying in perspective on the left, the closed tufted storage bench on the right, and four terracotta velvet pillows stacked at the front. Clear empty space between the pieces. Elevated three-quarter view, camera at 160 cm looking slightly down, 50 mm, f/8. Large soft key from the upper left, realistic contact shadows under each piece. No text, no numbers, no labels.
+Photorealistic and indistinguishable from a real photograph. Visible velvet nap, real quilting stitches, believable fabric weight and folds, correct scale between bed, bench and room. High resolution, sharp focus on the product.
+
+RESTRICTIONS
+No text, letters, numbers, logos, brand signs, wall lettering, labels, price tags or watermarks anywhere in the image.
+No people unless the image brief explicitly asks for them; never a close or recognizable face; nothing that looks like a customer testimonial portrait.
+No pets, no clutter, no party decorations, no cables, no screens.
+No luxury excess (see setting). No collage, no split screen, no multiple variations in one file, no illustration, no cartoon or plastic 3D look, no border, no frame.
+
+IMAGE BRIEF — 09 — Model card, Pocket springs (Molas Ensacadas) — landscape 3:2, 1800 x 1200 px
+This is the first of three matching model images; the other two must share the exact same framing, light, background and mattress.
+Studio product photograph of a single Kanak mattress, without headboard or storage bench, resting on a low plain cream plinth. Mattress without pillow top: flat white quilted top with the tone-on-tone damask pattern, thin white piping, side border in light beige velvet with one small round metal eyelet, exactly as in the attached beige references.
+The front right corner of the mattress has a clean quarter cutaway, like a factory display sample: an L-shaped block removed so the inside is visible on both cut faces. Inside: a thin comfort layer of off-white foam under the quilted top, then a core of individually pocketed steel springs, each wrapped in its own white non-woven fabric pocket, then a thin firm off-white foam base.
+Three-quarter view from the front right, camera about 35 degrees above, 50 mm lens. The mattress is centered and fills about 70% of the frame width; keep the whole mattress, including the cutaway, inside the central 5:4 area of the frame, with calm empty cream space around it. Seamless cream background (#FBF3E8), soft warm window light from the left, realistic contact shadow.
+The cutaway must look like a real cut sample, not an exploded diagram: no floating layers, no labels, no arrows, no colored layers.
 ```
 
 ---
 
-## 19 · `detalhe/bau-aberto-terracota-4x3.jpg`
+#### 10 · Modelo — Anatômico Ortopédico
 
-- **Número:** 19
-- **Nome do arquivo:** `detalhe/bau-aberto-terracota-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
+| Campo | Definição |
+| --- | --- |
+| Número | 10 |
+| Arquivo | `my-app/public/images/shared/modelo-anatomico-ortopedico.jpg` |
+| Seção | Home · 4 (`modelo_anatomico`) · Landing · 3 (`lp_modelo_anatomico`) |
+| Foto real existente | Nenhuma identifica o modelo. **Pedir ao cliente** |
+| Origem | GERAR, na mesma sessão da 09, com a 09 aprovada anexada como referência de cena |
+| Referências a anexar | As mesmas da 09 + imagem 09 aprovada |
+| Objetivo | Card clicável do modelo |
+| Elemento principal | Mesmo colchão, com corte mostrando espuma densa em camadas (espuma de alta resiliência, conforme copy aprovada da landing) |
+| Composição / Enquadramento / Ângulo / Cenário / Iluminação / Cores | Idênticos à 09 |
+| Proporção | 3:2 |
+| Resolução | 1800 × 1200 px |
+| Área livre para texto | Nenhuma |
+| Versão | Mesmo uso da 09 |
+| Restrições | Sem densidade escrita, sem espuma colorida, sem aparência "hospitalar" ou ortopédica (nada de coluna desenhada) |
 
-**Prompt completo:**
-
 ```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 19 — detalhe/bau-aberto-terracota-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Interior photograph of the Kanak storage bench in terracotta velvet with its diamond-tufted lid lifted open, revealing a neatly folded stack of cream and beige bed linen inside. The bench stands on a pale rug at the foot of the bed; the base of the bed is visible and out of focus behind it. Three-quarter front view, camera at 90 cm, 50 mm, f/4. Warm side window light falling into the open compartment without blowing out the light linen. Honest, functional, tidy.
-```
-
----
-
-## 20 · `comparativo/tamanhos-topdown-16x9.jpg`
+PROMPT-BASE DE CONSISTÊNCIA — KANAK
 
-- **Número:** 20
-- **Nome do arquivo:** `comparativo/tamanhos-topdown-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2000 × 1125
+BRAND
+Kanak is a Brazilian mattress manufacturer that sells complete upholstered bed sets: mattress, box base, headboard and a storage bench for the foot of the bed. Visual identity: warm, calm, adult, trustworthy, editorial. Brand palette: cream (#FBF3E8), deep wine (#680B0E), apricot cream (#FFD29D), light natural wood, warm natural daylight. Premium product photography with a lot of breathing room — like a good furniture store, never a clearance ad, never a luxury hotel.
 
-**Prompt completo:**
+AUDIENCE AND SETTING
+Brazilian families, ages 25 to 60, middle class. Rooms must feel real and attainable: an ordinary Brazilian apartment or house bedroom of about 10 to 14 square meters, smooth painted walls, light-wood laminate floor, a simple sheer linen curtain, at most one simple bedside table and one lamp. No chandeliers, no marble, no gold fixtures, no ornate wall moulding, no walk-in closets, no skyline views, no hotel suites, no mansion interiors.
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
+PRODUCT — FOLLOW THE ATTACHED KANAK REFERENCES EXACTLY
+The Kanak bed set has four parts, all upholstered in the same short-pile suede-like velvet, in one solid color per set:
+1. HEADBOARD: tall rectangular panel with square corners, deep diamond capitonê tufting across the whole panel, a small clear crystal-look button at every tufting point, same width as the bed.
+2. MATTRESS: flat white to off-white quilted top panel with a tone-on-tone damask floral pattern inside diamond quilting; thin white piping along the top edge; the side border of the mattress is upholstered in the same colored velvet as the set, with one small round metal eyelet on the side. Pillow-top version: one extra cream quilted layer sewn onto the top, with its own cream side band and piping, clearly thicker — part of the mattress, never a loose topper or folded quilt. Version without pillow top: a single flat quilted top.
+3. BOX BASE: plain velvet box, no tufting, same color as the set, a thin white piping line where the mattress meets the base, short straight tapered wooden legs in medium brown.
+4. STORAGE BENCH (baú): low rectangular velvet box at the foot of the bed, exactly as wide as the box base, about as tall as the top of the base. It has NO legs, no feet and no casters: it sits directly on the floor, the fabric goes all the way down and touches the floor, no gap underneath. Plain front with a small fabric pull tab under the lid; puffy, deeply capitonê-tufted lid with crystal-look buttons.
+Two small velvet throw pillows in the set color lean against the headboard.
 Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Do not invent logos, labels, tags, embroidery, extra seams, handles, buttons, legs, lights or any detail that is not visible in the references.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+LIGHT
+Soft warm natural daylight, about 3500 to 4500 K, from a side window through a sheer linen curtain. Gentle falloff, open soft shadows, realistic contact shadows under the furniture. No fluorescent ceiling tubes, no flash, no harsh highlights, no colored light, no blue cast.
 
 PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Editorial premium product photography: calm, uncluttered, generous empty space around the subject. Full-frame camera; 35 to 50 mm lens for rooms, 90 to 100 mm macro lens for details. Straight verticals, corrected perspective, no wide-angle distortion. Natural color, gentle contrast, fine grain, no HDR look, no heavy color grading, no oversaturation.
 
 REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 20 — comparativo/tamanhos-topdown-16x9.jpg — aspect ratio 16:9 — 2000×1125 px
-
-Perfectly flat top-down studio photograph of four Kanak mattresses on a seamless warm sand background, lined up side by side from smallest to largest and aligned along their bottom edge, with equal gaps between them and correct relative scale. All four share the same off-white quilted ticking with tone-on-tone diamond stitching and thin champagne piping. Orthographic 90-degree overhead view with no perspective distortion, even diffused lighting, minimal contact shadow, no background gradient. Lower 15% of the frame left empty.
+Photorealistic and indistinguishable from a real photograph. Visible velvet nap, real quilting stitches, believable fabric weight and folds, correct scale between bed, bench and room. High resolution, sharp focus on the product.
+
+RESTRICTIONS
+No text, letters, numbers, logos, brand signs, wall lettering, labels, price tags or watermarks anywhere in the image.
+No people unless the image brief explicitly asks for them; never a close or recognizable face; nothing that looks like a customer testimonial portrait.
+No pets, no clutter, no party decorations, no cables, no screens.
+No luxury excess (see setting). No collage, no split screen, no multiple variations in one file, no illustration, no cartoon or plastic 3D look, no border, no frame.
+
+IMAGE BRIEF — 10 — Model card, High-density foam (Anatômico Ortopédico) — landscape 3:2, 1800 x 1200 px
+Scene reference: keep exactly the same framing, camera angle, plinth, background, light and mattress exterior as the attached pocket-spring model image (image 09). Only the inside of the cutaway changes.
+Studio product photograph of a single Kanak mattress, without headboard or storage bench, resting on a low plain cream plinth. Mattress without pillow top: flat white quilted top with the tone-on-tone damask pattern, thin white piping, side border in light beige velvet with one small round metal eyelet.
+The front right corner has the same clean quarter cutaway as image 09. Inside, instead of springs: solid foam all the way down — a thin soft off-white comfort layer under the quilted top over a thick core of dense, firm, off-white foam with a fine uniform cell structure, the layers bonded flat and square.
+Three-quarter view from the front right, camera about 35 degrees above, 50 mm lens. Mattress centered, about 70% of the frame width, entirely inside the central 5:4 area. Seamless cream background (#FBF3E8), soft warm window light from the left, realistic contact shadow.
+The cutaway must look like a real cut sample. No floating layers, labels, arrows, numbers or colored layers. Nothing medical: no drawn spine, no body outline, no clinical look.
 ```
 
 ---
 
-## 21 · `comparativo/espaco-no-quarto-king-16x9.jpg`
+#### 11 · Modelo — Magnético (PLACEHOLDER parcial · SUBSTITUIR)
 
-- **Número:** 21
-- **Nome do arquivo:** `comparativo/espaco-no-quarto-king-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2000 × 1125
+| Campo | Definição |
+| --- | --- |
+| Número | 11 |
+| Arquivo | `my-app/public/images/shared/modelo-magnetico-PLACEHOLDER.jpg` |
+| Seção | Home · 4 (`modelo_magnetico`) · Landing · 3 (`lp_modelo_magnetico`) |
+| Foto real existente | Nenhuma. **Pedir ao cliente** foto do colchão magnético e a descrição da estrutura interna |
+| Origem | PLACEHOLDER parcial: mesmo enquadramento das 09 e 10, **sem corte** (estrutura desconhecida). Quando o cliente descrever a estrutura, regenerar com corte, na mesma cena |
+| Referências a anexar | As mesmas da 09 + imagem 09 aprovada |
+| Objetivo | Manter os três cards visualmente iguais enquanto a informação não chega |
+| Elemento principal | Mesmo colchão, inteiro, sem corte |
+| Composição / Enquadramento / Ângulo / Cenário / Iluminação / Cores | Idênticos à 09 |
+| Proporção | 3:2 |
+| Resolução | 1800 × 1200 px |
+| Área livre para texto | Nenhuma |
+| Versão | Mesmo uso da 09 |
+| Restrições | Sem ímãs, brilho, ondas ou qualquer efeito que sugira ação terapêutica |
 
-**Prompt completo:**
-
 ```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 21 — comparativo/espaco-no-quarto-king-16x9.jpg — aspect ratio 16:9 — 2000×1125 px
-
-Elevated wide interior photograph of a nearly empty neutral bedroom seen from a high corner, showing the complete Kanak king-size bed set in charcoal grey velvet placed against the far wall with clear free floor space on both sides and at the foot of the bed. Minimal furniture so the room reads as space, not decoration: light oak floor, warm white walls, one window with a linen curtain. Camera at 220 cm tilted 30 degrees down, 24 mm with corrected perspective and straight verticals, f/8. Soft diffused daylight, gentle shadows marking the free floor area. Upper left corner left empty.
-```
-
----
-
-## 22 · `comparativo/pillow-top-vs-sem-pillow-top-3x2.jpg`
+PROMPT-BASE DE CONSISTÊNCIA — KANAK
 
-- **Número:** 22
-- **Nome do arquivo:** `comparativo/pillow-top-vs-sem-pillow-top-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
+BRAND
+Kanak is a Brazilian mattress manufacturer that sells complete upholstered bed sets: mattress, box base, headboard and a storage bench for the foot of the bed. Visual identity: warm, calm, adult, trustworthy, editorial. Brand palette: cream (#FBF3E8), deep wine (#680B0E), apricot cream (#FFD29D), light natural wood, warm natural daylight. Premium product photography with a lot of breathing room — like a good furniture store, never a clearance ad, never a luxury hotel.
 
-**Prompt completo:**
+AUDIENCE AND SETTING
+Brazilian families, ages 25 to 60, middle class. Rooms must feel real and attainable: an ordinary Brazilian apartment or house bedroom of about 10 to 14 square meters, smooth painted walls, light-wood laminate floor, a simple sheer linen curtain, at most one simple bedside table and one lamp. No chandeliers, no marble, no gold fixtures, no ornate wall moulding, no walk-in closets, no skyline views, no hotel suites, no mansion interiors.
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
+PRODUCT — FOLLOW THE ATTACHED KANAK REFERENCES EXACTLY
+The Kanak bed set has four parts, all upholstered in the same short-pile suede-like velvet, in one solid color per set:
+1. HEADBOARD: tall rectangular panel with square corners, deep diamond capitonê tufting across the whole panel, a small clear crystal-look button at every tufting point, same width as the bed.
+2. MATTRESS: flat white to off-white quilted top panel with a tone-on-tone damask floral pattern inside diamond quilting; thin white piping along the top edge; the side border of the mattress is upholstered in the same colored velvet as the set, with one small round metal eyelet on the side. Pillow-top version: one extra cream quilted layer sewn onto the top, with its own cream side band and piping, clearly thicker — part of the mattress, never a loose topper or folded quilt. Version without pillow top: a single flat quilted top.
+3. BOX BASE: plain velvet box, no tufting, same color as the set, a thin white piping line where the mattress meets the base, short straight tapered wooden legs in medium brown.
+4. STORAGE BENCH (baú): low rectangular velvet box at the foot of the bed, exactly as wide as the box base, about as tall as the top of the base. It has NO legs, no feet and no casters: it sits directly on the floor, the fabric goes all the way down and touches the floor, no gap underneath. Plain front with a small fabric pull tab under the lid; puffy, deeply capitonê-tufted lid with crystal-look buttons.
+Two small velvet throw pillows in the set color lean against the headboard.
 Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Do not invent logos, labels, tags, embroidery, extra seams, handles, buttons, legs, lights or any detail that is not visible in the references.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+LIGHT
+Soft warm natural daylight, about 3500 to 4500 K, from a side window through a sheer linen curtain. Gentle falloff, open soft shadows, realistic contact shadows under the furniture. No fluorescent ceiling tubes, no flash, no harsh highlights, no colored light, no blue cast.
 
 PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Editorial premium product photography: calm, uncluttered, generous empty space around the subject. Full-frame camera; 35 to 50 mm lens for rooms, 90 to 100 mm macro lens for details. Straight verticals, corrected perspective, no wide-angle distortion. Natural color, gentle contrast, fine grain, no HDR look, no heavy color grading, no oversaturation.
 
 REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 22 — comparativo/pillow-top-vs-sem-pillow-top-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Straight side-profile studio photograph of two Kanak mattresses standing side by side on a seamless warm sand background, aligned along their bottom edge with an equal gap between them. The left one is a single-height quilted mattress; the right one is the same mattress with one clearly visible pillow-top band along the upper edge, making it taller. Both share identical off-white quilted ticking, rounded corners, champagne piping and side vents. Exact 0-degree profile view, camera level with the middle of the mattresses, 85 mm, f/8. Soft side light separating the layers, no hard shadow between the two, lower 18% of the frame empty.
+Photorealistic and indistinguishable from a real photograph. Visible velvet nap, real quilting stitches, believable fabric weight and folds, correct scale between bed, bench and room. High resolution, sharp focus on the product.
+
+RESTRICTIONS
+No text, letters, numbers, logos, brand signs, wall lettering, labels, price tags or watermarks anywhere in the image.
+No people unless the image brief explicitly asks for them; never a close or recognizable face; nothing that looks like a customer testimonial portrait.
+No pets, no clutter, no party decorations, no cables, no screens.
+No luxury excess (see setting). No collage, no split screen, no multiple variations in one file, no illustration, no cartoon or plastic 3D look, no border, no frame.
+
+IMAGE BRIEF — 11 — Model card, Magnetic line, layout placeholder — landscape 3:2, 1800 x 1200 px
+Scene reference: keep exactly the same framing, camera angle, plinth, background, light and mattress exterior as the attached pocket-spring model image (image 09).
+Studio product photograph of a single, complete, uncut Kanak mattress, without headboard or storage bench, resting on a low plain cream plinth. Mattress without pillow top: flat white quilted top with the tone-on-tone damask pattern, thin white piping, side border in light beige velvet with one small round metal eyelet, exactly as in the references. The front right corner is intact — no cutaway.
+Three-quarter view from the front right, camera about 35 degrees above, 50 mm lens. Mattress centered, about 70% of the frame width, entirely inside the central 5:4 area. Seamless cream background (#FBF3E8), soft warm window light from the left, realistic contact shadow.
+Nothing that suggests magnets or therapy: no visible magnets, no metal discs, no glow, no energy lines, no waves, no aura, no sparkles, no medical imagery.
 ```
 
 ---
 
-## 23 · `detalhe/macro-pillow-top-vies-3x2.jpg`
+### 12 · Showroom com atendimento (PLACEHOLDER · SUBSTITUIR)
 
-- **Número:** 23
-- **Nome do arquivo:** `detalhe/macro-pillow-top-vies-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
+| Campo | Definição |
+| --- | --- |
+| Número | 12 |
+| Arquivo | `my-app/public/images/home/showroom-atendimento-PLACEHOLDER.jpg` |
+| Seção | Home · 7 Showroom (fundo vinho, foto à esquerda no desktop, em cima no celular) |
+| Foto real existente | O showroom aparece em várias fotos (ex.: `queensize sem pillow top - verde showroom com recamier.jpeg`, `queensize com pillow top - rose showroom com recamier.jpeg`), mas **sem atendimento**, com letreiro, luz fluorescente e resolução de 900 px. **Pedir ao cliente:** foto real do showroom com um vendedor atendendo, luz do dia, com autorização de uso de imagem das pessoas |
+| Origem | PLACEHOLDER. Uma cena gerada com "atendente" e "clientes" **não pode ir ao ar** como se fosse a equipe ou a loja real da Kanak |
+| Referências a anexar | `queensize sem pillow top - verde showroom com recamier.jpeg`, `casal sem pillow top - terracota showroom com recamier.jpeg` (painel de madeira na parede, fileira de kits) |
+| Objetivo | Mostrar que existe loja física e atendimento consultivo |
+| Elemento principal | Fileira de kits Kanak de cores diferentes no showroom; vendedor e casal ao fundo, de costas ou de perfil distante |
+| Composição | Kits em diagonal, do primeiro plano à esquerda para o fundo à direita; pessoas no terço direito, desfocadas |
+| Enquadramento | Plano geral do salão; kit do primeiro plano cortado só na borda |
+| Ângulo | Três-quartos, câmera a 140 cm, 35 mm |
+| Cenário | Showroom simples: parede branca com meia-parede de painel de madeira clara (como no showroom real), piso laminado claro, sem letreiro |
+| Iluminação | Luz do dia difusa de janelas, quente; sem tubo fluorescente |
+| Cores | Madeira clara, branco quente, kits em vinho, bege, cinza e terracota. Vai sobre fundo vinho: evitar kit vinho grande no primeiro plano |
+| Proporção | 4:3 |
+| Resolução | 1600 × 1200 px |
+| Área livre para texto | Nenhuma (texto ao lado/abaixo, em HTML) |
+| Versão | Desktop recorte 9:8 (zona segura central); celular recorte 3:2 |
+| Restrições | Nenhum rosto visível ou nítido; nada de pose de depoimento; sem letreiro, sem bandeirinhas, sem cortina lilás |
 
-**Prompt completo:**
-
 ```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 23 — detalhe/macro-pillow-top-vies-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Macro photograph of the edge of a Kanak pillow-top mattress: the junction between the pillow-top band and the main body, showing the thin champagne piping, the stitch line and the tone-on-tone quilting texture of the off-white ticking. The piping runs diagonally across the frame from lower left to upper right. About 20 cm of product fills the frame. 100 mm macro, f/2.8, camera level with the piping, strong grazing light from the left at 80 degrees revealing the relief of every stitch, warm soft shadow, shallow depth of field falling off to the right.
-```
-
----
-
-## 24 · `og/og-lp-kit-1200x630.jpg`
+PROMPT-BASE DE CONSISTÊNCIA — KANAK
 
-- **Número:** 24
-- **Nome do arquivo:** `og/og-lp-kit-1200x630.jpg`
-- **Proporção:** 1,91:1
-- **Resolução:** 1200 × 630
+BRAND
+Kanak is a Brazilian mattress manufacturer that sells complete upholstered bed sets: mattress, box base, headboard and a storage bench for the foot of the bed. Visual identity: warm, calm, adult, trustworthy, editorial. Brand palette: cream (#FBF3E8), deep wine (#680B0E), apricot cream (#FFD29D), light natural wood, warm natural daylight. Premium product photography with a lot of breathing room — like a good furniture store, never a clearance ad, never a luxury hotel.
 
-**Prompt completo:**
+AUDIENCE AND SETTING
+Brazilian families, ages 25 to 60, middle class. Rooms must feel real and attainable: an ordinary Brazilian apartment or house bedroom of about 10 to 14 square meters, smooth painted walls, light-wood laminate floor, a simple sheer linen curtain, at most one simple bedside table and one lamp. No chandeliers, no marble, no gold fixtures, no ornate wall moulding, no walk-in closets, no skyline views, no hotel suites, no mansion interiors.
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
+PRODUCT — FOLLOW THE ATTACHED KANAK REFERENCES EXACTLY
+The Kanak bed set has four parts, all upholstered in the same short-pile suede-like velvet, in one solid color per set:
+1. HEADBOARD: tall rectangular panel with square corners, deep diamond capitonê tufting across the whole panel, a small clear crystal-look button at every tufting point, same width as the bed.
+2. MATTRESS: flat white to off-white quilted top panel with a tone-on-tone damask floral pattern inside diamond quilting; thin white piping along the top edge; the side border of the mattress is upholstered in the same colored velvet as the set, with one small round metal eyelet on the side. Pillow-top version: one extra cream quilted layer sewn onto the top, with its own cream side band and piping, clearly thicker — part of the mattress, never a loose topper or folded quilt. Version without pillow top: a single flat quilted top.
+3. BOX BASE: plain velvet box, no tufting, same color as the set, a thin white piping line where the mattress meets the base, short straight tapered wooden legs in medium brown.
+4. STORAGE BENCH (baú): low rectangular velvet box at the foot of the bed, exactly as wide as the box base, about as tall as the top of the base. It has NO legs, no feet and no casters: it sits directly on the floor, the fabric goes all the way down and touches the floor, no gap underneath. Plain front with a small fabric pull tab under the lid; puffy, deeply capitonê-tufted lid with crystal-look buttons.
+Two small velvet throw pillows in the set color lean against the headboard.
 Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Do not invent logos, labels, tags, embroidery, extra seams, handles, buttons, legs, lights or any detail that is not visible in the references.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+LIGHT
+Soft warm natural daylight, about 3500 to 4500 K, from a side window through a sheer linen curtain. Gentle falloff, open soft shadows, realistic contact shadows under the furniture. No fluorescent ceiling tubes, no flash, no harsh highlights, no colored light, no blue cast.
 
 PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Editorial premium product photography: calm, uncluttered, generous empty space around the subject. Full-frame camera; 35 to 50 mm lens for rooms, 90 to 100 mm macro lens for details. Straight verticals, corrected perspective, no wide-angle distortion. Natural color, gentle contrast, fine grain, no HDR look, no heavy color grading, no oversaturation.
 
 REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 24 — og/og-lp-kit-1200x630.jpg — aspect ratio 1,91:1 — 1200×630 px
-
-Horizontal photograph optimised for a small social preview: the complete Kanak king-size bed set in terracotta velvet fills about 70% of the frame, closer than a hero shot, with the tufted headboard, the made-up off-white pillow-top mattress and the closed storage bench all clearly readable. Simplified background: warm-white wall, linen curtain, pale rug, nothing else. Three-quarter front view, camera at 120 cm, 50 mm, f/5.6, warm late-afternoon light, slightly brighter and more contrasted than a normal interior shot so it survives compression. Lower left area kept simple.
-```
-
----
-
-## 25.1 · `hero/lp-kit-queen-vinho-desktop-16x9.jpg`
+Photorealistic and indistinguishable from a real photograph. Visible velvet nap, real quilting stitches, believable fabric weight and folds, correct scale between bed, bench and room. High resolution, sharp focus on the product.
 
-- **Número:** 25.1
-- **Nome do arquivo:** `hero/lp-kit-queen-vinho-desktop-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2400 × 1350
+RESTRICTIONS
+No text, letters, numbers, logos, brand signs, wall lettering, labels, price tags or watermarks anywhere in the image.
+No people unless the image brief explicitly asks for them; never a close or recognizable face; nothing that looks like a customer testimonial portrait.
+No pets, no clutter, no party decorations, no cables, no screens.
+No luxury excess (see setting). No collage, no split screen, no multiple variations in one file, no illustration, no cartoon or plastic 3D look, no border, no frame.
 
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+IMAGE BRIEF — 12 — Showroom with personal service, layout placeholder — landscape 4:3, 1600 x 1200 px
+Photograph of a simple, bright Brazilian mattress showroom, based on the attached real showroom references but cleaned up: white upper walls with a light-wood panelled lower half, light-wood laminate floor, large windows letting in diffuse warm daylight. A row of complete Kanak bed sets stands along the wall, each with capitonê headboard, mattress, box base and capitonê storage bench, each set in a different velvet color: beige in the foreground on the left, then grey, then terracotta, then wine further back. The row recedes diagonally from the left foreground to the right background.
+In the right third, in the middle ground and in soft focus, a sales consultant in plain dark clothes talks with a couple beside one of the beds. All three are seen from behind or in distant three-quarter back view; no face is visible or sharp. Natural, relaxed, ordinary body language; nobody poses or looks at the camera.
+Three-quarter view, camera at 140 cm, 35 mm lens, straight verticals, focus on the foreground beige set. Keep the main subject inside the central area of the frame so it can be cropped to 9:8 and to 3:2.
+No wall lettering or brand sign, no fluorescent tube lights, no party flags, no lilac curtains, no price tags, no posters.
+```
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+---
 
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
+### Família D — Banner de campanha da Landing (13–14)
 
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+- **Trocado a cada campanha.** Esta é a campanha 01. Para as próximas, repita as fichas trocando só a cor/tamanho do kit e o sufixo do arquivo (`campanha-02-…`).
+- A oferta, o título e o CTA **ficam no HTML**, nunca dentro da imagem (acessibilidade, copy trocável, texto nítido).
+- Kit escolhido: **King** (maior margem; foco de 100% dos anúncios em kit) em **bege claro** contra uma parede **vinho**: contraste forte, cores da marca, e o bege não some no fundo vinho do card (um kit vinho sumiria).
+- **Divergência a decidir:** o pedido fala em "versão vertical para mobile". No wireframe, o card do celular é vertical, mas o espaço da foto dentro dele é **366 × 280 (≈ 4:3)**, com o texto embaixo. Este plano segue o wireframe. Se preferir uma arte vertical 4:5 com o texto sobreposto, a 14 precisa ser refeita.
 
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 25.1 — hero/lp-kit-queen-vinho-desktop-16x9.jpg — aspect ratio 16:9 — 2400×1350 px
-
-Interior photograph of a spacious master bedroom with the complete Kanak queen-size bed set in deep wine velvet, made up and ready: diamond-tufted headboard with crystal-look buttons, off-white pillow-top mattress with cream bedding, matching tufted storage bench closed at the foot, honey oak legs. The bed occupies the right 60% of the frame; the left 40% is an empty warm-white wall. Three-quarter view from the left foot of the bed, camera at 115 cm, 35 mm, f/5.6, straight verticals. Late-afternoon window light from the right grazing the velvet nap, warm and soft, identical to the other bed images in the series.
-```
+#### 13 · Campanha 01 — desktop
 
----
+| Campo | Definição |
+| --- | --- |
+| Número | 13 |
+| Arquivo | `my-app/public/images/lp/campanha-01-king-bege-desktop.jpg` |
+| Seção | Landing · 1 Banner trocável (`lp_banner`, banner inteiro clicável) |
+| Foto real existente | Nenhuma adequada. Provisório em 1x: `kingsize com pillow top - cinza suite decorada com tapete (widescreen).jpeg` (1280 × 853, recortado) |
+| Origem | GERAR |
+| Referências a anexar | `kingsize sem pillow top - bege render 3d cama posta com recamier.jpeg` (King bege), `casal sem pillow top - bege showroom com recamier.jpeg` (veludo bege real), `kingsize com pillow top - cinza suite decorada com tapete (1024x1024).jpeg` (proporções King e baú) |
+| Objetivo | Arte da oferta "Até 55% OFF": produto desejável e ambiente real, deixando a oferta para o texto |
+| Elemento principal | Kit King bege, sem pillow top, completo, contra parede vinho |
+| Composição | Kit na **metade direita**; metade esquerda = parede vinho lisa e calma. Funciona sangrado em 1440 × 600 (texto sobre a parede) ou recortado só na metade direita (como no wireframe, texto no bloco vinho ao lado) |
+| Enquadramento | Kit inteiro, com a borda do baú a ~10% da base do quadro |
+| Ângulo | Três-quartos a partir da esquerda, câmera a 100 cm, 35 mm |
+| Cenário | Quarto comum com parede de destaque pintada de vinho, piso de madeira clara, um criado-mudo simples e um abajur à direita |
+| Iluminação | Luz de janela quente vinda da direita, fora do quadro, iluminando o kit; a metade esquerda da parede cai suavemente para um vinho mais escuro |
+| Cores | Parede vinho `#680B0E` a um pouco mais escuro; kit bege claro; tampo branco; madeira clara |
+| Proporção | 12:5 |
+| Resolução | 2880 × 1200 px |
+| Área livre para texto | **Metade esquerda inteira** (0–50% da largura): parede lisa, sem objetos, sem variação forte de luz |
+| Versão | Desktop |
+| Restrições | Nada de texto, preço, selo de desconto, laço, confete ou "clima de liquidação"; parede sem quadros |
 
-## 25.2 · `hero/lp-kit-queen-vinho-mobile-4x5.jpg`
+```text
+PROMPT-BASE DE CONSISTÊNCIA — KANAK
 
-- **Número:** 25.2
-- **Nome do arquivo:** `hero/lp-kit-queen-vinho-mobile-4x5.jpg`
-- **Proporção:** 4:5
-- **Resolução:** 1080 × 1350
+BRAND
+Kanak is a Brazilian mattress manufacturer that sells complete upholstered bed sets: mattress, box base, headboard and a storage bench for the foot of the bed. Visual identity: warm, calm, adult, trustworthy, editorial. Brand palette: cream (#FBF3E8), deep wine (#680B0E), apricot cream (#FFD29D), light natural wood, warm natural daylight. Premium product photography with a lot of breathing room — like a good furniture store, never a clearance ad, never a luxury hotel.
 
-**Prompt completo:**
+AUDIENCE AND SETTING
+Brazilian families, ages 25 to 60, middle class. Rooms must feel real and attainable: an ordinary Brazilian apartment or house bedroom of about 10 to 14 square meters, smooth painted walls, light-wood laminate floor, a simple sheer linen curtain, at most one simple bedside table and one lamp. No chandeliers, no marble, no gold fixtures, no ornate wall moulding, no walk-in closets, no skyline views, no hotel suites, no mansion interiors.
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
+PRODUCT — FOLLOW THE ATTACHED KANAK REFERENCES EXACTLY
+The Kanak bed set has four parts, all upholstered in the same short-pile suede-like velvet, in one solid color per set:
+1. HEADBOARD: tall rectangular panel with square corners, deep diamond capitonê tufting across the whole panel, a small clear crystal-look button at every tufting point, same width as the bed.
+2. MATTRESS: flat white to off-white quilted top panel with a tone-on-tone damask floral pattern inside diamond quilting; thin white piping along the top edge; the side border of the mattress is upholstered in the same colored velvet as the set, with one small round metal eyelet on the side. Pillow-top version: one extra cream quilted layer sewn onto the top, with its own cream side band and piping, clearly thicker — part of the mattress, never a loose topper or folded quilt. Version without pillow top: a single flat quilted top.
+3. BOX BASE: plain velvet box, no tufting, same color as the set, a thin white piping line where the mattress meets the base, short straight tapered wooden legs in medium brown.
+4. STORAGE BENCH (baú): low rectangular velvet box at the foot of the bed, exactly as wide as the box base, about as tall as the top of the base. It has NO legs, no feet and no casters: it sits directly on the floor, the fabric goes all the way down and touches the floor, no gap underneath. Plain front with a small fabric pull tab under the lid; puffy, deeply capitonê-tufted lid with crystal-look buttons.
+Two small velvet throw pillows in the set color lean against the headboard.
 Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Do not invent logos, labels, tags, embroidery, extra seams, handles, buttons, legs, lights or any detail that is not visible in the references.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+LIGHT
+Soft warm natural daylight, about 3500 to 4500 K, from a side window through a sheer linen curtain. Gentle falloff, open soft shadows, realistic contact shadows under the furniture. No fluorescent ceiling tubes, no flash, no harsh highlights, no colored light, no blue cast.
 
 PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Editorial premium product photography: calm, uncluttered, generous empty space around the subject. Full-frame camera; 35 to 50 mm lens for rooms, 90 to 100 mm macro lens for details. Straight verticals, corrected perspective, no wide-angle distortion. Natural color, gentle contrast, fine grain, no HDR look, no heavy color grading, no oversaturation.
 
 REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 25.2 — hero/lp-kit-queen-vinho-mobile-4x5.jpg — aspect ratio 4:5 — 1080×1350 px
-
-Interior photograph of a spacious master bedroom with the complete Kanak queen-size bed set in deep wine velvet, made up and ready: diamond-tufted headboard with crystal-look buttons, off-white pillow-top mattress with cream bedding, matching tufted storage bench closed at the foot, honey oak legs. The headboard and the upper half of the mattress fill the lower 55% of the frame, the bench is cropped at the bottom edge, and the upper 45% is an empty warm-white wall. Three-quarter view from the left foot of the bed, camera at 125 cm, 50 mm, f/5.6, straight verticals. Late-afternoon window light from the right grazing the velvet nap, warm and soft, identical to the other bed images in the series.
+Photorealistic and indistinguishable from a real photograph. Visible velvet nap, real quilting stitches, believable fabric weight and folds, correct scale between bed, bench and room. High resolution, sharp focus on the product.
+
+RESTRICTIONS
+No text, letters, numbers, logos, brand signs, wall lettering, labels, price tags or watermarks anywhere in the image.
+No people unless the image brief explicitly asks for them; never a close or recognizable face; nothing that looks like a customer testimonial portrait.
+No pets, no clutter, no party decorations, no cables, no screens.
+No luxury excess (see setting). No collage, no split screen, no multiple variations in one file, no illustration, no cartoon or plastic 3D look, no border, no frame.
+
+IMAGE BRIEF — 13 — Landing campaign banner 01, desktop — ultra-wide 12:5, 2880 x 1200 px
+Wide interior photograph of an ordinary Brazilian bedroom whose back wall is painted a deep matte wine color (#680B0E, falling slightly darker toward the left). A complete Kanak King size bed set (193 x 203 cm) in light beige velvet, without pillow top, exactly as in the attached references: square-cornered capitonê headboard with crystal-look buttons against the wine wall, mattress with flat white quilted top over a beige velvet side border with a round metal eyelet, white piping at the mattress-base joint, beige box base on short straight tapered wooden legs, low capitonê beige storage bench at the foot, two small beige velvet pillows. One simple light-wood bedside table with a plain linen-shade lamp on the far right. Light-wood laminate floor.
+The whole bed set sits in the right half of the frame, seen in three-quarter view from the left, camera at 100 cm, 35 mm lens, straight verticals, the front of the bench about 10% above the bottom edge.
+The entire left half of the frame is plain, smooth, empty wine-colored wall and a strip of floor — no furniture, no frames, no shelves, no plants, no strong light patches — so text can be placed over it later.
+Warm soft daylight from a window off-frame to the right falls on the bed set; the beige velvet glows gently against the wine wall. Calm, adult, desirable, editorial.
+No sale signs, price tags, discount badges, ribbons, confetti, gift boxes or promotional props.
 ```
 
 ---
 
-## 25.3 · `hero/lp-kit-casal-bege-desktop-16x9.jpg`
+#### 14 · Campanha 01 — celular
 
-- **Número:** 25.3
-- **Nome do arquivo:** `hero/lp-kit-casal-bege-desktop-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2400 × 1350
+| Campo | Definição |
+| --- | --- |
+| Número | 14 |
+| Arquivo | `my-app/public/images/lp/campanha-01-king-bege-mobile.jpg` |
+| Seção | Landing mobile · 1 Banner trocável (foto no topo do card vertical; título, oferta e CTA abaixo, em HTML) |
+| Foto real existente | Nenhuma adequada |
+| Origem | GERAR, na mesma sessão da 13, com a 13 aprovada anexada |
+| Referências a anexar | As mesmas da 13 + imagem 13 aprovada |
+| Objetivo | Mesma campanha, lida no celular em 1 segundo |
+| Elemento principal | O mesmo kit King bege contra a parede vinho |
+| Composição | Kit centralizado, um pouco mais perto; faixa de parede vinho acima da cabeceira |
+| Enquadramento | Kit inteiro, ocupando ~75% da largura |
+| Ângulo | Três-quartos a partir da esquerda, câmera a 100 cm, 35 mm, mais próxima que na 13 |
+| Cenário / Iluminação / Cores | Idênticos à 13 |
+| Proporção | 4:3 |
+| Resolução | 1200 × 900 px |
+| Área livre para texto | Nenhuma (o texto fica abaixo da foto) |
+| Versão | Celular |
+| Restrições | Mesmas da 13; o kit tem de ser o mesmo, na mesma cor |
 
-**Prompt completo:**
-
 ```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 25.3 — hero/lp-kit-casal-bege-desktop-16x9.jpg — aspect ratio 16:9 — 2400×1350 px
-
-Interior photograph of a medium symmetrical bedroom with the complete Kanak double-size (casal) bed set in beige velvet, made up and ready: diamond-tufted headboard with crystal-look buttons, off-white pillow-top mattress with cream bedding, matching tufted storage bench closed at the foot, honey oak legs. The bed occupies the right 60% of the frame; the left 40% is an empty warm-white wall. Three-quarter view from the left foot of the bed, camera at 115 cm, 35 mm, f/5.6, straight verticals. Late-afternoon window light from the right grazing the velvet nap, warm and soft, identical to the other bed images in the series.
-```
-
----
-
-## 25.4 · `hero/lp-kit-casal-bege-mobile-4x5.jpg`
+PROMPT-BASE DE CONSISTÊNCIA — KANAK
 
-- **Número:** 25.4
-- **Nome do arquivo:** `hero/lp-kit-casal-bege-mobile-4x5.jpg`
-- **Proporção:** 4:5
-- **Resolução:** 1080 × 1350
+BRAND
+Kanak is a Brazilian mattress manufacturer that sells complete upholstered bed sets: mattress, box base, headboard and a storage bench for the foot of the bed. Visual identity: warm, calm, adult, trustworthy, editorial. Brand palette: cream (#FBF3E8), deep wine (#680B0E), apricot cream (#FFD29D), light natural wood, warm natural daylight. Premium product photography with a lot of breathing room — like a good furniture store, never a clearance ad, never a luxury hotel.
 
-**Prompt completo:**
+AUDIENCE AND SETTING
+Brazilian families, ages 25 to 60, middle class. Rooms must feel real and attainable: an ordinary Brazilian apartment or house bedroom of about 10 to 14 square meters, smooth painted walls, light-wood laminate floor, a simple sheer linen curtain, at most one simple bedside table and one lamp. No chandeliers, no marble, no gold fixtures, no ornate wall moulding, no walk-in closets, no skyline views, no hotel suites, no mansion interiors.
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
+PRODUCT — FOLLOW THE ATTACHED KANAK REFERENCES EXACTLY
+The Kanak bed set has four parts, all upholstered in the same short-pile suede-like velvet, in one solid color per set:
+1. HEADBOARD: tall rectangular panel with square corners, deep diamond capitonê tufting across the whole panel, a small clear crystal-look button at every tufting point, same width as the bed.
+2. MATTRESS: flat white to off-white quilted top panel with a tone-on-tone damask floral pattern inside diamond quilting; thin white piping along the top edge; the side border of the mattress is upholstered in the same colored velvet as the set, with one small round metal eyelet on the side. Pillow-top version: one extra cream quilted layer sewn onto the top, with its own cream side band and piping, clearly thicker — part of the mattress, never a loose topper or folded quilt. Version without pillow top: a single flat quilted top.
+3. BOX BASE: plain velvet box, no tufting, same color as the set, a thin white piping line where the mattress meets the base, short straight tapered wooden legs in medium brown.
+4. STORAGE BENCH (baú): low rectangular velvet box at the foot of the bed, exactly as wide as the box base, about as tall as the top of the base. It has NO legs, no feet and no casters: it sits directly on the floor, the fabric goes all the way down and touches the floor, no gap underneath. Plain front with a small fabric pull tab under the lid; puffy, deeply capitonê-tufted lid with crystal-look buttons.
+Two small velvet throw pillows in the set color lean against the headboard.
 Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Do not invent logos, labels, tags, embroidery, extra seams, handles, buttons, legs, lights or any detail that is not visible in the references.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+LIGHT
+Soft warm natural daylight, about 3500 to 4500 K, from a side window through a sheer linen curtain. Gentle falloff, open soft shadows, realistic contact shadows under the furniture. No fluorescent ceiling tubes, no flash, no harsh highlights, no colored light, no blue cast.
 
 PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Editorial premium product photography: calm, uncluttered, generous empty space around the subject. Full-frame camera; 35 to 50 mm lens for rooms, 90 to 100 mm macro lens for details. Straight verticals, corrected perspective, no wide-angle distortion. Natural color, gentle contrast, fine grain, no HDR look, no heavy color grading, no oversaturation.
 
 REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 25.4 — hero/lp-kit-casal-bege-mobile-4x5.jpg — aspect ratio 4:5 — 1080×1350 px
-
-Interior photograph of a medium symmetrical bedroom with the complete Kanak double-size (casal) bed set in beige velvet, made up and ready: diamond-tufted headboard with crystal-look buttons, off-white pillow-top mattress with cream bedding, matching tufted storage bench closed at the foot, honey oak legs. The headboard and the upper half of the mattress fill the lower 55% of the frame, the bench is cropped at the bottom edge, and the upper 45% is an empty warm-white wall. Three-quarter view from the left foot of the bed, camera at 125 cm, 50 mm, f/5.6, straight verticals. Late-afternoon window light from the right grazing the velvet nap, warm and soft, identical to the other bed images in the series.
-```
-
----
-
-## 25.5 · `hero/lp-kit-solteiro-verde-desktop-16x9.jpg`
+Photorealistic and indistinguishable from a real photograph. Visible velvet nap, real quilting stitches, believable fabric weight and folds, correct scale between bed, bench and room. High resolution, sharp focus on the product.
 
-- **Número:** 25.5
-- **Nome do arquivo:** `hero/lp-kit-solteiro-verde-desktop-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2400 × 1350
+RESTRICTIONS
+No text, letters, numbers, logos, brand signs, wall lettering, labels, price tags or watermarks anywhere in the image.
+No people unless the image brief explicitly asks for them; never a close or recognizable face; nothing that looks like a customer testimonial portrait.
+No pets, no clutter, no party decorations, no cables, no screens.
+No luxury excess (see setting). No collage, no split screen, no multiple variations in one file, no illustration, no cartoon or plastic 3D look, no border, no frame.
 
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+IMAGE BRIEF — 14 — Landing campaign banner 01, mobile — landscape 4:3, 1200 x 900 px
+Scene reference: same room, same wine wall, same beige King bed set, same light as the attached desktop campaign image (image 13). This is a closer, centered version for a phone screen.
+A complete Kanak King size bed set in light beige velvet, without pillow top, exactly as in the references: square-cornered capitonê headboard with crystal-look buttons against the deep matte wine wall (#680B0E), mattress with flat white quilted top over a beige velvet side border with a round metal eyelet, white piping at the mattress-base joint, beige box base on short straight tapered wooden legs, low capitonê beige storage bench at the foot, two small beige velvet pillows. Light-wood laminate floor.
+Three-quarter view from the left, camera at 100 cm, 35 mm lens, straight verticals, closer than the desktop version. The bed set is centered and fills about 75% of the frame width, with a band of plain wine wall above the headboard and a little floor in front of the bench.
+Warm soft daylight from the right falls on the bed set; the beige velvet glows gently against the wine wall. Calm, adult, desirable, editorial.
+No sale signs, price tags, discount badges, ribbons, confetti, gift boxes or promotional props.
+```
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+---
 
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
+## 7. Reserva — fora dos wireframes (opcional, não produzir agora)
 
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Os wireframes atuais não têm espaço para estas imagens. Elas servem para as páginas de produto (entrega futura), para o blog ou para anúncios. Produzir só quando houver onde usar.
 
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 25.5 — hero/lp-kit-solteiro-verde-desktop-16x9.jpg — aspect ratio 16:9 — 2400×1350 px
-
-Interior photograph of a compact adult bedroom with the complete Kanak single-size (solteiro) bed set in olive green velvet, made up and ready: diamond-tufted headboard with crystal-look buttons, off-white pillow-top mattress with cream bedding, matching tufted storage bench closed at the foot, honey oak legs. The bed occupies the right 60% of the frame; the left 40% is an empty warm-white wall. Three-quarter view from the left foot of the bed, camera at 115 cm, 35 mm, f/5.6, straight verticals. Late-afternoon window light from the right grazing the velvet nap, warm and soft, identical to the other bed images in the series.
-```
+| Nº | Arquivo | Conteúdo | Foto real que serve? | Origem |
+| --- | --- | --- | --- | --- |
+| R1 | `shared/kit-king-cinza.jpg` | Kit completo King cinza com pillow top, três-quartos, quarto neutro (mesmo quarto da família A) | Referências: `kingsize com pillow top - cinza suite decorada com tapete` (3 versões). Nenhuma com resolução suficiente | GERAR |
+| R2 | `detalhe/capitone-botao-cristal.jpg` | Macro do capitonê com um botão de cristal | Recorte de `casal sem pillow top - vinho parede leao com recamier.jpeg` serve em tamanho pequeno | REAL (recorte) ou GERAR |
+| R3 | `detalhe/veludo-debrum.jpg` | Macro da junção colchão/base: veludo, debrum branco, ilhós | Recorte de `kingsize com pillow top - cinza suite decorada com tapete (1024x1024).jpeg` em tamanho pequeno | REAL (recorte) ou GERAR |
+| R4 | `detalhe/pillow-top.jpg` | Macro do pillow top de lado, mostrando a camada extra | Idem R3 | GERAR |
+| R5 | `cores/swatch-{cor}.jpg` | Amostra de tecido por cor (12 cores observadas) | Não. **Pedir ao cliente foto ou amostra física** de cada tecido: cor gerada por IA não é confiável para escolha de cor | REAL (preferível) · GERAR só como placeholder |
 
----
+Prompt de R1 (os outros seguem o mesmo padrão; escrever quando houver uso definido):
 
-## 25.6 · `hero/lp-kit-solteiro-verde-mobile-4x5.jpg`
+```text
+PROMPT-BASE DE CONSISTÊNCIA — KANAK
 
-- **Número:** 25.6
-- **Nome do arquivo:** `hero/lp-kit-solteiro-verde-mobile-4x5.jpg`
-- **Proporção:** 4:5
-- **Resolução:** 1080 × 1350
+BRAND
+Kanak is a Brazilian mattress manufacturer that sells complete upholstered bed sets: mattress, box base, headboard and a storage bench for the foot of the bed. Visual identity: warm, calm, adult, trustworthy, editorial. Brand palette: cream (#FBF3E8), deep wine (#680B0E), apricot cream (#FFD29D), light natural wood, warm natural daylight. Premium product photography with a lot of breathing room — like a good furniture store, never a clearance ad, never a luxury hotel.
 
-**Prompt completo:**
+AUDIENCE AND SETTING
+Brazilian families, ages 25 to 60, middle class. Rooms must feel real and attainable: an ordinary Brazilian apartment or house bedroom of about 10 to 14 square meters, smooth painted walls, light-wood laminate floor, a simple sheer linen curtain, at most one simple bedside table and one lamp. No chandeliers, no marble, no gold fixtures, no ornate wall moulding, no walk-in closets, no skyline views, no hotel suites, no mansion interiors.
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
+PRODUCT — FOLLOW THE ATTACHED KANAK REFERENCES EXACTLY
+The Kanak bed set has four parts, all upholstered in the same short-pile suede-like velvet, in one solid color per set:
+1. HEADBOARD: tall rectangular panel with square corners, deep diamond capitonê tufting across the whole panel, a small clear crystal-look button at every tufting point, same width as the bed.
+2. MATTRESS: flat white to off-white quilted top panel with a tone-on-tone damask floral pattern inside diamond quilting; thin white piping along the top edge; the side border of the mattress is upholstered in the same colored velvet as the set, with one small round metal eyelet on the side. Pillow-top version: one extra cream quilted layer sewn onto the top, with its own cream side band and piping, clearly thicker — part of the mattress, never a loose topper or folded quilt. Version without pillow top: a single flat quilted top.
+3. BOX BASE: plain velvet box, no tufting, same color as the set, a thin white piping line where the mattress meets the base, short straight tapered wooden legs in medium brown.
+4. STORAGE BENCH (baú): low rectangular velvet box at the foot of the bed, exactly as wide as the box base, about as tall as the top of the base. It has NO legs, no feet and no casters: it sits directly on the floor, the fabric goes all the way down and touches the floor, no gap underneath. Plain front with a small fabric pull tab under the lid; puffy, deeply capitonê-tufted lid with crystal-look buttons.
+Two small velvet throw pillows in the set color lean against the headboard.
 Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Do not invent logos, labels, tags, embroidery, extra seams, handles, buttons, legs, lights or any detail that is not visible in the references.
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+LIGHT
+Soft warm natural daylight, about 3500 to 4500 K, from a side window through a sheer linen curtain. Gentle falloff, open soft shadows, realistic contact shadows under the furniture. No fluorescent ceiling tubes, no flash, no harsh highlights, no colored light, no blue cast.
 
 PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Editorial premium product photography: calm, uncluttered, generous empty space around the subject. Full-frame camera; 35 to 50 mm lens for rooms, 90 to 100 mm macro lens for details. Straight verticals, corrected perspective, no wide-angle distortion. Natural color, gentle contrast, fine grain, no HDR look, no heavy color grading, no oversaturation.
 
 REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 25.6 — hero/lp-kit-solteiro-verde-mobile-4x5.jpg — aspect ratio 4:5 — 1080×1350 px
-
-Interior photograph of a compact adult bedroom with the complete Kanak single-size (solteiro) bed set in olive green velvet, made up and ready: diamond-tufted headboard with crystal-look buttons, off-white pillow-top mattress with cream bedding, matching tufted storage bench closed at the foot, honey oak legs. The headboard and the upper half of the mattress fill the lower 55% of the frame, the bench is cropped at the bottom edge, and the upper 45% is an empty warm-white wall. Three-quarter view from the left foot of the bed, camera at 125 cm, 50 mm, f/5.6, straight verticals. Late-afternoon window light from the right grazing the velvet nap, warm and soft, identical to the other bed images in the series.
+Photorealistic and indistinguishable from a real photograph. Visible velvet nap, real quilting stitches, believable fabric weight and folds, correct scale between bed, bench and room. High resolution, sharp focus on the product.
+
+RESTRICTIONS
+No text, letters, numbers, logos, brand signs, wall lettering, labels, price tags or watermarks anywhere in the image.
+No people unless the image brief explicitly asks for them; never a close or recognizable face; nothing that looks like a customer testimonial portrait.
+No pets, no clutter, no party decorations, no cables, no screens.
+No luxury excess (see setting). No collage, no split screen, no multiple variations in one file, no illustration, no cartoon or plastic 3D look, no border, no frame.
+
+IMAGE BRIEF — R1 — Complete kit, King grey — landscape 3:2, 1800 x 1200 px
+Scene reference: the same simple bedroom as the attached King banner image (image 02): warm off-white wall, light-wood laminate floor, sheer linen curtain on the left.
+A complete Kanak King size bed set in charcoal grey velvet, with pillow top, exactly as in the attached grey King references: square-cornered capitonê headboard with crystal-look buttons, mattress with cream pillow-top layer over a grey velvet side border with a round metal eyelet, white piping at the mattress-base joint, grey box base on short straight tapered wooden legs, low capitonê grey storage bench at the foot, two small grey velvet pillows. One simple light-wood bedside table with a plain lamp on the right.
+Three-quarter view from the front left, camera at 110 cm, 35 mm lens, straight verticals. The full set is centered and fills about 70% of the frame width, with calm empty wall and floor around it. Soft warm daylight from the left.
+Only one bed in the room.
 ```
 
 ---
 
-## 26 · `detalhe/macro-capitone-botao-cristal-3x2.jpg`
+## 8. Checklist de aprovação (cada imagem)
 
-- **Número:** 26
-- **Nome do arquivo:** `detalhe/macro-capitone-botao-cristal-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
+Produto:
 
-**Prompt completo:**
+- [ ] Cabeceira com **cantos retos**, capitonê em losango, botão de cristal em cada ponto
+- [ ] Tampo do colchão branco acolchoado; **lateral do colchão no veludo da cor do kit**; ilhós redondo na lateral
+- [ ] Pillow top só onde a ficha pede, com a faixa creme visível
+- [ ] Debrum branco na junção colchão/base
+- [ ] Base lisa, pés de madeira cônicos retos, marrom-médio, quantidade plausível
+- [ ] Baú baixo, tampa em capitonê, mesma cor, **largura da base**, **SEM pés: apoiado direto no chão, tecido encostando no piso, sem vão**
+- [ ] Pillow top costurado ao colchão, não um topper solto
+- [ ] Nenhum logo, etiqueta, bordado, puxador ou detalhe inventado
+- [ ] Cor do veludo igual à referência (vinho ≠ vermelho; bege ≠ creme)
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+Cena e marca:
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
+- [ ] Sem texto, número, letreiro ou marca d'água
+- [ ] Sem rostos reconhecíveis; nada que pareça depoimento
+- [ ] Ambiente de apartamento comum, sem luxo excessivo
+- [ ] Luz natural quente, sem fluorescente, sem tom azul
+- [ ] Área livre para texto respeitada (quando a ficha pede)
+- [ ] Recortes desktop e celular funcionam (testar com `object-fit: cover` nos tamanhos da seção 4)
+- [ ] Família consistente (A: mesmo quarto; B e C: mesma luz e fundo; D: mesmo kit)
+- [ ] Família A: largura da cama na cabeceira dentro de ±3 pontos da régua (Queen 56%, King 69%, Casal 49%, Solteiro 31%)
 
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
+Técnica:
 
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 26 — detalhe/macro-capitone-botao-cristal-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Macro photograph of the diamond capitonê tufting on a Kanak headboard in terracotta velvet: three small faceted crystal-look buttons running diagonally from lower left to upper right, with the deep radial folds of velvet pulling into each button. About 15 cm of product fills the frame. 100 mm macro, f/2.8, camera tilted 20 degrees to the surface, strong grazing side light revealing the nap of the velvet and one small controlled sparkle on a crystal facet, warm soft shadows, shallow depth of field.
-```
+- [ ] Proporção e resolução do mestre corretas
+- [ ] JPG sRGB, qualidade 85–90
+- [ ] Placeholders com `-PLACEHOLDER` no nome do arquivo
+- [ ] `alt` em português escrito na implementação (não faz parte da imagem)
 
 ---
 
-## 27 · `detalhe/macro-veludo-terracota-3x2.jpg`
+## 9. Pedidos ao cliente (fotos reais)
 
-- **Número:** 27
-- **Nome do arquivo:** `detalhe/macro-veludo-terracota-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
+| # | Pedido | Substitui |
+| --- | --- | --- |
+| F1 | Foto de um colchão real cortado, de lado, com as camadas visíveis e a espessura de cada uma | 05 e as espessuras ⏳ da seção 2 |
+| F2 | Quais fotos do acervo são de cada modelo (molas ensacadas, anatômico ortopédico, magnético) e o acabamento oficial de cada linha (pillow top, tecido do tampo) | Confirma 09–11 |
+| F3 | Foto e descrição da estrutura do colchão magnético | 08 e 11 |
+| F4 | Foto real do showroom com um vendedor atendendo, luz do dia, com autorização de uso de imagem | 12 |
+| F5 | Foto ou amostra física de cada tecido e a lista oficial de cores | R5 |
+| F6 | Fotos das molas e da espuma na fábrica (opcional) | 06 e 07 |
+| F7 | Confirmar quais arquivos do acervo são renders/tratados e quais são fotos | Diagnóstico 2.3 |
+| F8 | 6 depoimentos reais do Google com foto e autorização (já em `memoria.md`) | Seção 5 da Home e 4 da Landing |
 
-**Prompt completo:**
+Se houver sessão de fotos no showroom, estas regras tornam as fotos reais consistentes com o plano: luz do dia (apagar os tubos fluorescentes), tirar ou evitar o letreiro no quadro, câmera no tripé a 110 cm, lente equivalente a 50 mm, vista frontal simétrica para as quatro camas (família A), sem bandeirinhas e sem cortina lilás.
 
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
+---
 
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
+## 10. Ordem de produção sugerida
 
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 27 — detalhe/macro-veludo-terracota-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Macro photograph of matte suede-like terracotta velvet upholstery with a single soft diagonal fold crossing the frame. The nap of the fabric shifts tone where the fold turns, two thirds of the frame in light and one third falling into warm shadow. About 25 cm of fabric fills the frame. 100 mm macro, f/4, camera almost parallel to the surface, grazing light at 85 degrees revealing the texture of every fibre. No stitching, no buttons, no seams — pure material.
-```
-
----
-
-## 28 · `detalhe/macro-pe-madeira-3x2.jpg`
-
-- **Número:** 28
-- **Nome do arquivo:** `detalhe/macro-pe-madeira-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 28 — detalhe/macro-pe-madeira-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Low-angle detail photograph of one turned tapered honey oak leg of a Kanak box base, slightly angled outward, where it meets the charcoal grey velvet of the base. The leg sits in the right third of the frame on a light oak floor, with a soft elongated contact shadow; the floor behind is out of focus. Camera 20 cm above the floor tilted slightly up, 85 mm, f/2.8, warm side light. The left third is soft, low-contrast blur.
-```
-
----
-
-## 29 · `detalhe/macro-matelasse-colchao-3x2.jpg`
-
-- **Número:** 29
-- **Nome do arquivo:** `detalhe/macro-matelasse-colchao-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 29 — detalhe/macro-matelasse-colchao-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Macro photograph of the top surface of a Kanak mattress: off-white quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, the stitch lines running in a soft diagonal across the frame. About 30 cm of fabric fills the frame. 100 mm macro, f/4, camera at 30 degrees to the surface, strong grazing light at 80 degrees maximising the quilted relief without blowing out the white, warm soft shadows in the valleys of the quilting.
-```
-
----
-
-## 30 · `detalhe/macro-acabamento-base-3x2.jpg`
-
-- **Número:** 30
-- **Nome do arquivo:** `detalhe/macro-acabamento-base-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 30 — detalhe/macro-acabamento-base-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Macro photograph of the side panel of a Kanak box base in beige velvet, showing the single continuous horizontal seam that runs along the panel and one small discreet round matte metal stud set into the fabric on the right. About 35 cm of product fills the frame; a sliver of out-of-focus light oak floor appears at the very bottom edge. 100 mm macro, f/4, camera 40 cm above the floor facing the panel straight on, warm side light with a contained highlight on the metal.
-```
-
----
-
-## 31 · `detalhe/macro-tampa-bau-3x2.jpg`
-
-- **Número:** 31
-- **Nome do arquivo:** `detalhe/macro-tampa-bau-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 31 — detalhe/macro-tampa-bau-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Macro photograph of the edge of a Kanak storage bench lid in wine velvet, lifted just a few centimetres so a narrow gap appears between the diamond-tufted lid and the plain body, revealing a glimpse of the pale natural interior lining. The lid crosses the frame horizontally. About 40 cm of product fills the frame. 100 mm macro, f/4, three-quarter side view, camera at 70 cm, warm side light reaching into the gap without blowing out the lining.
-```
-
----
-
-## 32.1 · `comparativo/topdown-solteiro-3x2.jpg`
-
-- **Número:** 32.1
-- **Nome do arquivo:** `comparativo/topdown-solteiro-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 32.1 — comparativo/topdown-solteiro-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Perfectly flat top-down studio photograph of a single Kanak single (solteiro) mattress centred on a seamless warm sand background with equal margins on all four sides. Off-white quilted ticking with tone-on-tone diamond stitching, rounded corners, thin champagne piping. Orthographic 90-degree overhead view with no perspective distortion, even diffused lighting, minimal contact shadow, no gradient, no props, nothing else in the frame. The proportions of the rectangle must be faithful to the real measurements: 88 × 188 cm.
-```
-
----
-
-## 32.2 · `comparativo/topdown-casal-3x2.jpg`
-
-- **Número:** 32.2
-- **Nome do arquivo:** `comparativo/topdown-casal-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 32.2 — comparativo/topdown-casal-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Perfectly flat top-down studio photograph of a single Kanak double (casal) mattress centred on a seamless warm sand background with equal margins on all four sides. Off-white quilted ticking with tone-on-tone diamond stitching, rounded corners, thin champagne piping. Orthographic 90-degree overhead view with no perspective distortion, even diffused lighting, minimal contact shadow, no gradient, no props, nothing else in the frame. The proportions of the rectangle must be faithful to the real measurements: 138 × 188 cm.
-```
-
----
-
-## 32.3 · `comparativo/topdown-queen-3x2.jpg`
-
-- **Número:** 32.3
-- **Nome do arquivo:** `comparativo/topdown-queen-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 32.3 — comparativo/topdown-queen-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Perfectly flat top-down studio photograph of a single Kanak queen mattress centred on a seamless warm sand background with equal margins on all four sides. Off-white quilted ticking with tone-on-tone diamond stitching, rounded corners, thin champagne piping. Orthographic 90-degree overhead view with no perspective distortion, even diffused lighting, minimal contact shadow, no gradient, no props, nothing else in the frame. The proportions of the rectangle must be faithful to the real measurements: 158 × 198 cm.
-```
-
----
-
-## 32.4 · `comparativo/topdown-king-3x2.jpg`
-
-- **Número:** 32.4
-- **Nome do arquivo:** `comparativo/topdown-king-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 32.4 — comparativo/topdown-king-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Perfectly flat top-down studio photograph of a single Kanak king mattress centred on a seamless warm sand background with equal margins on all four sides. Off-white quilted ticking with tone-on-tone diamond stitching, rounded corners, thin champagne piping. Orthographic 90-degree overhead view with no perspective distortion, even diffused lighting, minimal contact shadow, no gradient, no props, nothing else in the frame. The proportions of the rectangle must be faithful to the real measurements: 193 × 203 cm.
-```
-
----
-
-## 33 · `comparativo/casal-vs-queen-mesmo-quarto-16x9.jpg`
-
-- **Número:** 33
-- **Nome do arquivo:** `comparativo/casal-vs-queen-mesmo-quarto-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2000 × 1125
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 33 — comparativo/casal-vs-queen-mesmo-quarto-16x9.jpg — aspect ratio 16:9 — 2000×1125 px
-
-Elevated interior photograph of an empty neutral room with two complete Kanak bed sets side by side, both in the same charcoal grey velvet and both fully made up: on the left a double (casal) size, on the right a queen size, headboards aligned against the same wall so the difference in width is immediately readable. Light oak floor, warm white walls, no other furniture. Camera at 200 cm tilted 20 degrees down, 28 mm with corrected perspective, f/8, even diffused daylight with no hard shadow between the beds. Upper 20% of the frame left empty.
-```
-
----
-
-## 34.1 · `hero/linha-molas-ensacadas-16x9.jpg`
-
-- **Número:** 34.1
-- **Nome do arquivo:** `hero/linha-molas-ensacadas-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2400 × 1350
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 34.1 — hero/linha-molas-ensacadas-16x9.jpg — aspect ratio 16:9 — 2400×1350 px
-
-Interior photograph of a neutral, quietly furnished bedroom with a Kanak bed set in charcoal grey velvet, shown without bedding so the mattress finish is fully visible: diamond-tufted headboard with crystal-look buttons, a single-height off-white quilted mattress with no pillow-top band, matching tufted storage bench at the foot, honey oak legs. The bed occupies the right 55% of the frame; the left 40% is an empty warm-white wall. Three-quarter view from the left foot, camera at 110 cm, 35 mm, f/5.6, straight verticals. Late-afternoon window light from the right, identical across the series.
-```
-
----
-
-## 34.2 · `hero/linha-anatomico-ortopedico-16x9.jpg`
-
-- **Número:** 34.2
-- **Nome do arquivo:** `hero/linha-anatomico-ortopedico-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2400 × 1350
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 34.2 — hero/linha-anatomico-ortopedico-16x9.jpg — aspect ratio 16:9 — 2400×1350 px
-
-Interior photograph of a neutral, quietly furnished bedroom with a Kanak bed set in beige velvet, shown without bedding so the mattress finish is fully visible: diamond-tufted headboard with crystal-look buttons, an off-white quilted mattress with one clearly visible pillow-top band, matching tufted storage bench at the foot, honey oak legs. The bed occupies the right 55% of the frame; the left 40% is an empty warm-white wall. Three-quarter view from the left foot, camera at 110 cm, 35 mm, f/5.6, straight verticals. Late-afternoon window light from the right, identical across the series.
-```
-
----
-
-## 34.3 · `hero/linha-magnetico-16x9.jpg`
-
-- **Número:** 34.3
-- **Nome do arquivo:** `hero/linha-magnetico-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2400 × 1350
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 34.3 — hero/linha-magnetico-16x9.jpg — aspect ratio 16:9 — 2400×1350 px
-
-Interior photograph of a neutral, quietly furnished bedroom with a Kanak bed set in wine velvet, shown without bedding so the mattress finish is fully visible: diamond-tufted headboard with crystal-look buttons, an off-white quilted mattress with one clearly visible pillow-top band, matching tufted storage bench at the foot, honey oak legs. The bed occupies the right 55% of the frame; the left 40% is an empty warm-white wall. Three-quarter view from the left foot, camera at 110 cm, 35 mm, f/5.6, straight verticals. Late-afternoon window light from the right, identical across the series.
-```
-
----
-
-## 35 · `produto/base-box-cinza-packshot-1x1.jpg`
-
-- **Número:** 35
-- **Nome do arquivo:** `produto/base-box-cinza-packshot-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 1400 × 1400
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 35 — produto/base-box-cinza-packshot-1x1.jpg — aspect ratio 1:1 — 1400×1400 px
-
-Studio packshot of a Kanak box base alone, without mattress, on a seamless warm sand background: rectangular box fully upholstered in matte charcoal grey velvet, flat untufted panels, one continuous horizontal seam, one small discreet metal stud on the side, four turned tapered honey oak legs slightly angled outward. Three-quarter view rotated 25 degrees to the left, camera at 80 cm, 50 mm, f/8, large soft key from the left with a reflector on the right, grazing light on the velvet, short realistic contact shadow, 15% margin.
-```
-
----
-
-## 36 · `produto/base-com-bau-frontal-3x2.jpg`
-
-- **Número:** 36
-- **Nome do arquivo:** `produto/base-com-bau-frontal-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 36 — produto/base-com-bau-frontal-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Studio photograph of a Kanak box base with front storage panels, without mattress, on a seamless warm sand background: rectangular base upholstered in beige velvet with two clearly defined front panels separated by a fine seam, one continuous horizontal seam along the side, turned honey oak legs. Three-quarter view rotated 30 degrees to the right so both the front and the side are readable, camera at 70 cm, 50 mm, f/8, studio side light marking the panel division, short contact shadow, 12% margin.
-```
-
----
-
-## 37 · `produto/cabeceira-vinho-packshot-1x1.jpg`
-
-- **Número:** 37
-- **Nome do arquivo:** `produto/cabeceira-vinho-packshot-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 1400 × 1400
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 37 — produto/cabeceira-vinho-packshot-1x1.jpg — aspect ratio 1:1 — 1400×1400 px
-
-Studio packshot of a Kanak headboard alone, standing upright on a seamless warm sand background: rectangular panel upholstered in wine velvet with diamond capitonê tufting, small faceted crystal-look buttons at each tufting point, softly rounded top corners. Almost frontal view rotated 10 degrees to the left for volume, camera at half the height of the piece, 85 mm, f/8, large soft key from the left with grazing light revealing the depth of the tufting, short contact shadow, 15% margin.
-```
-
----
-
-## 38 · `ambiente/cabeceira-aplicada-parede-3x4.jpg`
-
-- **Número:** 38
-- **Nome do arquivo:** `ambiente/cabeceira-aplicada-parede-3x4.jpg`
-- **Proporção:** 3:4
-- **Resolução:** 900 × 1200
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 38 — ambiente/cabeceira-aplicada-parede-3x4.jpg — aspect ratio 3:4 — 900×1200 px
-
-Vertical interior photograph centred on a Kanak headboard in charcoal grey velvet mounted behind the bed: diamond capitonê tufting with crystal-look buttons, softly rounded top corners, set against a light slatted wood wall panel with an unlit wall sconce beside it. The upper half of the off-white mattress and two grey velvet pillows are visible below. Nearly frontal view offset 5 degrees to the right, camera at 140 cm, 50 mm, f/4, warm side light casting a soft shadow of the headboard on the panel.
-```
-
----
-
-## 39 · `produto/bau-bege-packshot-1x1.jpg`
-
-- **Número:** 39
-- **Nome do arquivo:** `produto/bau-bege-packshot-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 1400 × 1400
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 39 — produto/bau-bege-packshot-1x1.jpg — aspect ratio 1:1 — 1400×1400 px
-
-Studio packshot of a Kanak storage bench alone and closed, on a seamless warm sand background: rectangular bench upholstered in beige velvet, diamond-tufted lid with small faceted crystal-look buttons, plain untufted body, turned tapered honey oak legs. Three-quarter view rotated 25 degrees to the left, camera at 80 cm, 50 mm, f/8, large soft key from the left with grazing light across the tufted lid, short realistic contact shadow, 15% margin.
-```
-
----
-
-## 40.1 · `cores/swatch-bege-1x1.jpg`
-
-- **Número:** 40.1
-- **Nome do arquivo:** `cores/swatch-bege-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 40.1 — cores/swatch-bege-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like beige velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 40.2 · `cores/swatch-cinza-1x1.jpg`
-
-- **Número:** 40.2
-- **Nome do arquivo:** `cores/swatch-cinza-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 40.2 — cores/swatch-cinza-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like charcoal grey velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 40.3 · `cores/swatch-terracota-1x1.jpg`
-
-- **Número:** 40.3
-- **Nome do arquivo:** `cores/swatch-terracota-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 40.3 — cores/swatch-terracota-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like terracotta velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 40.4 · `cores/swatch-caramelo-1x1.jpg`
-
-- **Número:** 40.4
-- **Nome do arquivo:** `cores/swatch-caramelo-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 40.4 — cores/swatch-caramelo-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like caramel velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 40.5 · `cores/swatch-marrom-1x1.jpg`
-
-- **Número:** 40.5
-- **Nome do arquivo:** `cores/swatch-marrom-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 40.5 — cores/swatch-marrom-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like brown velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 40.6 · `cores/swatch-vinho-1x1.jpg`
-
-- **Número:** 40.6
-- **Nome do arquivo:** `cores/swatch-vinho-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 40.6 — cores/swatch-vinho-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like wine velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 40.7 · `cores/swatch-vermelho-1x1.jpg`
-
-- **Número:** 40.7
-- **Nome do arquivo:** `cores/swatch-vermelho-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 40.7 — cores/swatch-vermelho-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like red velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 40.8 · `cores/swatch-rose-1x1.jpg`
-
-- **Número:** 40.8
-- **Nome do arquivo:** `cores/swatch-rose-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 40.8 — cores/swatch-rose-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like dusty rose velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 40.9 · `cores/swatch-mostarda-1x1.jpg`
-
-- **Número:** 40.9
-- **Nome do arquivo:** `cores/swatch-mostarda-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 40.9 — cores/swatch-mostarda-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like mustard velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 40.10 · `cores/swatch-verde-1x1.jpg`
-
-- **Número:** 40.10
-- **Nome do arquivo:** `cores/swatch-verde-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 40.10 — cores/swatch-verde-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like olive green velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 40.11 · `cores/swatch-azul-1x1.jpg`
-
-- **Número:** 40.11
-- **Nome do arquivo:** `cores/swatch-azul-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 40.11 — cores/swatch-azul-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like navy blue velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 41 · `cores/aplicacao-cabeceiras-trio-3x2.jpg`
-
-- **Número:** 41
-- **Nome do arquivo:** `cores/aplicacao-cabeceiras-trio-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 41 — cores/aplicacao-cabeceiras-trio-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Studio photograph of three identical Kanak headboards standing in a row on a seamless warm sand background — one in beige velvet, one in wine velvet, one in olive green velvet — all with the same diamond capitonê tufting, crystal-look buttons and softly rounded top corners, at the same height with equal spacing and a slight overlap in depth. Nearly frontal view rotated 10 degrees to the left, 85 mm, f/8, even studio lighting with no hard shadows between the pieces, upper 15% of the frame empty.
-```
-
----
-
-## 42 · `ambiente/casal-escolhendo-quarto-16x9.jpg`
-
-- **Número:** 42
-- **Nome do arquivo:** `ambiente/casal-escolhendo-quarto-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2000 × 1125
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 42 — ambiente/casal-escolhendo-quarto-16x9.jpg — aspect ratio 16:9 — 2000×1125 px
-
-Wide interior photograph of a couple in their late thirties seen from behind and in partial profile, standing on the left of the frame and looking at a complete Kanak bed set in beige velvet on the right. The room is mid-move-in: one closed cardboard box in a corner, a curtain not yet finished, light oak floor. The people are secondary — no recognisable faces, neutral everyday clothing, relaxed posture, one hand resting on the other's shoulder. Three-quarter view from the foot of the bed, camera at 150 cm, 35 mm, f/4, warm late-afternoon backlight from the window rimming the figures. The product is the subject; the couple gives scale and context.
-```
-
----
-
-## 43 · `detalhe/mao-testando-firmeza-3x2.jpg`
-
-- **Número:** 43
-- **Nome do arquivo:** `detalhe/mao-testando-firmeza-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 43 — detalhe/mao-testando-firmeza-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Close photograph of one adult hand pressing gently into the top surface of a Kanak mattress, showing a shallow, controlled indentation in the off-white quilted ticking. The hand occupies the right third of the frame; the quilted surface fills the rest; the bedroom behind is out of focus. About 40 cm of product in frame. 85 mm, f/2.8, camera low at 30 degrees to the surface, warm side light with a soft shadow under the hand, natural skin tone, no jewellery, no nail polish.
-```
-
----
-
-## 44 · `ambiente/pes-descalcos-tapete-manha-3x2.jpg`
-
-- **Número:** 44
-- **Nome do arquivo:** `ambiente/pes-descalcos-tapete-manha-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 44 — ambiente/pes-descalcos-tapete-manha-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Detail photograph from the knees down of bare adult feet resting on a pale wool rug beside a bed in the morning. The feet are in the lower right third; the terracotta velvet base of the Kanak bed and a corner of cream bed linen are at the right edge; the rug and light oak floor fill the rest. Camera 60 cm above the floor tilted slightly down, 50 mm, f/2.8, low morning light raking across the floor with long soft shadows. Calm, ordinary, unstaged. The left half of the frame is quiet floor with room for text.
-```
-
----
-
-## 45 · `institucional/atendimento-showroom-4x3.jpg`
-
-- **Número:** 45
-- **Nome do arquivo:** `institucional/atendimento-showroom-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 45 — institucional/atendimento-showroom-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Interior photograph inside a tidy bed showroom: a staff member in plain neutral clothing stands beside a complete Kanak bed set in beige velvet, one hand open towards the mattress, explaining something to a couple in their forties who listen from the left. All three are seen at a respectful distance in partial profile, no recognisable faces in the foreground, natural relaxed posture. Light oak floor, warm white walls, daylight from a shop window. Three-quarter view, camera at 150 cm, 35 mm, f/4, warm diffused light. Professional and calm, not a stock-photo handshake.
-```
-
----
-
-## 46 · `institucional/showroom-corredor-cores-3x4.jpg`
-
-- **Número:** 46
-- **Nome do arquivo:** `institucional/showroom-corredor-cores-3x4.jpg`
-- **Proporção:** 3:4
-- **Resolução:** 900 × 1200
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 46 — institucional/showroom-corredor-cores-3x4.jpg — aspect ratio 3:4 — 900×1200 px
-
-Vertical interior photograph looking down the aisle of a tidy bed showroom, with a row of Kanak headboards in different velvet colours — beige, terracotta, grey, wine — receding in perspective on the right. Light oak floor, warm white walls, warm recessed lighting and daylight at the far end. Camera at 160 cm, 35 mm, f/5.6, straight verticals, calm and uncluttered.
-```
-
----
-
-## 47 · `ambiente/quarto-vazio-luz-404-4x3.jpg`
-
-- **Número:** 47
-- **Nome do arquivo:** `ambiente/quarto-vazio-luz-404-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 47 — ambiente/quarto-vazio-luz-404-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Interior photograph of an empty bedroom with warm white walls and a light oak floor, no furniture at all. Late-afternoon sunlight comes through a window and draws a clean bright rectangle on the floor where a bed would stand. Camera at 140 cm, 35 mm, f/5.6, straight verticals, warm soft shadows, quiet and unsentimental. Upper 40% of the frame is plain wall.
-```
-
----
-
-## 48.1 · `blog/capa-como-escolher-colchao-16x9.jpg`
-
-- **Número:** 48.1
-- **Nome do arquivo:** `blog/capa-como-escolher-colchao-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 1600 × 900
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 48.1 — blog/capa-como-escolher-colchao-16x9.jpg — aspect ratio 16:9 — 1600×900 px
-
-Editorial horizontal photograph for a blog cover, in the same visual family as the rest of the Kanak site: two Kanak mattresses standing side by side in side profile, one single-height and one pillow-top. Neutral bedroom with warm white walls and light oak floor, a Kanak product always partly present in the frame. The subject sits on the right; the left 35% of the frame is calm and low in contrast for a title. 50 mm, f/4, warm late-afternoon light, soft shadows, natural and unstaged.
-```
-
----
-
-## 48.2 · `blog/capa-tamanho-ideal-quarto-16x9.jpg`
-
-- **Número:** 48.2
-- **Nome do arquivo:** `blog/capa-tamanho-ideal-quarto-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 1600 × 900
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 48.2 — blog/capa-tamanho-ideal-quarto-16x9.jpg — aspect ratio 16:9 — 1600×900 px
-
-Editorial horizontal photograph for a blog cover, in the same visual family as the rest of the Kanak site: an elevated view of a bedroom with one Kanak bed and clear free floor space around it. Neutral bedroom with warm white walls and light oak floor, a Kanak product always partly present in the frame. The subject sits on the right; the left 35% of the frame is calm and low in contrast for a title. 35 mm, f/4, warm late-afternoon light, soft shadows, natural and unstaged.
-```
-
----
-
-## 48.3 · `blog/capa-cuidados-colchao-16x9.jpg`
-
-- **Número:** 48.3
-- **Nome do arquivo:** `blog/capa-cuidados-colchao-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 1600 × 900
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 48.3 — blog/capa-cuidados-colchao-16x9.jpg — aspect ratio 16:9 — 1600×900 px
-
-Editorial horizontal photograph for a blog cover, in the same visual family as the rest of the Kanak site: a pair of adult hands smoothing a cream sheet over an off-white quilted Kanak mattress, no faces. Neutral bedroom with warm white walls and light oak floor, a Kanak product always partly present in the frame. The subject sits on the right; the left 35% of the frame is calm and low in contrast for a title. 50 mm, f/4, warm late-afternoon light, soft shadows, natural and unstaged.
-```
-
----
-
-## 48.4 · `blog/capa-quarto-acolhedor-16x9.jpg`
-
-- **Número:** 48.4
-- **Nome do arquivo:** `blog/capa-quarto-acolhedor-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 1600 × 900
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 48.4 — blog/capa-quarto-acolhedor-16x9.jpg — aspect ratio 16:9 — 1600×900 px
-
-Editorial horizontal photograph for a blog cover, in the same visual family as the rest of the Kanak site: a bedroom corner at dusk with a lit bedside lamp and a knitted throw over the corner of a Kanak bed. Neutral bedroom with warm white walls and light oak floor, a Kanak product always partly present in the frame. The subject sits on the right; the left 35% of the frame is calm and low in contrast for a title. 35 mm, f/4, warm late-afternoon light, soft shadows, natural and unstaged.
-```
-
----
-
-## 49 · `og/og-default-1200x630.jpg`
-
-- **Número:** 49
-- **Nome do arquivo:** `og/og-default-1200x630.jpg`
-- **Proporção:** 1,91:1
-- **Resolução:** 1200 × 630
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 49 — og/og-default-1200x630.jpg — aspect ratio 1,91:1 — 1200×630 px
-
-Horizontal photograph optimised for a small social preview: the complete Kanak bed set in charcoal grey velvet fills about 70% of the frame — tufted headboard, made-up off-white mattress, closed storage bench — in a simplified neutral bedroom with a warm white wall and a light oak floor. Three-quarter front view, camera at 120 cm, 50 mm, f/5.6, warm late-afternoon light, slightly brighter and more contrasted than a normal interior shot. Lower 25% of the frame kept simple and uncluttered.
-```
-
----
-
-## 50 · `textura/linho-areia-2400.jpg`
-
-- **Número:** 50
-- **Nome do arquivo:** `textura/linho-areia-2400.jpg`
-- **Proporção:** livre
-- **Resolução:** 2400 de largura
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 50 — textura/linho-areia-2400.jpg — aspect ratio free (seamless texture) — minimum width 2400 px
-
-Flat macro photograph of natural sand-coloured linen fabric filling the entire frame, seen perpendicular to the surface, with a visible even weave and no dominant fold. Very soft diffused lighting, extremely subtle relief, almost flat, uniform tone close to #F3ECE3, no shadows, no seams, no edges — a calm background texture that can sit behind text.
-```
-
----
-
-## 51 · `textura/veludo-vinho-2400.jpg`
-
-- **Número:** 51
-- **Nome do arquivo:** `textura/veludo-vinho-2400.jpg`
-- **Proporção:** livre
-- **Resolução:** 2400 de largura
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 51 — textura/veludo-vinho-2400.jpg — aspect ratio free (seamless texture) — minimum width 2400 px
-
-Macro photograph of deep wine-coloured matte velvet filling the entire frame, with one broad soft undulation crossing it so the nap shifts from a lighter tone to a very dark one. Grazing light creating a natural gradient, no highlights, no sparkle, no stitching, no buttons. Tones between #2E0A0F and #45101A, rich and quiet, suitable as a dark background behind cream text.
-```
-
----
-
-## 52.1 · `hero/linha-molas-ensacadas-mobile-4x5.jpg`
-
-- **Número:** 52.1
-- **Nome do arquivo:** `hero/linha-molas-ensacadas-mobile-4x5.jpg`
-- **Proporção:** 4:5
-- **Resolução:** 1080 × 1350
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 52.1 — hero/linha-molas-ensacadas-mobile-4x5.jpg — aspect ratio 4:5 — 1080×1350 px
-
-Vertical interior photograph of a neutral, quietly furnished bedroom with a Kanak bed set in charcoal grey velvet, shown without bedding so the mattress finish is fully visible: diamond-tufted headboard with crystal-look buttons, a single-height off-white quilted mattress with no pillow-top band, honey oak legs. The headboard and the upper half of the mattress fill the lower 55% of the frame, the storage bench is cropped at the bottom edge, and the upper 45% is an empty warm-white wall with soft gradient light. Three-quarter view from the left foot, camera at 125 cm, 50 mm, f/5.6, straight verticals. Late-afternoon window light from the right, identical to the desktop version of the same line.
-```
-
----
-
-## 52.2 · `hero/linha-anatomico-ortopedico-mobile-4x5.jpg`
-
-- **Número:** 52.2
-- **Nome do arquivo:** `hero/linha-anatomico-ortopedico-mobile-4x5.jpg`
-- **Proporção:** 4:5
-- **Resolução:** 1080 × 1350
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 52.2 — hero/linha-anatomico-ortopedico-mobile-4x5.jpg — aspect ratio 4:5 — 1080×1350 px
-
-Vertical interior photograph of a neutral, quietly furnished bedroom with a Kanak bed set in beige velvet, shown without bedding so the mattress finish is fully visible: diamond-tufted headboard with crystal-look buttons, an off-white quilted mattress with one clearly visible pillow-top band, honey oak legs. The headboard and the upper half of the mattress fill the lower 55% of the frame, the storage bench is cropped at the bottom edge, and the upper 45% is an empty warm-white wall with soft gradient light. Three-quarter view from the left foot, camera at 125 cm, 50 mm, f/5.6, straight verticals. Late-afternoon window light from the right, identical to the desktop version of the same line.
-```
-
----
-
-## 52.3 · `hero/linha-magnetico-mobile-4x5.jpg`
-
-- **Número:** 52.3
-- **Nome do arquivo:** `hero/linha-magnetico-mobile-4x5.jpg`
-- **Proporção:** 4:5
-- **Resolução:** 1080 × 1350
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 52.3 — hero/linha-magnetico-mobile-4x5.jpg — aspect ratio 4:5 — 1080×1350 px
-
-Vertical interior photograph of a neutral, quietly furnished bedroom with a Kanak bed set in wine velvet, shown without bedding so the mattress finish is fully visible: diamond-tufted headboard with crystal-look buttons, an off-white quilted mattress with one clearly visible pillow-top band, honey oak legs. The headboard and the upper half of the mattress fill the lower 55% of the frame, the storage bench is cropped at the bottom edge, and the upper 45% is an empty warm-white wall with soft gradient light. Three-quarter view from the left foot, camera at 125 cm, 50 mm, f/5.6, straight verticals. Late-afternoon window light from the right, identical to the desktop version of the same line.
-```
-
----
-
-## 53.1 · `cores/swatch-creme-1x1.jpg`
-
-- **Número:** 53.1
-- **Nome do arquivo:** `cores/swatch-creme-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 53.1 — cores/swatch-creme-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like warm cream velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 53.2 · `cores/swatch-preto-1x1.jpg`
-
-- **Número:** 53.2
-- **Nome do arquivo:** `cores/swatch-preto-1x1.jpg`
-- **Proporção:** 1:1
-- **Resolução:** 600 × 600
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 53.2 — cores/swatch-preto-1x1.jpg — aspect ratio 1:1 — 600×600 px
-
-Square macro photograph of a swatch of matte suede-like black velvet upholstery filling the entire frame, with one single soft diagonal fold crossing the lower third. About 12 cm of fabric in frame. 100 mm macro, f/5.6, camera at 45 degrees to the surface, one soft box from the left at 45 degrees and no reflector — identical lighting, identical angle and identical fold across the whole colour series so the swatches read as one collection. No stitching, no buttons, no seams, no background, no props.
-```
-
----
-
-## 54.1 · `hero/lp-campanha-marrom-desktop-16x9.jpg`
-
-- **Número:** 54.1
-- **Nome do arquivo:** `hero/lp-campanha-marrom-desktop-16x9.jpg`
-- **Proporção:** 16:9
-- **Resolução:** 2400 × 1350
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 54.1 — hero/lp-campanha-marrom-desktop-16x9.jpg — aspect ratio 16:9 — 2400×1350 px
-
-Interior photograph of a warm master bedroom at the end of the day, with the complete Kanak bed set in taupe-brown velvet, made up and inviting: diamond-tufted headboard with crystal-look buttons against a slatted wood wall panel, off-white pillow-top mattress with cream bedding and a folded knitted throw, matching tufted storage bench closed at the foot, honey oak legs. Two warm bedside lamps are lit, a linen curtain filters the last daylight, light oak floor. The bed occupies the right 60% of the frame; the left 40% is an empty wall with a bedside table and soft light falloff. Three-quarter view from the left foot of the bed, camera at 115 cm, 35 mm, f/5.6, straight verticals. Slightly warmer and slightly darker than a daytime shot, so cream text can sit over it.
-```
-
----
-
-## 54.2 · `hero/lp-campanha-marrom-mobile-4x5.jpg`
-
-- **Número:** 54.2
-- **Nome do arquivo:** `hero/lp-campanha-marrom-mobile-4x5.jpg`
-- **Proporção:** 4:5
-- **Resolução:** 1080 × 1350
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 54.2 — hero/lp-campanha-marrom-mobile-4x5.jpg — aspect ratio 4:5 — 1080×1350 px
-
-Interior photograph of a warm master bedroom at the end of the day, with the complete Kanak bed set in taupe-brown velvet, made up and inviting: diamond-tufted headboard with crystal-look buttons against a slatted wood wall panel, off-white pillow-top mattress with cream bedding and a folded knitted throw, matching tufted storage bench closed at the foot, honey oak legs. Two warm bedside lamps are lit, a linen curtain filters the last daylight, light oak floor. The headboard and the upper half of the mattress fill the lower 55% of the frame, and the upper 45% is an empty warm wall with soft gradient light. Three-quarter view from the left foot of the bed, camera at 125 cm, 50 mm, f/5.6, straight verticals. Slightly warmer and slightly darker than a daytime shot, so cream text can sit over it.
-```
-
----
-
-## 55.1 · `detalhe/firmeza-macio-4x3.jpg`
-
-- **Número:** 55.1
-- **Nome do arquivo:** `detalhe/firmeza-macio-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 55.1 — detalhe/firmeza-macio-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Close photograph of one adult hand pressing into the top surface of a Kanak mattress, showing a deep, soft indentation where the hand sinks noticeably into the surface in the off-white quilted ticking. The hand occupies the right third of the frame; the quilted surface fills the rest; the bedroom behind is out of focus. About 40 cm of product in frame. 85 mm, f/2.8, camera low at 30 degrees to the surface, warm side light with a soft shadow under the hand, natural skin tone, no jewellery, no nail polish. Framing, angle, lighting and hand position identical across the four firmness images — only the depth of the indentation changes. No text, no numbers, no ruler, no drawn scale.
-```
-
----
-
-## 55.2 · `detalhe/firmeza-intermediario-4x3.jpg`
-
-- **Número:** 55.2
-- **Nome do arquivo:** `detalhe/firmeza-intermediario-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 55.2 — detalhe/firmeza-intermediario-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Close photograph of one adult hand pressing into the top surface of a Kanak mattress, showing a moderate indentation, clearly visible but shallower in the off-white quilted ticking. The hand occupies the right third of the frame; the quilted surface fills the rest; the bedroom behind is out of focus. About 40 cm of product in frame. 85 mm, f/2.8, camera low at 30 degrees to the surface, warm side light with a soft shadow under the hand, natural skin tone, no jewellery, no nail polish. Framing, angle, lighting and hand position identical across the four firmness images — only the depth of the indentation changes. No text, no numbers, no ruler, no drawn scale.
-```
-
----
-
-## 55.3 · `detalhe/firmeza-firme-4x3.jpg`
-
-- **Número:** 55.3
-- **Nome do arquivo:** `detalhe/firmeza-firme-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 55.3 — detalhe/firmeza-firme-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Close photograph of one adult hand pressing into the top surface of a Kanak mattress, showing a shallow indentation, the surface barely giving way in the off-white quilted ticking. The hand occupies the right third of the frame; the quilted surface fills the rest; the bedroom behind is out of focus. About 40 cm of product in frame. 85 mm, f/2.8, camera low at 30 degrees to the surface, warm side light with a soft shadow under the hand, natural skin tone, no jewellery, no nail polish. Framing, angle, lighting and hand position identical across the four firmness images — only the depth of the indentation changes. No text, no numbers, no ruler, no drawn scale.
-```
-
----
-
-## 55.4 · `detalhe/firmeza-extrafirme-4x3.jpg`
-
-- **Número:** 55.4
-- **Nome do arquivo:** `detalhe/firmeza-extrafirme-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 55.4 — detalhe/firmeza-extrafirme-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Close photograph of one adult hand pressing into the top surface of a Kanak mattress, showing almost no indentation, the surface staying essentially flat under the hand in the off-white quilted ticking. The hand occupies the right third of the frame; the quilted surface fills the rest; the bedroom behind is out of focus. About 40 cm of product in frame. 85 mm, f/2.8, camera low at 30 degrees to the surface, warm side light with a soft shadow under the hand, natural skin tone, no jewellery, no nail polish. Framing, angle, lighting and hand position identical across the four firmness images — only the depth of the indentation changes. No text, no numbers, no ruler, no drawn scale.
-```
-
----
-
-## 56.1 · `ambiente/rotina-noite-desktop-3x2.jpg`
-
-- **Número:** 56.1
-- **Nome do arquivo:** `ambiente/rotina-noite-desktop-3x2.jpg`
-- **Proporção:** 3:2
-- **Resolução:** 1600 × 1067
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 56.1 — ambiente/rotina-noite-desktop-3x2.jpg — aspect ratio 3:2 — 1600×1067 px
-
-Quiet night photograph of an adult sleeping peacefully, seen from a respectful distance and partly covered by cream bed linen, lying on an off-white quilted Kanak mattress. The figure is on the right; the left 45% of the frame falls into warm darkness with no detail, leaving room for text. No recognizable face in the foreground, relaxed natural posture, one arm resting on the duvet. High angle at 30 degrees, camera at 140 cm, 50 mm, f/2.8. Low warm light from an off-frame bedside lamp, soft contrast, no blown highlights in the linen, no cold blue night grade.
-```
-
----
-
-## 56.2 · `ambiente/rotina-noite-mobile-4x5.jpg`
-
-- **Número:** 56.2
-- **Nome do arquivo:** `ambiente/rotina-noite-mobile-4x5.jpg`
-- **Proporção:** 4:5
-- **Resolução:** 1080 × 1350
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 56.2 — ambiente/rotina-noite-mobile-4x5.jpg — aspect ratio 4:5 — 1080×1350 px
-
-Quiet night photograph of an adult sleeping peacefully, seen from a respectful distance and partly covered by cream bed linen, lying on an off-white quilted Kanak mattress. The figure fills the lower two thirds; the upper third falls into warm darkness with no detail, leaving room for text. No recognizable face in the foreground, relaxed natural posture, one arm resting on the duvet. High angle at 30 degrees, camera at 140 cm, 50 mm, f/2.8. Low warm light from an off-frame bedside lamp, soft contrast, no blown highlights in the linen, no cold blue night grade.
-```
-
----
-
-## 57.1 · `ambiente/acordar-cansado-4x3.jpg`
-
-- **Número:** 57.1
-- **Nome do arquivo:** `ambiente/acordar-cansado-4x3.jpg`
-- **Proporção:** 4:3
-- **Resolução:** 1200 × 900
-
-**Prompt completo:**
-
-```text
-KANAK MASTER PROMPT — BRAND AND PRODUCT CONSISTENCY BLOCK
-
-BRAND IDENTITY
-Kanak is a Brazilian premium bedroom brand: mattresses, upholstered box bases, tufted headboards and storage benches. The visual identity is editorial, warm, adult and quiet — a showroom bedroom at late afternoon. Never cheap, never clinical, never promotional, never staged like a catalogue discount ad.
-
-PRODUCT — MUST REMAIN IDENTICAL IN EVERY IMAGE
-A complete upholstered bed set made of five parts:
-1. BOX BASE: rectangular box fully upholstered in matte suede-like velvet with a soft nap; flat smooth panels with no tufting; one continuous horizontal seam running along the side; one small discreet round metal stud on the side panel; crisp square corners.
-2. LEGS: turned tapered wooden legs in light honey oak, about 12 cm tall, slightly angled outward, visible under the base and under the bench.
-3. HEADBOARD: rectangular, upholstered in the same velvet, diamond capitonê tufting with small crystal-look faceted buttons at each tufting point, softly rounded top corners, standing about 75 cm above the mattress, same width as the bed.
-4. STORAGE BENCH (baú): placed at the foot of the bed, same velvet, diamond-tufted lid with the same crystal-look buttons, plain untufted body, same wooden legs, width about two thirds of the bed, hinged lid.
-5. MATTRESS: off-white to cream quilted ticking with tone-on-tone diamond stitching and a subtle damask motif, rounded corners, thin champagne piping along the edges, small round side vents. The pillow-top version adds one clearly visible upper band above the main body; the version without pillow top is a single uniform height.
-Velvet pillows in the same upholstery color rest against the headboard.
-Follow the supplied product references exactly. Preserve the same shape, proportions, material, color, finish and internal details.
-
-LIGHTING
-Warm late-afternoon interior light, 3000–3800 K. Soft directional key from a window at roughly 45 degrees, large soft source, long gentle shadows, smooth falloff, open shadows. Optional warm practical lamps in the background. No on-camera flash, no hard speculars, no colored gels, no fluorescent ceiling tubes, no blue rim light.
-
-PHOTOGRAPHIC DIRECTION
-Full-frame camera. 35 mm or 50 mm prime for rooms, 85 mm or 100 mm macro for details. Camera at eye level or slightly below, tripod steady, straight verticals, corrected perspective. f/4 to f/8 for rooms, f/2.8 for macro. Composition calm and generous, the product never cropped awkwardly, plenty of negative space.
-
-COLOR
-Warm neutral environment: sand #FAF7F2, linen #F3ECE3, warm taupe #E7DCCD, light oak floor, warm white walls, off-white bedding. Upholstery only from the Kanak range: beige, grey, terracotta, caramel, brown, wine, red, rose, blue, navy, mustard, green, black. Deep wine #2E0A0F only for dark scenes. Terracotta #B4623C as the single accent. Slightly desaturated yellows, open shadows, natural contrast, no HDR, no teal-and-orange grade, no oversaturation.
-
-REALISM AND QUALITY
-Photorealistic interior photography. Visible velvet nap, real quilting stitches, believable fabric weight and folds, realistic contact shadows under the base and bench, correct scale between bed, bench and room. Sharp where focused, natural grain, print-quality detail. If a 3D render is used it must be indistinguishable from a photograph.
-
-GENERAL RESTRICTIONS
-No text, no lettering, no numbers, no logos, no brand signage, no wall signs, no labels, no tags, no price cards, no watermarks.
-No people unless the specific prompt asks for them; never a recognizable face presented as a real customer; no pets.
-No clutter, no cables, no party flags, no fluorescent ceiling fixtures, no showroom props.
-No invented product features: no buttons, screens, sensors, gems, remote controls, LED strips, USB ports, cooling gel panels, extra vents or internal parts that do not exist in the references.
-No levitating or floating product unless the prompt explicitly asks for it.
-No distorted proportions, no extra or missing legs, no duplicated furniture, no impossible geometry, no collage, no illustration, no cartoon or plastic 3D look, no text overlay, no border, no frame.
-
-IMAGE 57.1 — ambiente/acordar-cansado-4x3.jpg — aspect ratio 4:3 — 1200×900 px
-
-Morning photograph of an adult sitting on the edge of a bed, seen from behind and in partial profile, shoulders relaxed forward in a tired posture, one hand resting on the mattress. The figure is on the right; an off-white quilted Kanak mattress with cream bedding is on the left; a half-drawn curtain lets soft morning light in behind. Medium shot, camera at 120 cm, 50 mm, f/4, gentle backlight, calm and ordinary. No recognizable face in the foreground, everyday neutral sleepwear. This is a scene of ordinary routine, never a clinical illustration: no hand on the lower back, no red marks, glows or pain indicators on the body, no x-ray, no drawn spine, no pressure map, no expression of suffering.
-```
+1. Aprovar o uso de IA (pendência 12) e registrar em `memoria.md`.
+2. 00 (quarto vazio) → aprovar → 01, 02, 03, 04, cada uma só com a 00 e as referências do próprio kit; conferir a régua de escala.
+3. 09 → aprovar → 10, 11.
+4. 06, 07, 08 na mesma sessão.
+5. 13 → aprovar → 14.
+6. Placeholders 05 e 12.
+7. Enviar ao cliente os pedidos F1–F8 em paralelo.

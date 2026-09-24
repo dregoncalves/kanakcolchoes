@@ -1,257 +1,319 @@
 @import "tailwindcss";
+@import "./tokens.css";
 
-:root {
-  --kanak-bordo-900: #3d0609;
-  --kanak-bordo-800: #57090c;
-  --kanak-bordo-700: #7a1420;
-  --kanak-bordo-600: #93202c;
-  --kanak-areia-100: #f6f1e7;
-  --kanak-areia-200: #e1d3b0;
-  --kanak-ouro-500: #c8952a;
-  --kanak-ouro-400: #e4be63;
-  --kanak-tinta-900: #1a1614;
-  --kanak-tinta-700: #3d3733;
-  --kanak-tinta-500: #6b625b;
-  --kanak-linha: #e3dcd2;
-  --kanak-papel: #ffffff;
-  --kanak-sombra: 0 2px 8px rgba(26, 22, 20, 0.06);
-}
-
+/* ---------------------------------------------------------------
+   Tokens do design system expostos ao Tailwind v4.
+   Fonte de verdade: design-system/tokens.css (pnpm sync:tokens).
+   Nenhuma cor nova pode nascer aqui.
+----------------------------------------------------------------- */
 @theme inline {
-  --color-bordo-900: var(--kanak-bordo-900);
-  --color-bordo-800: var(--kanak-bordo-800);
-  --color-bordo-700: var(--kanak-bordo-700);
-  --color-bordo-600: var(--kanak-bordo-600);
-  --color-areia-100: var(--kanak-areia-100);
-  --color-areia-200: var(--kanak-areia-200);
-  --color-ouro-500: var(--kanak-ouro-500);
-  --color-ouro-400: var(--kanak-ouro-400);
-  --color-tinta-900: var(--kanak-tinta-900);
-  --color-tinta-700: var(--kanak-tinta-700);
-  --color-tinta-500: var(--kanak-tinta-500);
-  --color-linha: var(--kanak-linha);
-  --color-papel: var(--kanak-papel);
-  --font-titulo: var(--font-fraunces), ui-serif, Georgia, serif;
-  --font-subtitulo: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --font-texto: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --shadow-kanak: var(--kanak-sombra);
+  --color-surface-100: var(--surface-100);
+  --color-surface-200: var(--surface-200);
+  --color-surface-900: var(--surface-900);
+  --color-ink: var(--ink);
+  --color-ink-60: var(--ink-60);
+  --color-borda: var(--border);
+  --color-vinho: var(--vinho);
+  --color-vinho-700: var(--vinho-700);
+  --color-apricot-cream: var(--apricot-cream);
+  --color-apricot-700: var(--apricot-700);
+  --color-on-dark: var(--on-dark);
+  --color-on-dark-muted: var(--on-dark-muted);
+  --color-ouro: var(--ouro);
+  --color-success: var(--success);
+  --color-error: var(--error);
+
+  /* famílias vindas do next/font; os fallbacks são os de design-system/tokens.css */
+  --font-display: var(--fonte-instrument-sans), system-ui, sans-serif;
+  --font-sans: var(--fonte-inter), system-ui, -apple-system, sans-serif;
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
 }
 
-html {
-  scroll-behavior: smooth;
+/* ---------------------------------------------------------------
+   Escala tipográfica fluida: cada tamanho sai do valor da prancheta
+   de 390 px e chega no valor da prancheta de 1440 px.
+----------------------------------------------------------------- */
+@theme {
+  --text-display-xl: clamp(3rem, 2.443rem + 2.286vw, 4.5rem);          /* 48 → 72 */
+  --text-display-xl--line-height: 1.04;
+  --text-display-xl--letter-spacing: -0.035em;
+  --text-display-xl--font-weight: 600;
+  --text-display-lg: clamp(2.25rem, 1.832rem + 1.714vw, 3.375rem);     /* 36 → 54 */
+  --text-display-lg--line-height: 1.08;
+  --text-display-lg--letter-spacing: -0.03em;
+  --text-display-lg--font-weight: 600;
+  --text-display-md: clamp(1.75rem, 1.518rem + 0.952vw, 2.375rem);     /* 28 → 38 */
+  --text-display-md--line-height: 1.12;
+  --text-display-md--letter-spacing: -0.025em;
+  --text-display-md--font-weight: 600;
+  --text-display-sm: clamp(1.5rem, 1.361rem + 0.571vw, 1.875rem);      /* 24 → 30 */
+  --text-display-sm--line-height: 1.12;
+  --text-display-sm--letter-spacing: -0.02em;
+  --text-display-sm--font-weight: 600;
+
+  --text-body-lg: clamp(1.0625rem, 1.039rem + 0.095vw, 1.125rem);      /* 17 → 18 */
+  --text-body-lg--line-height: 1.56;
+  --text-body: clamp(0.9375rem, 0.914rem + 0.095vw, 1rem);             /* 15 → 16 */
+  --text-body--line-height: 1.62;
+  --text-body-sm: clamp(0.875rem, 0.852rem + 0.095vw, 0.9375rem);      /* 14 → 15 */
+  --text-body-sm--line-height: 1.5;
+  --text-caption: clamp(0.75rem, 0.727rem + 0.095vw, 0.8125rem);       /* 12 → 13 */
+  --text-caption--line-height: 1.5;
+  --text-label: 0.875rem;                                              /* 14, fixo */
+  --text-label--line-height: 1.43;
+  --text-label--font-weight: 600;
 }
 
 @layer base {
+  html {
+    /* respiro ao parar numa âncora (#colchoes, #como-escolher, #contato) */
+    scroll-padding-top: 1.5rem;
+  }
+
   body {
-    background: var(--kanak-papel);
-    color: var(--kanak-tinta-700);
-    font-family: var(--font-texto);
-    font-size: 16px;
-    line-height: 1.65;
-    padding-bottom: 88px;
+    background: var(--surface-100);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
 
-  @media (min-width: 768px) {
-    body {
-      font-size: 17px;
-      padding-bottom: 96px;
-    }
-  }
-
-  h1,
-  h2 {
-    color: var(--kanak-tinta-900);
-    font-family: var(--font-titulo);
+  /* Títulos: Instrument Sans 600, tracking negativo conforme os tokens */
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
     font-weight: 600;
+    letter-spacing: -0.03em;
   }
 
-  h1 {
-    font-size: 32px;
-    letter-spacing: -0.015em;
-    line-height: 1.08;
+  :focus-visible {
+    outline: 2px solid var(--vinho);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
-  h2 {
-    font-size: 26px;
-    letter-spacing: -0.01em;
-    line-height: 1.15;
+  /* sobre fundo vinho, o anel de foco precisa do contraponto claro */
+  .sobre-vinho :focus-visible {
+    outline-color: var(--apricot-cream);
   }
 
-  h3,
-  h4 {
-    color: var(--kanak-tinta-900);
-    font-family: var(--font-subtitulo);
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 1.25;
+  ::selection {
+    background: var(--apricot-cream);
+    color: var(--ink);
   }
+}
 
-  @media (min-width: 768px) {
-    h1 {
-      font-size: 56px;
+@theme {
+  /*
+    Vocabulário de movimento. Duração conta distância: retorno de toque é
+    imediato, mudança de estado é curta, a abertura da cama é o foco, e a
+    entrada de seção (lençol, cortina, número) é o gesto longo.
+  */
+  --ease-chegada: cubic-bezier(0.16, 1, 0.3, 1);
+  --duracao-toque: 120ms;
+  --duracao-estado: 220ms;
+  --duracao-foco: 520ms;
+  --duracao-entrada: 680ms;
+}
+
+@layer components {
+  /*
+    Momento autoral · banner da Home, no desktop. As quatro camas dividem a
+    faixa; ao passar o ponteiro (ou ao receber foco pelo teclado), a escolhida
+    abre e as outras encolhem. Comportamento desenhado na prancheta: escolher
+    o tamanho é o gesto que a página inteira serve.
+
+    A foto tem largura fixa (a da cama aberta) e fica centrada: quem muda de
+    tamanho é o recorte, não a imagem. Sem isso o navegador reescalaria uma
+    foto grande a cada quadro da animação.
+  */
+  @media (width >= 48rem) {
+    .camas > .cama {
+      flex: 1 1 0;
+      min-width: 0;
+      transition: flex-grow var(--duracao-foco) var(--ease-chegada);
+    }
+    .camas > .cama img {
+      width: 26rem;
+      max-width: none;
+      inset-inline: auto;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    /* A legenda acompanha: fica discreta na faixa em repouso e assume quando a cama abre. */
+    .camas > .cama .placa {
+      transition:
+        background-color var(--duracao-estado) ease-out,
+        color var(--duracao-estado) ease-out;
     }
 
-    h2 {
-      font-size: 48px;
+    @media (hover: hover) and (pointer: fine) {
+      .camas:hover > .cama {
+        flex-grow: 0.85;
+      }
+    }
+    .camas > .cama:hover,
+    .camas > .cama:has(a:focus-visible) {
+      flex-grow: 1.9;
+    }
+    .camas > .cama:hover .placa,
+    .camas > .cama:has(a:focus-visible) .placa {
+      background-color: var(--vinho);
+      color: var(--surface-100);
+    }
+    .camas > .cama:hover .placa .medida,
+    .camas > .cama:has(a:focus-visible) .placa .medida {
+      color: var(--apricot-cream);
+    }
+  }
+}
+
+@layer components {
+  /* na landing do celular, o aviso de cookies nunca cobre o CTA fixo */
+  body:has(.barra-fixa-whatsapp) .aviso-cookies {
+    bottom: 88px;
+  }
+
+  @media (width >= 48rem) {
+    body:has(.barra-fixa-whatsapp) .aviso-cookies {
+      bottom: 0;
+    }
+  }
+
+  /*
+    Lençol: o realce do banner da Home e a oferta da landing. CSS de propósito,
+    para a entrada acima da dobra não esperar o JavaScript. O recorte não
+    muda o layout, então o título não empurra o botão.
+
+    Troca de página do carrossel: os três depoimentos novos chegam juntos,
+    curto, como uma folha virando. Sem isto o conteúdo simplesmente trocava.
+  */
+  @media (prefers-reduced-motion: no-preference) {
+    .lencol {
+      animation: lencol var(--duracao-entrada) var(--ease-chegada) both;
     }
 
-    h3,
-    h4 {
-      font-size: 24px;
+    /*
+      O mesmo lençol, disparado pela chegada da seção na tela. view() em vez
+      de motion: o recorte pelo script ficava preso no estado inicial.
+    */
+    @supports (animation-timeline: view()) {
+      .lencol-ao-rolar {
+        animation: lencol var(--duracao-entrada) var(--ease-chegada) both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 35%;
+      }
+    }
+
+    .troca-pagina {
+      animation: chega-card var(--duracao-estado) var(--ease-chegada) both;
     }
   }
 
-  .titulo-lp h1,
-  .titulo-lp h2 {
-    font-family: var(--font-subtitulo);
-    letter-spacing: 0;
+  @keyframes lencol {
+    from {
+      clip-path: inset(100% 0 -0.15em 0);
+    }
+    to {
+      clip-path: inset(0 0 -0.15em 0);
+    }
+  }
+
+  @keyframes chega-card {
+    from {
+      opacity: 0;
+      clip-path: inset(0 0 0 18%);
+    }
+    to {
+      opacity: 1;
+      clip-path: inset(0);
+    }
   }
 }
 
-.titulo-secao::after {
-  content: "";
-  display: block;
-  width: 2.5rem;
-  height: 2px;
-  margin-top: 1rem;
-  background: var(--kanak-ouro-500);
-}
+@layer utilities {
+  /*
+    Retorno de toque. No celular não existe hover: sem isto, o CTA mais
+    importante do site não dá sinal nenhum de ter sido tocado antes de a aba
+    do WhatsApp abrir. O recuo é pequeno e volta rápido.
+  */
+  .recuo-no-toque {
+    transition: transform var(--duracao-toque) ease-out;
+  }
+  .recuo-no-toque:active {
+    transform: scale(0.985);
+  }
 
-.titulo-secao.titulo-secao-centro::after,
-.secao-centro .titulo-secao::after {
-  margin-inline: auto;
-}
+  /* trilho horizontal com encaixe, sem biblioteca (specs/design.md §10) */
+  .trilho {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .trilho::-webkit-scrollbar {
+    display: none;
+  }
+  .trilho > * {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .trilho {
+      scroll-behavior: smooth;
+    }
+  }
 
-.secao-centro .titulo-secao {
-  max-width: 22ch;
-}
-
-.escuro-secao .titulo-secao::after {
-  background: var(--kanak-ouro-400);
-}
-
-.escuro-secao .border-linha {
-  border-color: rgba(228, 190, 99, 0.35);
-}
-
-.secao-centro .max-w-\[68ch\] {
-  margin-inline: auto;
-}
-
-.secao-centro .ctas-da-secao {
-  align-items: center;
-  justify-content: center;
-}
-
-:focus-visible {
-  outline: 2px solid var(--kanak-ouro-500);
-  outline-offset: 2px;
-}
-
-.overlay-hero {
-  background: linear-gradient(
-    to top,
-    rgba(26, 22, 20, 0.86) 0%,
-    rgba(26, 22, 20, 0.15) 100%
-  );
-}
-
-@media (min-width: 768px) {
-  .overlay-hero {
-    background: linear-gradient(
-      to right,
-      rgba(26, 22, 20, 0.86) 0%,
-      rgba(26, 22, 20, 0.15) 100%
-    );
+  /*
+    O trilho é flex. Nas listas que também pedem grade, esse flex ganhava
+    e cada card ficava mais largo que a página. A faixa de camas do banner
+    não usa .grade, então continua flex.
+  */
+  @media (width >= 48rem) {
+    .trilho.grade {
+      display: grid;
+      overflow: visible;
+      scroll-snap-type: none;
+    }
   }
 }
 
-/* ── Scroll reveal ─────────────────────────────────────────── */
-
-.secao-entrada {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 500ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.secao-visivel {
-  opacity: 1;
-  transform: none;
-}
-
-/* ── Eyebrow pill ───────────────────────────────────────────── */
-
-.badge-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(200, 149, 42, 0.1);
-  color: var(--kanak-ouro-500);
-  font-family: var(--font-subtitulo);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-}
-
-.escuro-secao .badge-eyebrow {
-  background: rgba(228, 190, 99, 0.12);
-  color: var(--kanak-ouro-400);
-}
-
-/* ── Reduced motion ─────────────────────────────────────────── */
-
+/*
+  Menos movimento, não nenhum retorno. Some tudo que desloca ou percorre a
+  tela; ficam as transições de cor e de foco, que são o que diz ao usuário
+  que o toque foi recebido e onde ele está.
+*/
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-
-  .secao-entrada {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+  .trilho {
+    scroll-behavior: auto;
+  }
+  .camas > .cama {
+    transition: none;
+  }
+  /* a troca de página continua sinalizada, só que sem deslocamento nem recorte */
+  .lencol,
+  .lencol-ao-rolar {
+    animation: none;
+    clip-path: none;
+  }
+  .troca-pagina {
+    animation: acende var(--duracao-estado) ease-out both;
   }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  @keyframes acende {
+    from {
+      opacity: 0.45;
+    }
+    to {
+      opacity: 1;
+    }
   }
-}
-
-/* Image Accordion Components */
-.acc {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  overflow: hidden;
-  -webkit-user-select: none;
-  user-select: none;
-  touch-action: pan-y;
-}
-
-.acc-cell {
-  position: relative;
-  flex-basis: 0;
-  flex-shrink: 1;
-  min-width: 0;
-  overflow: hidden;
-}
-
-.acc-cell img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  -webkit-user-drag: none;
+  /* o retorno de toque vira só cor, sem o afundar do botão */
+  .recuo-no-toque:active {
+    transform: none;
+  }
 }

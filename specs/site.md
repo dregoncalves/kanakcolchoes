@@ -1,172 +1,249 @@
-# specs/site.md — fonte de verdade do que será construído
+# Especificação do site — Kanak Colchões
 
-Projeto: redesign do site da Kanak Colchões (kanakcolchoes.com.br), hoje no ar em WordPress, reconstruído em Next.js.
-Criado em 21/09/2026 · Verdade visual em @specs/design.md · Mapa copy→componente em @specs/conteudo.md · Histórico em @memoria.md · Imagens em @imagens.md
+Fonte de verdade sobre **o que** construir. Visual em `specs/design.md`; histórico de decisões em `memoria.md`. Marcadores `⏳ PENDENTE` indicam dado que o cliente ainda não confirmou — nunca preencher por conta própria.
 
----
+## 0. Wireframes (Claude Design)
 
-## 1. Objetivo do site
+Fonte de verdade da estrutura, da ordem das seções e dos CTAs. Ler antes de construir qualquer seção.
 
-Levar o visitante a **iniciar uma conversa no WhatsApp com a equipe Kanak**. Não existe checkout, carrinho, preço na página nem formulário de pagamento. O site informa, dá segurança e entrega a conversa.
+| Canvas | Link | Pranchetas |
+| --- | --- | --- |
+| Kanak · Home | https://claude.ai/artifact/Cs1NAmG378VSgbpBD1Pibj | Home desktop (1440), Mapa de CTAs do WhatsApp, Mobile parte 1 e parte 2 (390) |
+| Kanak · Landing Google Ads | https://claude.ai/artifact/Vh7Ytw12aDvhwuiFmHfRhp | Desktop (1440), Mobile (390), Ajustes de copy |
 
-Objetivo secundário: elevar a percepção da marca. O site atual tem aparência de template de WordPress; o redesign precisa parecer uma marca premium de cama, mantendo exatamente o que a marca já diz.
+A copy nas pranchetas é a do cliente (landing com os ajustes aprovados da seção 6.3; Home com os ajustes aprovados da seção 6.4).
 
-## 2. Público-alvo
+## 1. Objetivo
 
-- 25 a 60 anos, classe B- e C+.
-- Compra motivada por: desgaste visível do colchão, dores físicas, sono ruim, fim da vida útil, upgrade de tamanho.
-- Objeção principal: **decisão compartilhada** — quase ninguém fecha sem conversar com o parceiro(a) antes. O site precisa ser fácil de mostrar para outra pessoa e de retomar depois.
-- Pico de acesso: 14h–18h e 19h–21h30, **em casa, no celular**. Celular não é adaptação do desktop neste projeto: é o ponto de partida.
+Gerar conversas no WhatsApp com especialistas da Kanak. O site **não vende online**: não há carrinho, checkout, pagamento, login nem área do cliente. O fechamento acontece fora do site (WhatsApp, loja, vendedor).
+
+Métrica principal: cliques em botões de WhatsApp (evento `clique_whatsapp`), segmentados pela `origem` do botão.
+
+## 2. Público
+
+- 25 a 60 anos, classes B− e C+.
+- Estados atendidos pelos anúncios: MG, SP, PR, RJ, SC, MS, GO, DF e RS.
+- Motivos de troca: desgaste visível, dores e desconforto, sono ruim, fim da vida útil, upgrade de tamanho.
+- Objeção principal: decisão a dois — o cliente sempre conversa com o parceiro(a) antes de fechar.
+- Horário de maior venda: tarde (14h–18h) e noite (19h–21h30), no celular, em casa, com a família.
 
 ## 3. Produto e proposta de valor
 
-Kanak vende **conjuntos completos de cama**, não colchão avulso. O foco comercial é 100% no kit.
+Conforto e durabilidade que justificam o preço, com prova técnica visível (densidade, firmeza, Inmetro, garantia). Não é "colchão baratinho" nem luxo inacessível. A Kanak fabrica os colchões (confirmado): "direto da fábrica" pode ser usado.
 
-**Composição do kit (igual em todos os tamanhos):** 1 colchão + 1 cabeceira + 1 baú + 4 travesseiros.
-
-| Modelo | Acabamento | Garantia |
+| Linha | Papel | Observação |
 | --- | --- | --- |
-| Molas Ensacadas | faixa única, **sem** Pillow Top | 5 anos |
-| Anatômico Ortopédico | **com** Pillow Top | 8 anos |
-| Magnético | **com** Pillow Top, tecnologia magnética | conforme condições específicas do modelo |
+| Kits completos (colchão + base box + cabeceira, opção de baú) | Foco de 100% dos anúncios | — |
+| Colchões: molas ensacadas, espuma de alta densidade (Anatômico Ortopédico), magnético | Produto central | Garantia (copy do cliente): molas ensacadas 5 anos, Anatômico Ortopédico 8 anos. Magnético: ⏳ PENDENTE |
+| Bases box, cabeceiras, baús de pé | Vendidos em kit | Specs por peça: ⏳ PENDENTE |
 
-| Tamanho | Medida do colchão |
-| --- | --- |
-| Solteiro | 88 × 188 cm |
-| Casal | 138 × 188 cm |
-| Queen | 158 × 198 cm |
-| King | 193 × 203 cm |
+Tamanhos (medidas em cm):
 
-**Cores:** 11 opções de veludo/suede — bege, cinza, terracota, caramelo, marrom, vinho, vermelho, rosé, azul, mostarda, verde. A disponibilidade se confirma na compra.
+| Tamanho | Medida | Nota |
+| --- | --- | --- |
+| Solteiro | 88 x 188 | — |
+| Casal | 138 x 188 | — |
+| Queen | 158 x 198 | — |
+| King | 193 x 203 | Maior margem. Possivelmente o mais vendido (cliente não tem certeza) — selo "Mais vendido" só com confirmação |
 
-**Modelo de venda (o coração da marca):** o cliente conversa pelo WhatsApp/telefone, escolhe, recebe em casa e **só paga na entrega**. Se não gostar ao receber, devolve sem pagar, conforme as condições da compra.
-
-**Entrega:** 9 estados — Minas Gerais, São Paulo, Paraná, Rio de Janeiro, Santa Catarina, Mato Grosso do Sul, Goiás, Brasília e Rio Grande do Sul.
-
-**Maior margem:** King Size. Onde a copy não define ordem de vitrine, o King aparece primeiro.
+Dados técnicos por modelo (densidade, firmeza, peso suportado por pessoa, tecido/tratamentos, Inmetro): em espera por decisão do cliente. Não exibir nada que não tenha sido fornecido. Onde o wireframe prevê dado técnico (ex.: espessura das camadas em "A Ciência do Conforto"), a interface deve funcionar sem ele.
 
 ## 4. Idioma
 
-pt-BR, único. `<html lang="pt-BR">`. Sem seletor de idioma, sem tradução de nenhum texto do cliente.
+Português do Brasil em todo o site, nos metadados, nos `alt` e nas mensagens pré-preenchidas.
 
-## 5. Arquitetura de páginas e rotas
+## 5. Páginas
 
-Base confirmada pelo cliente na planilha "ARQUITETURA DA INFORMAÇÃO" (~17–20 páginas).
+| Página | Rota proposta | Layout | Status nesta entrega |
+| --- | --- | --- | --- |
+| Home institucional | `/` | Layout do site | Dentro do escopo |
+| Landing Google Ads | `/lp/[slug]` | Layout próprio, sem menu do site; rodapé igual ao da Home | Dentro do escopo |
+| Páginas de produto/categoria | — | Layout do site | **Fora desta entrega** (fica para depois) |
+| Blog | `/blog`, `/blog/[slug]` | Layout do site; conteúdo vindo do WordPress (CMS headless) | **Fora desta entrega** (decisão de 2026-09-23 substituída no mesmo dia: esta entrega é só Home e landing) |
+| Landing pages futuras | `/lp/[slug]` | Mesmo layout da landing | Estrutura preparada |
 
-```
-/                                            Home
-/a-kanak                                     A Kanak (sobre, contato, pedidos)     [sem copy — ver §11]
-/por-que-comprar                             Por que comprar na Kanak
-/colchao-king-size                           hub King  — renderiza produtos/kingsize/kit.md
-/colchao-king-size/molas-ensacadas
-/colchao-king-size/anatomico-ortopedico
-/colchao-king-size/magnetico
-/colchao-queen-size                          hub Queen  — renderiza produtos/queensize/kit.md
-/colchao-queen-size/{molas-ensacadas|anatomico-ortopedico|magnetico}
-/colchao-de-casal                            hub Casal  — renderiza produtos/casal/kit.md
-/colchao-de-casal/{molas-ensacadas|anatomico-ortopedico|magnetico}
-/colchao-de-solteiro                         hub Solteiro — renderiza produtos/solteiro/kit.md
-/colchao-de-solteiro/{molas-ensacadas|anatomico-ortopedico|magnetico}
-/blog                                        listagem (WordPress headless)
-/blog/[slug]                                 post
-/lp/[slug]                                   landing pages de anúncio, fora do menu e do sitemap de navegação
-```
+Links do cabeçalho da Home são âncoras na própria página: Colchões → `#colchoes` (seção 4), Como escolher → `#como-escolher` (seção 3), Contato → `#contato` (Dúvidas).
 
-**Decisão de rota a confirmar:** a planilha prevê um hub de tamanho **e** uma página de kit separada, mas a copy do cliente tem apenas 4 arquivos por tamanho (`kit`, `molas-ensacadas`, `anatomico-ortopedico`, `magnetico`). Não existe copy de hub. Para não inventar texto, **o hub é a página de kit**: `/colchao-king-size` renderiza `conteudo/produtos/kingsize/kit.md`, e os 3 modelos são rotas filhas. Registrado como pendência em @memoria.md.
+## 6. Seções por página (ordem dos wireframes)
 
-**Menu principal:** Home · Colchão Queen Size · Colchão King Size · Colchão de Casal · Colchão de Solteiro · Por que comprar · A Kanak · Blog. Landing pages nunca aparecem no menu.
+A ordem abaixo é obrigatória. A numeração segue a dos wireframes.
 
-**Rodapé:** presente em todas as páginas institucionais e de produto. Nas landing pages, apenas rodapé legal mínimo, sem navegação.
+### 6.1 Home
 
-## 6. Seções de cada página
+0. **Cabeçalho** — logo (`my-app/public/logo.webp`); links Colchões, Como escolher, Contato; botão "Falar com especialista". No celular, menu pelo ícone de três linhas.
+1. **Banner** — título "Seu descanso começa com a *escolha certa*", apoio, CTA "Melhore seu sono com a Kanak!" e quatro fotos verticais clicáveis, uma por tamanho (Queen, King, Casal, Solteiro), com nome e medida. Abaixo, dois parágrafos restantes da copy. No celular, as 4 fotos deslizam para o lado.
+2. **A Ciência do Conforto** — ilustração de camadas (Regulação térmica, Suporte anatômico, Alta resiliência; espessuras ⏳ PENDENTE) + texto + CTA.
+3. **Qual colchão combina com você?** (`#como-escolher`) — texto, escala de firmeza (Macio, Intermediário, Firme, Extrafirme), CTA, três cards com foto: Molas ensacadas, Espuma de alta densidade, Magnético.
+4. **Conheça nossos colchões** (`#colchoes`) — "Escolha pelo tamanho ideal" (4 cards clicáveis) e "Encontre o modelo que combina com você" (3 cards clicáveis com foto e garantia) + CTA. No celular, tamanhos e modelos deslizam para o lado.
+5. **Depoimentos** — 6 depoimentos reais do Google (nome, cidade, foto, autorização), carrossel de 3 por página no desktop, deslizante no celular. Até receber, espaços reservados — nunca texto inventado.
+6. *(sem seção — a seção "Faça seu pedido e acompanhe sua entrega" da copy original não está no wireframe)*
+7. **Showroom** — foto do showroom com atendimento + texto + CTA.
+8. **Dúvidas** (`#contato`) — texto, três telefones como botões de WhatsApp, CTA principal.
+9. **Rodapé** — marca, endereço, horário, redes, três telefones, mapa do showroom, CNPJ e razão social (dados ficam para depois; manter espaços reservados).
 
-A ordem das seções de cada página vem da copy do cliente e está mapeada, arquivo por arquivo, em @specs/conteudo.md. Resumo dos padrões:
+### 6.2 Landing Google Ads (layout separado, versão mobile própria)
 
-| Tipo de página | Ordem das seções |
-| --- | --- |
-| Home | hero → diferenciais → tecnologia → vitrine-produtos → prova-social → como-comprar → diferenciais → contato |
-| Por que comprar | hero → historia → diferenciais → garantia-entrega → tecnologia → como-comprar → garantia-entrega → garantia-entrega → fechamento |
-| Hub/kit de tamanho | hero → composicao-kit → dimensoes → vitrine-produtos → variantes-cor → especificacoes → fechamento → faq |
-| Página de modelo | hero → composicao-kit → dimensoes → tecnologia → variantes-cor → fechamento → especificacoes → faq |
-| Landing page | hero → problema → vitrine-produtos → prova-social → fechamento |
+0. **Cabeçalho mínimo** — logo + "Falar com especialista". Sem menu: todo clique leva ao WhatsApp.
+1. **Banner trocável da campanha** — a seção inteira (arte, título, oferta, CTA) muda a cada campanha. Arte 1440×600 no desktop e versão vertical no celular. O banner inteiro é um link de WhatsApp.
+2. **Acordar Cansado Não É Normal** — destaque "1/3", texto, CTA.
+3. **Modelos & Tecnologias** (sobretítulo) / "O Tamanho Certo para o Seu Quarto, a Tecnologia Certa para a Sua Coluna" — 3 cards de tamanho (Queen, King, Casal & Solteiro) + "Escolha a Tecnologia" com 3 cards de modelo + CTA. No celular, modelos deslizam.
+4. **Por Que a Kanak É a Escolha Certa?** — 4 argumentos (Garantia de até 8 Anos, Consultoria do Sono sob Medida, Facilidade Real no Seu Bolso, Logística Ágil e Segura) + carrossel de depoimentos reais + CTA.
+5. **Sua Nova Rotina de Sono Começa Hoje!** — fechamento com prazo da campanha "[DATA]" + CTA.
+6. **Rodapé** — o mesmo da Home (empilhado no celular).
+- **Celular:** barra "Falar com especialista" fixa no pé da tela durante toda a rolagem.
 
-Exceção conhecida: o Kit Queen Size **não tem** seção `faq` no conteúdo original. O layout não preenche a lacuna com texto inventado.
+### 6.3 Ajustes de copy aprovados (landing)
+
+Somente estes trechos diferem da copy original do cliente. Todo o resto da copy fica como veio.
+
+| Seção | Original | Na landing |
+| --- | --- | --- |
+| 1 Banner | Até 55% OFF nos Melhores Colchões do Brasil + Frete Especial! | Até 55% OFF em Colchões Kanak + Frete Especial! |
+| 2 | O Seu Colchão Pode Estar Lhe Tirando a Saúde. | O Seu Colchão Pode Estar Atrapalhando o Seu Sono. |
+| 2 | …seu corpo está pedindo socorro. | …pode ser hora de trocar de colchão. |
+| 2 | Os colchões Kanak alinham sua coluna, aliviam os pontos de pressão e garantem o sono profundo que você precisa para se regenerar! | Os colchões Kanak ajudam a manter a coluna alinhada e aliviam os pontos de pressão, para um sono mais profundo e contínuo. |
+| 2 e 3 | Descubra o colchão ideal aqui!! | Descubra o colchão ideal aqui! |
+| 3 | MODELOS & TECNOLOGIAS: O Tamanho Certo… | "Modelos & Tecnologias" vira sobretítulo; o título segue igual |
+| 3 | Queen Size (158x198): O mais vendido! Espaço perfeito para casais sem apertos | Queen Size · 158 x 198 cm · Espaço de sobra para casais, sem apertos. |
+| 3 | Casal (138x188) & Solteiro (088x188) | Casal & Solteiro · 138 x 188 cm · 88 x 188 cm |
+| 3 | Molas Ensacadas: Tecnologia Zero Movimento — se um se mexe, o outro não sente nada. | Isolamento de movimento: quando um se mexe, o outro quase não sente. |
+| 3 | Anatômico Ortopédico: Alinhamento postural cirúrgico… | Suporte firme para o alinhamento da coluna, com espuma de alta resiliência. |
+| 3 | Linha Magnética: Conforto com ação relaxante muscular. | Conforto para quem procura uma opção diferente das tradicionais. |
+| 4 | POR QUE A KANAK É A ESCOLHA CERTA? | Por Que a Kanak É a Escolha Certa? |
+| 4 | …Mas A Transformação da Sua Saúde | …Mas Noites Melhores de Sono |
+| 4 | Garantia Blindada de até 8 Anos: Tranquilidade absoluta de comprar direto da fábrica… | Garantia de até 8 Anos: Compre direto da fábrica, sem intermediários. Se o seu colchão deformar dentro da garantia, a Kanak resolve. |
+| 4 | Depoimento da Juliana M., "Cliente Verificada Kanak" | Espaços reservados para depoimentos reais |
+| 5 | SUA NOVA ROTINA DE SONO COMEÇA HOJE! | Sua Nova Rotina de Sono Começa Hoje! |
+| 5 | Diga Adeus ao Cansaço Crônico e Acorde Renovado Amanhã | Diga Adeus às Noites Mal Dormidas e Comece a Acordar Mais Disposto |
+| 5 | O seu corpo não pode e não deve esperar… aceitando dores… | Se o seu colchão já está gasto, cada noite conta. Adiar a troca é continuar aceitando desconforto… |
+| 5 | …transformar sua energia, sua saúde e sua qualidade de vida. | …ter mais energia e qualidade de vida. |
+| 5 | Nossos lotes de fábrica têm alta rotatividade e a hora… é agora. | As condições desta campanha são válidas até [DATA]. |
+
+"Zero Movimento" pode voltar se for nome comercial do produto. "Mais vendido" só volta com dado confirmado.
+
+### 6.4 Ajustes de copy da Home — APROVADOS (2026-09-23)
+
+A Home ganha ajustes, com os mesmos critérios da landing (sem promessa de saúde, sem superlativo ou número sem prova, sem "Comprar", sem exclamação dupla). Os dez trechos abaixo foram **aprovados em bloco em 2026-09-23**: a coluna Proposta é a copy vigente da Home. Segue pendente só a confirmação de H3 (se a regulação térmica existe em todos os modelos).
+
+| # | Seção | Original | Proposta | Por quê |
+| --- | --- | --- | --- | --- |
+| H1 | 1 Banner | …você encontra as melhores opções de colchões, bases, cabeceiras e baús… | …você encontra opções de colchões, bases, cabeceiras e baús… | Superlativo sem prova (mesmo critério do "Melhores Colchões do Brasil" da landing) |
+| H2 | 2 Ciência | …estudamos a ergonomia e o suporte anatômico necessário para alinhar perfeitamente a sua coluna durante toda a noite. | …estudamos a ergonomia e o suporte anatômico que ajudam a manter a coluna alinhada durante a noite. | "Alinhar perfeitamente" é promessa de resultado |
+| H3 | 2 Ciência | Nossos produtos contam com tecnologia de regulação térmica, garantindo uma temperatura agradável… | Nossos produtos contam com tecnologia de regulação térmica, que contribui para uma temperatura agradável… | "Garantindo" promete resultado. Confirmar com o cliente se a regulação térmica existe em todos os modelos |
+| H4 | 2 Ciência | …evita aquele afundamento indesejado ao longo do tempo, mantendo a firmeza e o suporte original por anos. | …ajuda a evitar aquele afundamento indesejado, mantendo a firmeza e o suporte por mais tempo. | Promessa absoluta de durabilidade |
+| H5 | 2 Ciência | …um produto testado, certificado e projetado por especialistas em saúde postural e conforto de alto padrão. | …um produto fabricado com cuidado, pensado para o conforto e o suporte do seu corpo. | Certificação e "especialistas em saúde postural" sem comprovação. Se o Inmetro for confirmado, "certificado" volta |
+| H6 | 3 Qual colchão | CTA: Compre seu colchão agora! | CTA: Descubra o colchão ideal para você! | Site não vende; "Comprar" dá cara de checkout |
+| H7 | 5 Depoimentos | A maior prova da nossa excelência está no sorriso e no alívio de milhares de famílias que mudaram suas vidas após trocar de colchão com a Kanak. Pessoas que sofriam com dores crônicas na lombar, insônia ou cansaço excessivo ao acordar hoje relatam o impacto positivo de noites contínuas de sono reparador. | A maior prova do nosso trabalho está na experiência de quem já trocou de colchão com a Kanak. São clientes que contam como passaram a dormir melhor e a acordar mais dispostos. | "Milhares" sem dado; "dores crônicas" e "insônia" são termos clínicos |
+| H8 | 5 Depoimentos | Cada depoimento que recebemos reforça nossa missão: levar saúde, bem-estar e o aconchego que você e sua família merecem. Junte-se a milhares de clientes satisfeitos e descubra por que a Kanak Colchões é referência em qualidade, durabilidade e satisfação garantida. | Cada depoimento que recebemos reforça nossa missão: levar conforto, bem-estar e o aconchego que você e sua família merecem. Conheça as histórias de quem já escolheu a Kanak. | Alegação de saúde, número sem dado, "satisfação garantida" é promessa |
+| H9 | 7 Showroom | Não deixe que noites mal dormidas prejudiquem sua rotina, seu humor e sua saúde. | Não deixe que noites mal dormidas prejudiquem sua rotina e seu humor. | Alegação de saúde (mesmo critério da landing) |
+| H10 | 7 Showroom | CTA: Fale com nossos especialistas!! | CTA: Fale com nossos especialistas! | Exclamação dupla |
+
+H6 e H10 já estão refletidos no Mapa de CTAs (§7.3). `data-origem` e mensagens não mudaram.
 
 ## 7. Funcionalidades
 
-1. **CTA de WhatsApp** — componente único, usado por todo CTA do site. Centraliza número, mensagem pré-preenchida e parâmetro de origem.
-2. **Botão flutuante de WhatsApp** — em todas as páginas, inclusive landing pages.
-3. **Carrossel de produtos** — usado onde a copy escreve `[CARROSSEL DE PRODUTOS]` / `[CARROSSEL COM OS MODELOS]`.
-4. **Carrossel/seletor de cores** — onde a copy escreve `[CARROSSEL COM AS CORES]`. 11 cores, com a ressalva de disponibilidade que já está na copy.
-5. **Carrossel de depoimentos** — onde a copy escreve `[CARROSSEL DE DEPOIMENTOS]`. **Bloqueado:** não existe depoimento real fornecido pelo cliente, exceto o exemplo único que já está na copy da landing page. Ver §11.
-6. **FAQ em acordeão** — conteúdo integral da seção `faq` do arquivo da página.
-7. **Tabela de especificações** — apenas com os campos que existem na copy.
-8. **Blog headless** — `/blog` e `/blog/[slug]` consumindo o WordPress atual via REST (`/wp-json/wp/v2`), por um único módulo `lib/wordpress.ts`.
-9. **Pontos de inserção** de tag do Google Ads e GA4 nas landing pages, **sem instalar nada** antes de autorização.
+### 7.1 Links de WhatsApp
 
-Fora: carrinho, checkout, cálculo de frete, login, busca full-text, comentários de blog, newsletter.
+- Formato: `https://wa.me/55<DDD><número>?text=<mensagem codificada>`.
+- Os três números são WhatsApp. Botões principais apontam para o principal, **(41) 99842-5771** (sem rodízio).
+- Os três números — (41) 99842-5771, (41) 98726-5068 e (41) 98410-1101 — aparecem em Dúvidas e no rodapé; cada um abre o seu próprio número.
+- Cada botão tem mensagem pré-preenchida própria e atributo `data-origem` (tabela 7.3). Manter as frases estáveis: o atendimento identifica a seção pela frase inicial. Se alguma mudar, atualizar a tabela e avisar o atendimento.
+- Links abrem em nova aba (`target="_blank" rel="noopener"`).
+- Rótulo acessível claro em todo botão.
 
-## 8. CTAs e para onde levam
+### 7.2 Mensuração
 
-- **Todo CTA leva ao WhatsApp.** Nenhum CTA leva a carrinho, formulário de pagamento ou e-mail.
-- Número único de destino: **(41) 99842-5771**. Os outros dois números — (41) 98726-5068 e (41) 98410-1101 — continuam visíveis no texto do cliente onde ele os escreveu, sem virar link de CTA.
-- Cada CTA carrega mensagem pré-preenchida e parâmetro de origem (página + seção; nas landing pages, também a campanha), para identificar de onde veio o contato.
-- **Cada `**CTA:**` da copy pertence à seção em que aparece.** O cliente pediu vários CTAs ao longo da página. Não consolide, não remova, não mova para o rodapé.
-- O texto do botão é o texto do cliente, palavra por palavra, incluindo pontuação e maiúsculas.
-- Exceção de comportamento: na Home, a seção `como-comprar` tem `**CTA:**` e `**CTA secundário:**` — dois botões, hierarquia visual diferente, ambos para WhatsApp com mensagens de origem distintas.
+- GA4: evento `clique_whatsapp` com parâmetro `origem` (valor de `data-origem`). Marcar como conversão.
+- Meta Pixel: evento `Contact` com parâmetro `origem`. Marcar como conversão.
+- IDs de GA4 e Pixel: ⏳ PENDENTE (deixar configuráveis por variável de ambiente).
+- **Aviso de cookies (LGPD):** obrigatório. Banner discreto no rodapé da tela, com aceitar/recusar. GA4 e Pixel só carregam após consentimento (Consent Mode v2 no GA4). Não cobrir o CTA fixo de WhatsApp.
+
+### 7.3 Mapa de CTAs
+
+Transcrito dos wireframes (prancheta "Mapa de CTAs do WhatsApp" + código dos botões). Somente estes CTAs existem. Número: 99842-5771, salvo nas linhas de telefones.
+
+**Home** (mensagens começam com "Olá! Vim pelo site…")
+
+| Seção | Botão | `data-origem` | Mensagem pré-preenchida |
+| --- | --- | --- | --- |
+| Cabeçalho | Falar com especialista | `header` | Olá! Vim pelo site e quero falar com um especialista em colchões. |
+| 1 Banner | Melhore seu sono com a Kanak! | `banner` | Olá! Vim pelo site e quero ajuda para escolher o colchão certo para mim. |
+| 1 Banner | Foto de cada tamanho | `hero_queen`, `hero_king`, `hero_casal`, `hero_solteiro` | Olá! Vim pelo site e quero conhecer as opções de colchão [Tamanho] ([medidas]). |
+| 2 Ciência do conforto | Encontre o colchão ideal para o seu descanso! | `ciencia` | Olá! Vim pelo site, li sobre a tecnologia dos colchões Kanak e quero encontrar o ideal para o meu descanso. |
+| 3 Qual colchão | Descubra o colchão ideal para você! | `como_escolher` | Olá! Vim pelo site e quero ajuda para escolher entre molas ensacadas, espuma e magnético. |
+| 4 Tamanhos | Card de cada tamanho | `tamanho_queen`, `tamanho_king`, `tamanho_casal`, `tamanho_solteiro` | Olá! Vim pelo site e quero conhecer as opções de colchão [Tamanho] ([medidas]). Ex.: "Queen Size (158 x 198 cm)" |
+| 4 Modelos | Card de cada modelo | `modelo_molas`, `modelo_anatomico`, `modelo_magnetico` | Olá! Vim pelo site e quero saber mais sobre o colchão [Modelo]. ("de Molas Ensacadas", "Anatômico Ortopédico", "Magnético") |
+| 4 Conheça | Escolha seu colchão agora! | `colchoes` | Olá! Vim pelo site e quero escolher meu colchão. Podem me ajudar? |
+| 5 Depoimentos | Tenha seu colchão dos sonhos! | `depoimentos` | Olá! Vim pelo site, vi os depoimentos e quero conhecer os colchões Kanak. |
+| 7 Showroom | Fale com nossos especialistas! | `showroom` | Olá! Vim pelo site e quero falar com um especialista sobre pagamento, entrega e atendimento. |
+| 8 Dúvidas | Fale agora com um especialista Kanak. | `duvidas` | Olá! Vim pelo site e tenho uma dúvida sobre os colchões Kanak. |
+| 8 Dúvidas | Os 3 telefones (cada um o seu número) | `duvidas_fone_1`, `_2`, `_3` | Olá! Vim pelo site e tenho uma dúvida sobre os colchões Kanak. |
+| Rodapé | Os 3 telefones (cada um o seu número) | `rodape_fone_1`, `_2`, `_3` | Olá! Vim pelo site e quero falar com a Kanak. |
+
+**Landing Google Ads** (mensagens começam com "Olá! Vim pelo anúncio…")
+
+| Seção | Botão | `data-origem` | Mensagem pré-preenchida |
+| --- | --- | --- | --- |
+| Cabeçalho | Falar com especialista | `lp_header` | Olá! Vim pelo anúncio e quero falar com um especialista da Kanak. |
+| Barra fixa (celular) | Falar com especialista | `lp_barra_fixa` | Olá! Vim pelo anúncio e quero falar com um especialista da Kanak. |
+| 1 Banner | Tenha o melhor colchão! (banner inteiro clicável) | `lp_banner` | Olá! Vi a promoção de até 55% OFF e quero aproveitar. |
+| 2 Problema | Descubra o colchão ideal aqui! | `lp_problema` | Olá! Vim pelo anúncio. Acordo cansado e quero descobrir o colchão ideal para mim. |
+| 3 Tamanhos | Card Queen | `lp_tamanho_queen` | Olá! Vim pelo anúncio e quero ver as opções em Queen Size (158 x 198 cm) na promoção. |
+| 3 Tamanhos | Card King | `lp_tamanho_king` | Olá! Vim pelo anúncio e quero ver as opções em King Size (193 x 203 cm) na promoção. |
+| 3 Tamanhos | Card Casal & Solteiro | `lp_tamanho_casal_solteiro` | Olá! Vim pelo anúncio e quero ver as opções em Casal ou Solteiro na promoção. |
+| 3 Tecnologia | Card Molas Ensacadas | `lp_modelo_molas` | Olá! Vim pelo anúncio e quero saber mais sobre o colchão de Molas Ensacadas. |
+| 3 Tecnologia | Card Anatômico Ortopédico | `lp_modelo_anatomico` | Olá! Vim pelo anúncio e quero saber mais sobre o colchão Anatômico Ortopédico. |
+| 3 Tecnologia | Card Linha Magnética | `lp_modelo_magnetico` | Olá! Vim pelo anúncio e quero saber mais sobre a Linha Magnética. |
+| 3 | Descubra o colchão ideal aqui! | `lp_modelos` | Olá! Vim pelo anúncio e quero ajuda para escolher tamanho e tecnologia. |
+| 4 Por que a Kanak | Fale com nossos especialistas agora! | `lp_especialistas` | Olá! Vim pelo anúncio e quero uma consultoria para escolher meu colchão. |
+| 5 Fechamento | Quero o colchão perfeito! | `lp_fechamento` | Olá! Vim pelo anúncio e quero receber vídeos dos modelos, fotos do acabamento e uma indicação de colchão. |
+| Rodapé | Os 3 telefones (cada um o seu número) | `lp_rodape_fone_1`, `_2`, `_3` | Olá! Vim pelo anúncio e quero falar com a Kanak. |
+
+## 8. Ofertas
+
+Desconto, parcelamento, frete e brindes podem aparecer "com critérios": como reforço, nunca como protagonista. Não ganham contador nem cor de urgência. O banner trocável da landing é o único lugar onde a oferta encabeça a seção, por decisão do wireframe.
+
+Condições confirmadas pelo cliente: "até 55% OFF" é real; parcelamento em 12x sem juros no cartão; há desconto no PIX (a copy não cita percentual). Data de fim da campanha: ⏳ PENDENTE — o texto "[DATA]" na seção 5 da landing precisa dela antes de publicar.
 
 ## 9. Stack técnica
 
-| Item | Decisão |
-| --- | --- |
-| Framework | Next.js 16.3.5, App Router |
-| Local | `my-app/` (já existe — **não recriar**) |
-| Linguagem | TypeScript 5, `strict`. Sem `any` na fronteira de dados |
-| React | 19.2.8 |
-| Estilo | Tailwind CSS v4 com tokens do design system em CSS |
-| Gerenciador | pnpm 12.3.4 |
-| Conteúdo | arquivos `.md` do cliente em `conteudo/`, lidos em build |
-| Blog | WordPress headless (Hostinger), REST, ISR |
-| Imagens | `next/image`, arquivos em `my-app/public/img/`, plano em @imagens.md |
-| Fontes | Google Fonts via `next/font` (self-host automático) |
+- Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, pnpm.
+- `@phosphor-icons/react` (ícones, import por `/dist/ssr`) e `motion` (animação, sempre via `LazyMotion` + `domAnimation`). Ambos autorizados em 2026-09-23.
+- Projeto em `my-app/`.
+- Tokens de `design-system/tokens.css` expostos ao Tailwind v4 via `@theme` no CSS global.
+- Fontes com `next/font`, imagens com `next/image`.
+- Hospedagem: **Hostinger**. No mesmo lugar roda um WordPress usado só como CMS do blog (headless): o Next.js lê os posts pela REST API do WordPress (`/wp-json/wp/v2/`). O WordPress não renderiza páginas públicas do site.
+- Tipo de plano na Hostinger (hospedagem com Node.js, Cloud ou VPS) e subdomínio do WordPress (ex.: `cms.`): ⏳ PENDENTE. Define se o Next.js roda como servidor Node (ISR para o blog) ou como exportação estática (rebuild a cada post).
+- Alterar a stack exige autorização.
 
-Regras: nenhuma dependência nova sem autorização. Não trocar gerenciador de pacotes. Não migrar versão de framework. O bloco `nextjs-agent-rules` de `my-app/AGENTS.md` é recriado pelo `next dev` — não apagar.
+## 10. Requisitos não funcionais
 
-**Publicação:** Hostinger. **Node não roda na Hostinger** — SSR/ISR em Node no servidor atual está descartado. Decisão em aberto entre export estático (blog consumido no cliente ou rebuild a cada publicação) e plataforma de deploy separada apontando por DNS. Ver @memoria.md.
+- **Responsividade:** mobile-first. A maior parte do tráfego vem de anúncios no celular, à tarde e à noite.
+- **Acessibilidade:** contraste AA (pares de tokens conferidos em `specs/design.md`); foco visível; `alt` descritivo em todas as fotos; botões de WhatsApp com rótulo claro; HTML semântico; navegação por teclado; carrosséis com botões anterior/próximo rotulados.
+- **Desempenho:** movimento com `LazyMotion` + `domAnimation` (subconjunto de DOM), nunca o pacote `motion` inteiro; `next/image` com `sizes` corretos e `priority` só na imagem do banner; `next/font` com subset latin e `display: swap`; Core Web Vitals no verde (LCP < 2,5 s, CLS < 0,1, INP < 200 ms). A landing de anúncio precisa carregar rápido: sem bibliotecas pesadas, sem vídeo em autoplay acima da dobra, scripts de mensuração sem bloquear a renderização. Carrosséis com CSS scroll-snap, sem biblioteca.
+- **SEO:** metadados por página, Open Graph, `sitemap`, e redirecionamentos das URLs do WordPress atual (⏳ lista de URLs a levantar). Landing de anúncio com `noindex`.
 
-## 10. Regras de responsividade, acessibilidade e desempenho
+## 11. Escopo
 
-**Responsividade** — mobile-first de verdade. Breakpoints Tailwind padrão; o layout é projetado em 360–430 px e cresce a partir daí. Alvo de conferência: 360, 390, 430, 768, 1024, 1440. Área de toque mínima 44 × 44 px. Nenhuma tabela de especificações com rolagem horizontal escondida: no celular ela vira lista rotulada. Carrossel navegável por arrasto e por botão, nunca só por arrasto.
+**Dentro:** Home (desktop + mobile), Landing Google Ads (desktop + mobile), estrutura para landing pages futuras, mensuração de cliques no WhatsApp.
 
-**Acessibilidade** — um único `<h1>` por página; hierarquia de headings sem pulo. Contraste mínimo AA (4,5:1 em texto corrido, 3:1 em texto grande), **inclusive sobre foto** — ver a regra de overlay em @specs/design.md. Foco visível em tudo que é clicável. `alt` real vindo de @imagens.md, nunca "imagem de colchão". `prefers-reduced-motion` respeitado. Acordeão de FAQ operável por teclado. Botão flutuante de WhatsApp com rótulo acessível e sem cobrir conteúdo clicável.
+**Depois:** páginas de produto/categoria e blog.
 
-**Desempenho** — alvo: LCP < 2,5 s em 4G no celular. Hero com `priority`, o resto `lazy`. `sizes` correto em toda imagem. AVIF/WebP. Fontes via `next/font` com `display: swap` e subset latin; no máximo os pesos efetivamente usados. Componentes de cliente só onde há interação (carrossel, acordeão, menu); o resto é Server Component. Nas landing pages o peso é prioridade máxima: tráfego pago, celular, rede móvel, à noite.
+**Blog:** **fora desta entrega** (decisão de 2026-09-23 substituída no mesmo dia). Volta em etapa própria, com o WordPress headless.
 
-**SEO** — `generateMetadata` por rota, canonical, Open Graph. Sitemap cobrindo institucional, hubs, produtos e posts; landing pages fora do sitemap e com `noindex` quando o cliente confirmar. **Não é necessário preservar as URLs do site atual** (site recente, sem histórico de SEO a proteger) — não há plano obrigatório de 301.
+**Fora:** carrinho, checkout, pagamento online, login, área do cliente.
 
-## 11. O que ainda precisa ser definido
+## 12. Informações a definir
 
-1. **`/a-kanak` não tem copy.** A arquitetura prevê a página; o cliente não entregou texto para ela. A página não entra até existir copy.
-2. **Hub de tamanho = página de kit** — decisão proposta em §5, aguardando confirmação.
-3. **Depoimentos reais** — a copy pede carrossel de depoimentos, mas só existe um depoimento de exemplo (na landing page). Sem depoimento real, a seção `prova-social` renderiza apenas o texto do cliente, sem cards inventados.
-4. **Dados técnicos ausentes** (Anexo B): densidade da espuma, nível de firmeza por modelo, suporte de peso em kg, composição e tratamentos do tecido, certificações, garantia exata do Magnético, especificações de cabeceira/baú/base. **Adiado por decisão do cliente.** Campo sem dado real fica fora da página; nunca recebe valor genérico.
-5. **Publicação**: export estático × plataforma separada.
-6. **Endereço do WordPress** do blog e como ele fica exposto (subdomínio, subpasta, `/wp`).
-7. **Landing pages**: quantas, e qual campanha cada uma atende. Hoje existe copy de uma só.
-8. **Preços e condições** (parcelamento, desconto PIX, frete) — só entram se o cliente fornecer; a copy da landing page já cita "até 55% OFF", "12x sem juros" e "desconto via PIX" e isso permanece como o cliente escreveu.
-
-## 12. Escopo
-
-**Dentro — Fase 1** (escopo reduzido por decisão registrada em @memoria.md, para economizar tokens):
-
-1. Design system e layout base (header, rodapé, botão flutuante, componente de CTA).
-2. **Home** (`/`).
-3. **Uma landing page** de Google Ads (`/lp/[slug]`, a partir de `conteudo/landing-pages/lp-google-ads.md`).
-4. **Uma página de kit/hub**: `/colchao-king-size`.
-5. **Uma página de produto**: `/colchao-king-size/anatomico-ortopedico`.
-
-King Size escolhido por ser o produto de maior margem e o foco do tráfego pago.
-
-**Dentro — fases seguintes:** os outros 3 tamanhos, os demais modelos, `/por-que-comprar`, `/a-kanak` (quando houver copy), blog headless, demais landing pages. Tudo reaproveitando os componentes da Fase 1.
-
-**Fora do escopo:** e-commerce e pagamento online, integração com ERP/estoque, área do cliente, rastreio de pedido automatizado (a copy manda falar com a equipe), tradução, redesign do painel WordPress, produção de fotografia nova em estúdio (o plano de imagens está em @imagens.md), reescrita de qualquer texto do cliente.
+1. Data de fim da campanha dos 55% OFF.
+2. Confirmação de qual tamanho é o mais vendido (cliente acha que é o King).
+3. Densidade, firmeza, peso suportado, Inmetro, tecido por modelo; garantia do magnético; espessura das camadas — em espera por decisão do cliente.
+4. Rodapé: endereço, horário, CNPJ, razão social, redes sociais (fica para depois).
+5. Volume de artigos do blog (só quando o blog entrar; fora desta entrega).
+6. Plano da Hostinger (Node.js, Cloud ou VPS) e subdomínio do WordPress (fica para depois).
+7. IDs de GA4 e Meta Pixel.
+8. Logo em SVG ou PNG transparente em alta resolução, com versão para fundo escuro (hoje só `my-app/public/logo.webp`, 300 × 152, fundo branco).
+9. Fotos pedidas pelo wireframe: 4 camas verticais (mesma luz e ângulo), corte do colchão, uma foto por modelo, showroom com atendimento; 6 depoimentos reais com autorização; arte do banner da campanha (1440×600 + vertical).
+10. Nova copy do cliente (vai ser enviada; não restaurar `conteudo/` do commit `0dc9467`).
+11. ~~Uso de imagens geradas por IA~~ — **aprovado em 2026-09-23**. As 14 imagens entram no site; 4 seguem marcadas como placeholder para troca por foto real.
+12. Confirmar se a regulação térmica existe em todos os modelos (ajuste H3 da Home).

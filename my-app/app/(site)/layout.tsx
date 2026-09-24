@@ -1,12 +1,14 @@
-import { Footer } from "@/components/transversais/Footer";
-import { Header } from "@/components/transversais/Header";
+import { TELEFONES_RODAPE } from "@/content/ctas";
+import { CabecalhoSite } from "@/components/layout/CabecalhoSite";
+import { Rodape } from "@/components/layout/Rodape";
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+/** Layout do site institucional: cabeçalho com menu + rodapé. */
+export default function LayoutSite({ children }: LayoutProps<"/">) {
   return (
     <>
-      <Header />
+      <CabecalhoSite />
       <main id="conteudo">{children}</main>
-      <Footer />
+      <Rodape origensTelefone={TELEFONES_RODAPE} />
     </>
   );
 }

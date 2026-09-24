@@ -1,37 +1,42 @@
 import type { Metadata } from "next";
-import { PaginaDeSecoes } from "@/components/PaginaDeSecoes";
-import { lerPagina, primeiroParagrafo, tituloDaSecao } from "@/lib/conteudo";
-import { imagensDaHome } from "@/lib/imagens";
+import { Banner } from "./_secoes/Banner";
+import { Ciencia } from "./_secoes/Ciencia";
+import { ComoEscolher } from "./_secoes/ComoEscolher";
+import { Colchoes } from "./_secoes/Colchoes";
+import { Depoimentos } from "./_secoes/Depoimentos";
+import { Showroom } from "./_secoes/Showroom";
+import { Duvidas } from "./_secoes/Duvidas";
 
-const ARQUIVO = "institucional/home.md";
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    url: "/",
+    images: [
+      {
+        url: "/images/home/banner-king.png",
+        width: 1248,
+        height: 1872,
+        alt: "Cama King Size da Kanak montada em um quarto, com cabeceira capitonê grafite.",
+      },
+    ],
+  },
+};
 
-export function generateMetadata(): Metadata {
-  const pagina = lerPagina(ARQUIVO);
-  const hero = pagina.secoes.find((s) => s.tag === "hero");
-  const titulo = hero ? tituloDaSecao(hero) : "Kanak Colchões";
-  const description = hero ? primeiroParagrafo(hero) : undefined;
-  return {
-    title: titulo,
-    description,
-    alternates: { canonical: "/" },
-  };
-}
-
-export default function HomePage() {
-  const pagina = lerPagina(ARQUIVO);
-  const imagens = imagensDaHome();
-
+/**
+ * Home. A ordem das seções segue a prancheta e é obrigatória:
+ * 1 Banner · 2 Ciência · 3 Como escolher · 4 Colchões · 5 Depoimentos ·
+ * 7 Showroom · 8 Dúvidas. Não existe seção 6.
+ */
+export default function PaginaHome() {
   return (
-    <PaginaDeSecoes
-      pagina={pagina}
-      tipo="home"
-      origemPagina="home"
-      imagens={{
-        heroDesktop: imagens.heroDesktop,
-        heroMobile: imagens.heroMobile,
-        tamanhos: imagens.tamanhos,
-        modelos: imagens.modelos,
-      }}
-    />
+    <>
+      <Banner />
+      <Ciencia />
+      <ComoEscolher />
+      <Colchoes />
+      <Depoimentos />
+      <Showroom />
+      <Duvidas />
+    </>
   );
 }

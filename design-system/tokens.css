@@ -1,0 +1,99 @@
+/* Kanak Colchões — generated from tokens.json */
+:root, [data-theme="light"] {
+  --surface-100: #fbf3e8; /* Fundo de página. Base quente, sem parecer barato. */
+  --surface-200: #ffffff; /* Fundo de cards, formulários e blocos elevados sobre surface-100. */
+  --ink: #241512; /* Texto principal sobre surface-100 e surface-200. */
+  --ink-60: #6b5850; /* Texto secundário, legendas de produto, metadados. */
+  --border: #e8ddd0; /* Divisores, bordas de card e de input em repouso. */
+  --vinho: #680b0e; /* Cor de marca primária: CTAs principais (Falar com um consultor, Pedir orçamento, WhatsApp), links ativos, preço em destaque. O site é institucional/catálogo — o CTA leva a contato, não a um carrinho de compra. */
+  --vinho-700: #4a0709; /* Estado hover/pressed de botões e links em vinho. */
+  --apricot-cream: #ffd29d; /* Realce quente: badges (Frete grátis, King Size), fundo de seções de destaque, hover suave em cards. */
+  --apricot-700: #a85a16; /* Texto e ícones sobre fundo claro quando precisam da cor de realce (ex.: selo 'mais vendido', links secundários). */
+  --success: #2f6b3a; /* Confirmações: mensagem/orçamento enviado com sucesso, item disponível na loja, garantia ativa. */
+  --error: #b3261e; /* Erros de formulário e avisos de indisponibilidade. */
+  --surface-900: #171310; /* Fundo escuro para banners/hero promocionais e tarjas de oferta — reproduz o preto já usado nos posts do Instagram da Kanak, aqui como seção de destaque pontual, não como tema escuro do site. */
+  --on-dark: #f5ede1; /* Texto de corpo sobre surface-900. */
+  --on-dark-muted: #c9b8a8; /* Texto secundário sobre surface-900. */
+  --ouro: #d9a653; /* Título/selo em destaque sobre surface-900 (o dourado que já aparece nos posts pretos da Kanak — 'Dia do Cliente', 'Independência'). Não usar sobre fundos claros. */
+}
+:root {
+  --space-1: 4px; /* Gap entre ícone e rótulo. */
+  --space-2: 8px; /* Padding interno de inputs e chips pequenos. */
+  --space-3: 12px; /* Gap entre elementos relacionados (preço e parcelamento, por exemplo). */
+  --space-4: 16px; /* Padding de card compacto; gap padrão em listas de specs. */
+  --space-6: 24px; /* Padding interno de card padrão. */
+  --space-8: 32px; /* Gap entre cards de produto em grid. */
+  --space-12: 48px; /* Espaço entre blocos de conteúdo dentro de uma seção. */
+  --space-16: 64px; /* Padding de seção no mobile. */
+  --space-24: 96px; /* Padding de seção no desktop. */
+  --radius-sm: 6px; /* Inputs, chips, botões pequenos. */
+  --radius-md: 12px; /* Botões padrão, cards de conteúdo. */
+  --radius-lg: 20px; /* Cards de produto, imagens de destaque, modais. */
+  --radius-full: 999px; /* Badges, pills, avatar de atendimento. */
+  --font-display: 'Instrument Sans', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --text-display-lg: 600 56px/60px var(--font-display);
+  --text-display-md: 600 40px/46px var(--font-display);
+  --text-display-sm: 600 30px/38px var(--font-display);
+  --text-body-lg: 400 18px/28px var(--font-sans);
+  --text-body: 400 15px/24px var(--font-sans);
+  --text-body-sm: 400 13px/20px var(--font-sans);
+  --text-label: 600 14px/20px var(--font-sans);
+  --text-caption: 400 12px/16px var(--font-sans);
+}
+.display-lg {
+  font-family: var(--font-display);
+  font-size: 56px;
+  line-height: 60px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.display-md {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.display-sm {
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 38px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.body-lg {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body-sm {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.label {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.caption {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+}

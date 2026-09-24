@@ -1,25 +1,27 @@
 import Link from "next/link";
-import { CtaWhatsApp } from "@/components/primitivos/CtaWhatsApp";
-import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
+import { BotaoWhatsApp } from "@/components/whatsapp/BotaoWhatsApp";
+import { Container } from "@/components/ui/Secao";
+import { Marca } from "@/components/layout/Marca";
 
-export default function NotFound() {
+export const metadata = { title: "Página não encontrada" };
+
+export default function NaoEncontrada() {
   return (
-    <main
-      id="conteudo"
-      className="mx-auto flex min-h-[70svh] max-w-[720px] flex-col justify-center px-5 py-24 pt-32 md:pt-36"
-    >
-      <h1 className="titulo-secao">Página não encontrada</h1>
-      <p className="mt-8">
-        <Link href="/" className="font-subtitulo text-bordo-700 font-semibold">
-          Home
-        </Link>
-      </p>
-      <div className="mt-6">
-        <CtaWhatsApp
-          texto={WHATSAPP_DISPLAY}
-          origem={{ pagina: "404", secao: "nao-encontrada" }}
-        />
-      </div>
+    <main className="flex min-h-dvh flex-col items-center justify-center bg-surface-100 py-16 text-center">
+      <Container className="flex flex-col items-center gap-6">
+        <Marca />
+        <h1 className="font-display text-display-lg">Não encontramos esta página</h1>
+        <p className="max-w-[520px] text-body text-ink-60">
+          O endereço pode ter mudado. Volte para a página inicial ou fale com um especialista da
+          Kanak.
+        </p>
+        <div className="flex flex-col items-center gap-4">
+          <BotaoWhatsApp origem="header" />
+          <Link href="/" className="text-body-sm font-semibold text-vinho underline">
+            Ir para a página inicial
+          </Link>
+        </div>
+      </Container>
     </main>
   );
 }

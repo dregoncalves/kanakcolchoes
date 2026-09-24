@@ -1,217 +1,174 @@
-# specs/design.md — fonte de verdade visual
+# Especificação visual — Kanak Colchões
 
-Escopo e rotas em @specs/site.md · Mapa copy→componente em @specs/conteudo.md · Imagens em @imagens.md · Histórico em @memoria.md
-Criado em 21/09/2026.
+Fonte de verdade de **como** o site deve parecer. Base: `design-system/DESIGN_SYSTEM.md`, `design-system/tokens.css` e `design-system/tokens.json`. Em caso de conflito, os tokens mandam; mudanças nos tokens exigem aprovação e registro em `memoria.md`.
 
-> Nenhuma decisão visual entra no código sem estar aqui. Se o layout e o texto do cliente brigarem, **o layout muda**.
+## 1. Referência: eightsleep.com
 
----
+Referência única aprovada. Usar **só como direção de estrutura e atmosfera**.
 
-## 1. O que foi analisado antes de escrever este arquivo
+O que a análise do print mostra e vale adaptar:
 
-| Fonte | O que ficou |
-| --- | --- |
-| `referencias-site/eight-sleep/` (eightsleep.com) — referência única aprovada | Fundo claro neutro dominante, hero fotográfico full-bleed com texto no canto superior esquerdo, seções alternando claro/escuro, grades de cards foto+legenda, tipografia quieta, muito respiro, blocos escuros reservados para autoridade e prova. Ritmo: foto grande → grade de 3 → bloco de texto curto centralizado → prova → fechamento. |
-| `referencias-site/kanak/homepage.png` + prints das 16 páginas atuais | O que **não** repetir: botão verde-limão de e-commerce, selo promocional circular ("8 ANOS" em vermelho), foto de banco genérica (mulher com luz azul, casal idoso com tablet, camadas coloridas de espuma), gradiente cinza de marketplace, blocos empilhados sem hierarquia, excesso de exclamação em botão. O que **fica**: a paleta bordô + amarelo e o uso de faixas de cor cheia para separar seções. |
-| `referencias-site/kanak/landing-page/landing-page.png` | A LP atual já nasce com barra de garantias no topo e vitrine por tamanho — estrutura correta, execução poluída. Mantém-se a estrutura, refaz-se a execução. |
-| `referencias-site/meus-produtos/imagens colchões Kanak` — 46 arquivos | Metade é foto real de showroom feita com celular (vertical 9:16, luz mista, cortina roxa, teto de PVC, sala apertada); a outra metade é render/ambientação limpa (suíte decorada, tapete, planta, luz quente). **O render sustenta hero; a foto de showroom sustenta card vertical e prova de acabamento.** Ângulo disponível é quase sempre o mesmo 3/4 a partir do pé da cama — o layout não pode depender de variedade de ângulo que não existe. Largura máxima do banco: 1280 px. |
-| Briefing do cliente | Proíbe apelo de preço baixo, promessa de cura, tom agressivo/panfletário e poluição visual. Referências citadas por ele (Luuna, Cama In Box, Guldi) foram **rejeitadas** em favor do Eight Sleep — ver @memoria.md. |
+- **Respiro:** seções curtas, com um título, uma ou duas linhas de apoio e muito espaço vazio em volta. Poucas informações por tela.
+- **Fotografia grande:** banner em foto de largura total, com o texto sobre a área calma da imagem; cards com foto ocupando o card inteiro e legenda sobre a foto.
+- **Hierarquia limpa:** um título grande centralizado por seção, apoio em corpo pequeno, um único link ou botão por bloco.
+- **Ritmo:** alternância de blocos texto + imagem (esquerda/direita), grades de 3 cards, faixas de fundo com cor de seção para marcar mudança de assunto, uma faixa escura pontual para prova social.
+- **Fechamento emocional:** foto grande com frase curta perto do fim, antes do rodapé.
+- **Rodapé escuro e organizado** em colunas.
 
-**Uso das referências:** direção de estrutura e atmosfera, nada mais. Não copiar texto, logo, nome, identidade, imagem, elemento de marca nem layout idêntico do Eight Sleep. A identidade final é da Kanak.
+O que **não** fazer: copiar textos, logotipo, nome, imagens, identidade proprietária ou layouts idênticos. Não reproduzir elementos de produto tecnológico (painéis de temperatura, gráficos, telas de app, UI "glass"). A Eight Sleep é fria e neutra; a Kanak é quente (vinho, creme, veludo, madeira). A identidade final é da Kanak.
 
 ## 2. Direção visual
 
-**Uma frase:** quarto de verdade, fotografado com calma, sobre papel claro — com o bordô entrando como cor de marca, não como fundo de anúncio.
-
-Três princípios:
-
-1. **Silêncio entre blocos.** O conteúdo do cliente é longo. O que dá ar premium aqui não é ornamento, é espaço em branco e ritmo de escala (foto grande → texto curto → grade → texto curto).
-2. **Bordô é assinatura, não ambiente.** No site atual o bordô ocupa seções inteiras e o resultado fica pesado. Aqui ele é botão, detalhe, faixa de âncora e um bloco escuro por página, no máximo dois.
-3. **O produto é um quarto, não um objeto técnico.** Kanak vende a cama montada. A foto mostra a cama no ambiente; o corte macro existe só para provar acabamento (capitonê, botão, veludo).
+Sério, confiável, acolhedor, com muito respiro — o oposto do site atual, poluído. Parece loja de móveis de qualidade, não liquidação. O produto (veludo, capitonê, acabamento) é o protagonista; a interface fica quieta em volta dele.
 
 ## 3. Paleta
 
-Herdada do site atual (bordô + amarelo), amostrada dos prints e normalizada para contraste AA.
-
-### Principal
-
-| Token | Hex | Uso |
+| Token | Valor | Uso |
 | --- | --- | --- |
-| `--kanak-bordo-900` | `#3D0609` | Fundo de bloco escuro, rodapé |
-| `--kanak-bordo-800` | `#57090C` | Bordô de marca (amostrado do rodapé atual). Fundo de faixa, logo |
-| `--kanak-bordo-700` | `#7A1420` | Botão primário |
-| `--kanak-bordo-600` | `#93202C` | Hover do botão primário |
-| `--kanak-areia-100` | `#F6F1E7` | Fundo de seção alternada |
-| `--kanak-areia-200` | `#E1D3B0` | Faixa de destaque (amostrada do site atual) |
-| `--kanak-ouro-500` | `#C8952A` | Amarelo da marca: detalhe, ícone, sublinhado, borda de card em bloco escuro |
-| `--kanak-ouro-400` | `#E4BE63` | Ouro claro, **só** sobre fundo escuro (texto, borda, ícone) |
+| `vinho` | `#680B0E` | Marca. CTA principal (WhatsApp), links ativos, títulos de destaque pontuais |
+| `vinho-700` | `#4A0709` | Hover/pressed de botões e links em vinho |
+| `apricot-cream` | `#FFD29D` | Realces e selos, fundo de seção de destaque, hover suave de card |
+| `apricot-700` | `#A85A16` | Texto/ícone de realce sobre fundo claro (selo, link secundário) |
+| `surface-100` | `#FBF3E8` | Fundo de página. Nunca branco puro como fundo de página |
+| `surface-200` | `#FFFFFF` | Cards, formulários, blocos elevados sobre `surface-100` |
+| `ink` | `#241512` | Texto principal |
+| `ink-60` | `#6B5850` | Texto secundário, legendas, metadados |
+| `border` | `#E8DDD0` | Divisores e bordas em repouso (decorativo, não carrega informação) |
+| `surface-900` | `#171310` | **Só** banners e tarjas promocionais pontuais. Não é tema escuro |
+| `on-dark` / `on-dark-muted` | `#F5EDE1` / `#C9B8A8` | Texto sobre `surface-900` |
+| `ouro` | `#D9A653` | Título/selo sobre `surface-900`. Nunca sobre fundo claro |
+| `success` / `error` | `#2F6B3A` / `#B3261E` | Estados |
 
-### Neutros
+Contraste conferido (WCAG): `ink`/`surface-100` 16:1 · `ink-60`/`surface-100` 6,1:1 · `vinho`/`surface-100` 11,6:1 · `apricot-700`/`surface-100` 4,6:1 (AA texto normal, sem folga — usar em peso 600 ou tamanho ≥ 14px) · `ink`/`apricot-cream` 12,6:1 · `vinho`/`apricot-cream` 9,1:1 · `on-dark`/`surface-900` 15,9:1 · `on-dark-muted`/`surface-900` 9,6:1 · `ouro`/`surface-900` 8,4:1.
 
-| Token | Hex | Uso |
-| --- | --- | --- |
-| `--kanak-tinta-900` | `#1A1614` | Texto de título |
-| `--kanak-tinta-700` | `#3D3733` | Texto corrido |
-| `--kanak-tinta-500` | `#6B625B` | Texto de apoio, legenda |
-| `--kanak-linha` | `#E3DCD2` | Borda de card, divisória |
-| `--kanak-papel` | `#FFFFFF` | Fundo padrão |
+Proporção de uso aproximada: creme domina; vinho em pontos de ação; apricot em poucos realces por tela; `surface-900` no máximo uma faixa por página.
 
-### Regras de cor
+Fundos por seção, conforme os wireframes:
 
-- Fundo padrão é claro. Bloco escuro em bordô: **no máximo dois por página**, e nunca dois seguidos.
-- Ouro nunca é fundo de área grande e nunca é cor de botão primário. Ele é detalhe.
-- Texto bordô sobre areia só em título grande (≥ 28 px); em corpo de texto, usar `--kanak-tinta-700`.
-- **Verde está proibido no site inteiro** — é a cor dos botões do WordPress atual e não pertence à marca. O verde do ícone do WhatsApp é a única exceção, e só dentro do ícone.
-- Nenhuma cor nova sem passar por este arquivo.
+| Seção | Fundo | Título | CTA |
+| --- | --- | --- | --- |
+| Home · cabeçalho, banner, 3, 5 | `surface-100` | `ink` | `vinho` |
+| Home · 2 Ciência do Conforto, 4 Conheça | `surface-200` (branco) em blocos/cards | `ink` | `vinho` |
+| Home · 7 Showroom | `vinho` | `apricot-cream` | fundo `apricot-cream`, texto `vinho` |
+| Home · 8 Dúvidas | `apricot-cream` | `ink` | `vinho`; telefones em pills `surface-100` |
+| Rodapé (Home e landing) | `vinho-700` | marca em `apricot-cream`, texto `on-dark` | — |
 
-### Cores de produto (as 11 do veludo)
-
-São **amostras de produto**, não cores de interface. Vivem apenas no seletor de cores, como círculo/retângulo de amostra com rótulo em texto. Nunca pintam fundo, botão ou título.
+Os wireframes também usam cores fora dos tokens: `#82282B` e `#641418` (placeholders de foto/mapa sobre vinho), `#4A3A33` (texto sobre apricot), `#F5DCC8` e `#E6CFC0` (texto secundário sobre vinho), `#7A2A2C` (divisor no rodapé). Ao implementar, usar o token mais próximo ou pedir aprovação para novos tokens.
 
 ## 4. Tipografia
 
-Três famílias, todas Google Fonts, carregadas por `next/font`. **Escolha provisória aprovada** — trocar depois é mudança pontual neste arquivo + tokens.
+- **Instrument Sans** (600 nos títulos, 700 no logotipo): títulos, destaques e números de destaque. Itálico **da mesma família** para realçar um trecho do título, como nos wireframes ("a *escolha certa*", "Começa *Aqui*") — nunca uma segunda família dentro do título. Tracking negativo por tamanho: -0,035em no banner, -0,03em em título de seção, -0,02em nos menores. Só os pesos 600 e 700 são carregados: nada de peso 400 sintético em elemento com `font-display`.
+- **Inter**: leitura, interface, specs, botões, rótulos.
+- Carregar com `next/font` (subset latin, `display: swap`).
+- Histórico: Fraunces → Instrument Serif (2026-09-23, alinhamento com os wireframes) → **Instrument Sans (2026-09-23)**. A troca da serif pela sans foi autorizada por você depois da revisão da skill `design-taste-frontend`; as pranchetas do Claude Design seguem desenhadas com a serif e ficam desalinhadas do site nesse ponto. Tokens em `design-system/` atualizados.
 
-| Papel | Família | Uso |
+Escala (tokens):
+
+| Estilo | Desktop | Celular (aprovada) | Uso |
+| --- | --- | --- | --- |
+| `display-lg` | 56/60 | 36/42 | Título do banner |
+| `display-md` | 40/46 | 30/36 | Título de seção |
+| `display-sm` | 30/38 | 24/30 | Subtítulo, título de card grande |
+| `body-lg` | 18/28 | 17/26 | Apoio de seção |
+| `body` | 15/24 | 15/24 | Texto corrido |
+| `body-sm` | 13/20 | 13/20 | Legendas, notas |
+| `label` | 14/20 600 | 14/20 600 | Botões, rótulos, chips |
+| `caption` | 12/16 | 12/16 | Metadados, créditos |
+
+Regras: títulos em caixa alta-baixa (sem caixa alta longa na interface — a copy do cliente fica como está, ver pendência em `memoria.md`); largura de leitura até ~65 caracteres; no máximo dois tamanhos de título por seção.
+
+## 5. Espaçamento, grade e cantos
+
+- Escala base 4px (`space-1` a `space-24`).
+- Padding de seção: `space-16` (64px) no celular, `space-24` (96px) no desktop.
+- Entre blocos dentro da seção: `space-12`. Gap entre cards: `space-8` (desktop), `space-4`–`space-6` (celular).
+- Conteúdo com largura máxima ~1200px e margem lateral de 20–24px no celular.
+- Cantos: `radius-md` (12px) em botões e cards de conteúdo; `radius-lg` (20px) em cards de produto e imagens de destaque; `radius-full` em badges e pills; `radius-sm` em inputs e chips.
+- Sombras mínimas ou nenhuma; separar blocos por cor de fundo e espaço, não por borda pesada.
+
+**Ícones:** Phosphor (`@phosphor-icons/react`), peso `regular` em todo o site, importados de `/dist/ssr` para não transformar os botões em Client Components. Decisão de 2026-09-23, que substitui os SVGs desenhados à mão. Exceções que continuam desenhadas em código porque são ilustração de produto, não ícone: a cama vista de cima (`CamaVistaSuperior`, escala derivada das medidas reais em cm) e o diagrama de camadas (`DiagramaCamadas`).
+
+## 6. Botões e CTAs
+
+- **CTA principal (WhatsApp):** fundo `vinho`, texto `surface-100`, `label`, `radius-md`, altura mínima 48px, ícone do WhatsApp à esquerda. Hover `vinho-700`. Foco visível com anel de 2px.
+- **CTA secundário:** contorno `vinho` sobre fundo claro, ou link sublinhado.
+- **Sempre visível:** no cabeçalho, "Falar com especialista". Na landing mobile, barra "Falar com especialista" fixa no pé da tela durante toda a rolagem (wireframe), respeitando a área segura e sem cobrir o último conteúdo. Na Home mobile o wireframe não prevê barra fixa.
+- **Altura no celular:** 56px nos CTAs de seção, 60px no CTA de Dúvidas, 48px na barra fixa e no cabeçalho (wireframes).
+- **Sem aparência de checkout:** nada de ícone de carrinho, "Comprar", preço com botão "Adicionar", passos de compra.
+- **"Enviar para meu parceiro(a)":** não aparece nos wireframes da Home e da landing; previsto para as páginas de produto (entrega futura). Botão secundário ao lado do CTA principal em cards e seções de produto; abre o compartilhamento (Web Share API, com fallback para `wa.me/?text=` com o link da página).
+
+## 7. Componentes previstos
+
+| Componente | Função | Notas |
 | --- | --- | --- |
-| Título | **Fraunces** | `h1`, `h2`, números grandes de medida |
-| Subtítulo / rótulo | **Archivo** | `h3`, `h4`, rótulo de seção, botão, item de menu, tabela |
-| Texto | **Inter** | parágrafo, lista, legenda, FAQ |
+| Card de produto (colchão/kit) | Apresentar item + CTA de contato | Foto 4:3 ou 1:1, nome, tamanho, 2–3 atributos, CTA WhatsApp + "Enviar para meu parceiro(a)". Sem preço como protagonista |
+| Card de tamanho | Escolher por tamanho | Nome + medida em cm; ilustração/foto com mesma luz e ângulo entre os quatro |
+| Card de modelo | Escolher por tecnologia | Nome da tecnologia + garantia (só a confirmada) |
+| Seletor de tamanho | Alternar Solteiro/Casal/Queen/King | Pills `radius-full`, estado ativo em vinho, acessível por teclado |
+| Tabela de specs técnicas | Prova técnica | Linhas com `border`, rótulo em `ink-60`, valor em `ink`; empilha no celular |
+| Escala visual de firmeza | Macio → Extrafirme | 4 pontos, posição marcada em vinho; texto sempre junto (não depender só de cor) |
+| Seletor de tecido/cor (swatches) | Ver cores de cabeceira/base | Círculos com nome visível; troca a foto quando existir foto real da cor |
+| Vista explodida de camadas | Mostrar composição | Imagem + legendas numeradas; só com camadas confirmadas |
+| Galeria com vídeo | Fotos e vídeo de detalhe | Vídeo só carrega ao tocar (poster + `preload="none"`) |
+| Badge de oferta | Reforço de condição | `apricot-cream` com texto `ink`, `radius-full`, pequeno; nunca maior que o título |
+| Banner promocional | Campanha pontual | Fundo `surface-900`, título em `ouro`, texto `on-dark`; trocável por campanha |
+| Depoimento | Prova social | Só depoimentos reais com autorização; nome e cidade quando fornecidos |
+| Lista de telefones | Dúvidas e rodapé | Três números, cada um como link de WhatsApp/telefone com rótulo |
 
-### Escala (celular → desktop)
+## 8. Fotografia
 
-| Elemento | Tamanho | Peso | Tracking | Entrelinha |
-| --- | --- | --- | --- | --- |
-| `h1` | 32 → 56 px | Fraunces 600 | −1,5% | 1,08 |
-| `h2` | 26 → 40 px | Fraunces 600 | −1% | 1,15 |
-| `h3` | 20 → 24 px | Archivo 600 | 0 | 1,25 |
-| Rótulo de seção | 12 → 13 px, caixa alta | Archivo 500 | +6% | 1,2 |
-| Corpo | 16 → 17 px | Inter 400 | 0 | 1,65 |
-| Corpo grande (apoio de hero) | 18 → 20 px | Inter 400 | 0 | 1,55 |
-| Legenda / nota | 13 → 14 px | Inter 400 | 0 | 1,5 |
-| Botão | 15 → 16 px | Archivo 600 | +2% | 1 |
+- Fotos reais da Kanak (`referencias-site/meus-produtos/imagens colchões Kanak/`, 46 arquivos: Solteiro, Casal, Queen e King, com e sem pillow top, várias cores, showroom e quartos decorados).
+- Preferir: alta resolução, detalhe de acabamento (capitonê, botões, veludo, pés, pillow top), quartos montados.
+- **Consistência entre tamanhos:** mesma luz e mesmo ângulo nos cards dos quatro tamanhos e dos três modelos.
+- Banner com área calma para o texto; texto nunca sobre região com muito detalhe. Se preciso, véu escuro suave para garantir contraste AA.
+- Proporções previstas: banner 21:9 / 16:9 no desktop e 4:5 no celular; cards 4:3 ou 1:1; detalhes 3:2.
+- Uso de imagens geradas por IA (arquivo `imagens-prompt.md`): **aprovado em 2026-09-23**. As 14 imagens do plano entram no site; as fotos reais de `referencias-site/meus-produtos/` seguem como referência obrigatória de produto. Quatro arquivos vão ao ar marcados como `-PLACEHOLDER` (corte do colchão, magnético em dois lugares, showroom) e trocam por foto real assim que chegarem.
+- Logo: **logotipo em texto no cabeçalho e no rodapé** ("Kanak" em Instrument Sans 700, tracking -0,045em + "COLCHÕES" em Inter, caixa alta, espaçada), como nas pranchetas — decisão de 2026-09-23, que substitui a regra anterior de usar `my-app/public/logo.webp` nos dois lugares. Motivo: `my-app/public/logo.webp` (300 × 152 px, letras "KANAK" em vermelho com traço preto embaixo) não tem SVG, fica nítido só até ~150 px de largura em telas retina, e o fundo branco vira um retângulo sobre o creme `surface-100` e sobre o vinho do rodapé. O arquivo volta quando chegar um SVG ou PNG transparente em alta resolução, com versão para fundo escuro. O vermelho do logo é mais vivo que o `vinho` da paleta; o logo não altera a paleta.
+- `alt` descritivo em português em todas as fotos.
 
-Regras: medida de leitura 60–75 caracteres (`max-w-[68ch]`). Nada de texto corrido justificado. Caixa alta só em rótulo de seção e botão — **nunca** em headline (o site e a LP atuais usam headline em caixa alta e é parte do ar panfletário). Números de medida (193 × 203 cm) em Fraunces, com `×` de verdade, não `x`.
+## 9. Movimento
 
-## 5. Espaçamento, bordas e raios
+O material é o assentamento: cada coisa chega ao lugar como o corpo no colchão, com `cubic-bezier(0.16, 1, 0.3, 1)`. O momento autoral continua sendo a faixa de camas. As outras seções não repetem o mesmo fade — cada uma tem o gesto do que ela está dizendo.
 
-**Escala de espaço** (múltiplos de 4): 4, 8, 12, 16, 24, 32, 48, 64, 96, 128.
+| Seção | Gesto |
+|---|---|
+| Home · Banner | O realce do título entra sob um lençol (recorte vertical, 680ms, CSS, no carregamento). No desktop, a cama escolhida abre, 520ms; a foto tem largura fixa, então quem muda é o recorte. |
+| Home · Ciência | As três camadas empilham de baixo para cima (`components/motion/Empilha.tsx`). |
+| Home · Como escolher | A escala de firmeza cresce da esquerda para a direita. Os cards de tecnologia entram em série. |
+| Home · Colchões | Os trilhos entram em série. O desenho da cama vista de cima assenta na proporção real. |
+| Home · Depoimentos | No desktop, a troca de página vira a folha (recorte lateral, 220ms). No celular, o trilho entra em série. |
+| Home · Showroom | A foto abre do centro para as bordas. |
+| Home · Dúvidas | Os três telefones entram em série. |
+| Landing · Banner | A oferta entra sob um lençol. A foto e o botão ficam quietos: um é o LCP, o outro é o toque. |
+| Landing · Problema | O “1/3” assenta. |
+| Landing · Modelos | Grades e trilho em série; o desenho da cama assenta como na Home. |
+| Landing · Por que a Kanak | Os quatro argumentos entram pela lateral. O carrossel segue o gesto dos depoimentos. |
+| Landing · Fechamento | O título entra sob um lençol quando a seção chega. |
 
-- Padding vertical de seção: 64 px no celular → 112 px no desktop. Seção de fechamento e hero podem ir a 96 → 160 px.
-- Gutter lateral: 20 px no celular, 24 px no tablet, 32 px no desktop.
-- Largura máxima de conteúdo: 1200 px; bloco de texto puro, 720 px; hero e faixas, full-bleed.
-- Espaço entre título e apoio: 16 px. Entre apoio e CTA: 32 px. Entre cards da mesma grade: 16 → 24 px.
+Entrada em série: `components/motion/Revela.tsx`, atraso limitado a quatro passos. `eixo="x"` só na grade de argumentos. Retorno de toque: `.recuo-no-toque`, 120ms. Sobreposições: `components/motion/Aparicao.tsx`. Entradas que não são lista: `components/motion/AoEntrar.tsx`.
 
-**Raio:** `--r-sm` 8 px (botão, chip, amostra de cor), `--r-md` 16 px (card, foto em card), `--r-lg` 24 px (foto grande, bloco destacado). Hero full-bleed sem raio; hero em container com `--r-lg`.
+Biblioteca: `motion`, sempre por `LazyMotion` + `domAnimation`. Nunca o pacote inteiro. O lençol dos dois banners é CSS, para não esperar o JavaScript acima da dobra. `prefers-reduced-motion` tira deslocamento, recorte e escala; ficam uma opacidade curta, a cor, o foco e o aviso de troca de página. Sem parallax, sem pinagem de scroll, sem desfoque, sem vídeo em autoplay acima da dobra. Se o script não rodar, nada começa escondido no CSS — o lençol dos banners é a única entrada que existe sem JavaScript, e some com redução de movimento.
 
-**Borda:** 1 px `--kanak-linha` em card claro. Em bloco escuro, 1 px `rgba(228,190,99,0.35)`.
+Tokens em `app/globals.css`: `--ease-chegada`, `--duracao-toque` 120ms, `--duracao-estado` 220ms, `--duracao-foco` 520ms, `--duracao-entrada` 680ms.
 
-**Sombra:** uma só, discreta — `0 2px 8px rgba(26,22,20,0.06)`, usada em card elevado e no botão flutuante. Sem sombra colorida, sem sombra dupla, sem brilho.
+## 10. Desktop e celular
 
-## 6. Botões e cards
+- **Mobile-first.** Uma coluna no celular; grades de 2–4 colunas no desktop.
+- Cards de tamanhos/modelos: carrossel horizontal com rolagem por toque no celular, grade no desktop.
+- Alvos de toque ≥ 48px; CTA de WhatsApp sempre ao alcance do polegar.
+- Banner: foto 4:5 no celular com texto no terço inferior e CTA de largura total; foto larga no desktop com texto em uma coluna lateral.
+- **Landing:** segue o wireframe mobile próprio no celular. Layout separado do site: sem menu do site, cabeçalho mínimo (logo + CTA), rodapé igual ao da Home.
+- Tabelas de specs viram lista empilhada no celular.
 
-**Primário** — fundo `--kanak-bordo-700`, texto `#FFF`, Archivo 600, raio 8 px, altura 48 px no celular / 52 px no desktop, padding 24 px. Hover: `--kanak-bordo-600` + elevação de 1 px. Foco: anel de 2 px `--kanak-ouro-500` com offset de 2 px. É o botão de todo CTA de WhatsApp.
+## 11. Evitar
 
-**Secundário** — contorno 1,5 px `--kanak-bordo-700`, texto bordô, fundo transparente. Usado no "CTA secundário" da Home e em ação de apoio.
+- Preço baixo como argumento central; apelo popular.
+- Promessa de cura para coluna ou efeito terapêutico do magnético (falar em conforto, alinhamento ergonômico e alívio de pressão).
+- Contagem regressiva, "últimas unidades", selos de urgência.
+- Exclamações duplas, caixa alta longa, tom panfletário.
+- Depoimentos inventados.
+- Poluição visual: muitos selos, cores fortes misturadas, textos longos sobre foto.
+- Ícone de carrinho ou qualquer linguagem de checkout.
+- Branco puro como fundo de página; `ouro` sobre fundo claro; `surface-900` como tema do site inteiro.
 
-**Sobre foto** — fundo `--kanak-papel`, texto `--kanak-bordo-800`. Nunca botão translúcido sobre foto.
-
-**Em bloco escuro** — fundo `--kanak-ouro-500`, texto `--kanak-bordo-900`.
-
-O texto do botão é o texto do cliente, literal, com a pontuação que ele escreveu (inclusive `!!`). Ícone do WhatsApp à esquerda, 20 px, opcional e discreto. Largura total no celular, automática a partir de 768 px.
-
-**Card** — fundo `--kanak-papel`, borda `--kanak-linha`, raio 16 px, foto no topo em 4:5 ou 3:4, padding 20 px. Título em Archivo 600, apoio em Inter, rótulo de medida em `--kanak-tinta-500`. Card inteiro clicável, com foco visível. Sem selo promocional, sem badge circular, sem fita de desconto.
-
-## 7. Direção fotográfica
-
-**Regra maior:** o banco atual não tem foto horizontal em resolução de hero (máximo 1280 × 853) e tem um único ângulo dominante. O layout é desenhado para essa limitação, não contra ela.
-
-| Slot | Origem | Corte |
-| --- | --- | --- |
-| Hero (desktop) | render/ambientação limpa (suíte decorada, render 3D) | 16:9 ou 3:2, full-bleed |
-| Hero (celular) | mesma imagem | 4:5 vertical, foco na cama |
-| Card de tamanho/modelo | showroom real | 4:5 |
-| Prova de acabamento | corte macro do capitonê, botão, veludo, pillow top | 1:1 ou 3:2 |
-| Amostra de cor | recorte do veludo da própria foto | círculo ou 1:1 |
-| Bloco escuro | foto em luz baixa, quarto à noite | 3:2 |
-
-**Tratamento uniforme:** luz quente, branco neutralizado (as fotos de showroom têm dominante roxo/azul da cortina e da luz fria — corrigir), contraste médio, sem vinheta, sem HDR, sem saturação alta. Cor do veludo tem de bater com o nome da cor no rótulo. Todas as imagens passam pelo mesmo ajuste para que a página não pareça colagem de fontes diferentes.
-
-**Proibido na foto:** banco de imagens genérico, pessoa em pose de catálogo, colchão flutuando em gradiente, infográfico de camadas coloridas de espuma, seta e balão sobrepostos, marca d'água, logo de terceiro no cenário.
-
-**O que produzir** (detalhado em @imagens.md): horizontais em resolução de hero, packshot isolado de cabeceira/baú/travesseiro, macro de acabamento e ao menos um ângulo que não seja o 3/4 do pé da cama.
-
-## 8. Overlay sobre foto — regra obrigatória
-
-Quase todo hero tem texto sobre imagem. Sem exceção:
-
-1. **Camada de escurecimento obrigatória** entre foto e texto. Gradiente linear de `rgba(26,22,20,0.72)` na origem do texto para `rgba(26,22,20,0.15)` no lado oposto — nunca uma cortina chapada sobre a foto inteira.
-2. Direção: no desktop, gradiente da esquerda para a direita (texto à esquerda). No celular, de baixo para cima, com o texto no terço inferior.
-3. **Contraste medido, não estimado:** o texto sobre a foto precisa atingir 4,5:1 (corpo) e 3:1 (título ≥ 28 px) contra a região **mais clara** da área que ele cobre. Se não atingir, aumenta-se o overlay ou muda-se o corte — nunca se aceita "está legível o bastante".
-4. Texto sobre foto é sempre `#FFFFFF` ou `--kanak-areia-100`. Nunca bordô, nunca ouro.
-5. Proibido: caixa de texto translúcida em cima da foto (o site atual faz isso no hero e fica com cara de banner), `text-shadow` como substituto de overlay, texto sobre a região de maior detalhe da imagem.
-6. Bloco de texto sobre foto ocupa no máximo 55% da largura no desktop e 100% no celular.
-
-## 9. Movimento e animação
-
-Discreto, por decisão do briefing ("comunicação não poluída").
-
-- Entrada de seção: `opacity 0→1` + `translateY 12px→0`, 400 ms, `cubic-bezier(0.22,1,0.36,1)`, uma vez, quando 20% da seção entra na viewport.
-- Hover de card: elevação de 2 px e escala de 1,01 na foto interna, 200 ms.
-- Carrossel: rolagem com `scroll-snap`, sem autoplay. Autoplay está proibido.
-- Acordeão de FAQ: altura animada em 250 ms.
-- **Proibido:** parallax, contador animado, texto que digita sozinho, efeito de brilho, pop-up de saída, banner fixo de promoção, marquee.
-- `prefers-reduced-motion: reduce` desliga tudo, deixando só opacidade instantânea.
-
-## 10. Desktop × celular
-
-**Celular é o projeto principal** (pico de acesso à noite, em casa, no celular).
-
-| Elemento | Celular | Desktop |
-| --- | --- | --- |
-| Hero | foto 4:5, texto no terço inferior, CTA em largura total | foto full-bleed 16:9, texto à esquerda em 55% |
-| Vitrine | carrossel com `scroll-snap`, 1,15 card visível | grade de 3 ou 4 |
-| Especificações | lista de pares rótulo/valor | tabela de 2 colunas |
-| FAQ | acordeão, tudo fechado | acordeão, primeiro item aberto |
-| Menu | drawer, com CTA de WhatsApp fixo no fim | barra horizontal |
-| Botão flutuante | canto inferior direito, 56 px, acima da safe area do iOS | 60 px, mesma posição |
-| Cores | fileira rolável de amostras | grade de 11 amostras |
-
-O botão flutuante nunca cobre um CTA da seção nem o último parágrafo da página — reservar 88 px de padding no fim do `body` no celular.
-
-## 11. Landing pages de anúncio — variação isolada
-
-A LP é **um site à parte**. Mesma paleta bordô + amarelo (decisão do cliente), **layout próprio**.
-
-| Eixo | Institucional | Landing page |
-| --- | --- | --- |
-| Navegação | menu completo, rodapé completo | **sem menu**, sem link de saída; rodapé legal mínimo |
-| Densidade | espaçoso, editorial | mais compacto: padding de seção 48 → 80 px |
-| Hero | foto grande, headline serif, um CTA | banner trocável (a copy pede isso explicitamente), headline + apoio + CTA acima da dobra, barra de garantias logo abaixo |
-| Tipografia | Fraunces no título | **Archivo** no título (mais direta e comercial); Fraunces só em citação de depoimento |
-| Blocos escuros | no máximo 2 | até 3, para separar `problema` e `fechamento` |
-| Cor | bordô como assinatura | bordô com mais presença: fechamento em bloco bordô cheio |
-| CTA | 1 por seção, como na copy | 1 por seção, como na copy, **mais o botão flutuante sempre visível** |
-| Foco | conhecer a marca | **100% no kit**. Nada de colchão avulso. King Size primeiro onde a copy não define ordem |
-| Peso | normal | mínimo. Hero em `priority`, tudo o mais diferido; sem fonte extra, sem biblioteca extra |
-
-O que a LP **não** herda do institucional: cabeçalho, rodapé de navegação, breadcrumbs, links cruzados entre páginas.
-O que ela **não** pode virar: página de apelo de preço. A copy já traz "até 55% OFF" e isso fica como o cliente escreveu — mas desconto não vira eixo visual da página, não ganha selo, não ganha contador, não ganha cor de urgência.
-
-## 12. O que evitar — lista fechada
-
-Derivada do site atual e do briefing. Cada item é um erro que o redesign existe para corrigir.
-
-1. Foto de banco de imagens genérica — a mulher com luz azul, o casal idoso com tablet, o homem de camisa social sentado na cama.
-2. Gradiente cinza de e-commerce e colchão recortado flutuando no vazio.
-3. Selo promocional circular, badge de anos de garantia em vermelho, fita de desconto.
-4. Botão verde-limão de e-commerce (e verde em qualquer lugar fora do ícone do WhatsApp).
-5. Exclamação múltipla como recurso visual e headline em caixa alta.
-6. Bloco bordô atrás de bloco bordô, página inteira em cor cheia.
-7. Infográfico de camadas coloridas de espuma e ícone genérico de "tecnologia".
-8. Texto sobre foto sem overlay medido.
-9. Caixa translúcida de texto sobre o hero.
-10. Tabela de especificações com campo vazio preenchido por traço ou valor genérico — campo sem dado real **não aparece**.
-11. Depoimento inventado, nome inventado, número inventado ("milhares de famílias" só existe onde o cliente escreveu, como texto dele).
-12. Autoplay, parallax, pop-up, contador regressivo, barra fixa de promoção.
-13. Qualquer elemento visual, texto ou foto do Eight Sleep ou de qualquer outra marca.
+Observação: parte da copy do cliente contém itens desta lista. Como a copy é imutável, esses pontos só mudam via quadro "Ajustes de copy" aprovado — ver `memoria.md`.

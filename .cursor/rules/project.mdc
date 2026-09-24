@@ -1,51 +1,34 @@
 ---
-description: Regras do projeto Kanak Colchões — copy imutável, specs como fonte de verdade
-globs:
-  - "**/*"
+description: Regras gerais do projeto Kanak Colchões (site institucional, landing pages e blog em Next.js)
 alwaysApply: true
 ---
 
-# Kanak Colchões — regras do projeto
+# Kanak Colchões — instruções do projeto
 
-Redesign do site institucional da Kanak Colchões (kanakcolchoes.com.br), hoje no ar em WordPress, reconstruído em Next.js dentro de `my-app/`. Não é projeto novo: é redesign, mantendo 100% da copy escrita pelo cliente.
+Site institucional (catálogo) + blog + landing pages de anúncio da Kanak Colchões (Curitiba/PR). Substitui o WordPress atual em kanakcolchoes.com.br. **Não é e-commerce**: todo CTA leva ao WhatsApp.
 
-## Fontes de verdade
+## Fontes de verdade (ler antes de qualquer tarefa)
 
-- @specs/site.md — objetivo, público, rotas, funcionalidades, stack, escopo
-- @specs/design.md — paleta, tipografia, espaçamento, fotografia, overlay, LP, o que evitar
-- @specs/conteudo.md — qual `.md` do cliente alimenta qual seção e qual componente
-- @memoria.md — decisões aprovadas e rejeitadas, pendências, próximos passos
-- @imagens.md — plano de imagens (nenhuma imagem entra no site sem estar lá)
+- @specs/site.md — o que construir: objetivo, público, páginas, seções, CTAs, stack, escopo.
+- @specs/design.md — como deve parecer: paleta, tipografia, componentes, fotografia, movimento, o que evitar.
+- @memoria.md — decisões aprovadas e rejeitadas, pendências, próximos passos.
+- `design-system/` — `DESIGN_SYSTEM.md`, `tokens.css`, `tokens.json` (tokens aprovados; não criar cores ou tamanhos fora deles sem aprovação).
+- Wireframes do Claude Design — fonte de verdade da estrutura e da ordem das seções. Links em `specs/site.md`, seção 0.
 
-Leia esses arquivos antes de qualquer alteração.
+## Next.js
 
-## Regra de conflito
+O projeto fica em `my-app/` (Next.js 16, App Router). Esta versão tem mudanças de API em relação ao que você conhece. Antes de escrever código, leia a documentação em `my-app/node_modules/next/dist/docs/` e respeite os avisos de depreciação. Não edite o bloco `nextjs-agent-rules` de `my-app/AGENTS.md`.
 
-**Se algum pedido meu contradisser uma decisão registrada em @specs/site.md, @specs/design.md, @specs/conteudo.md ou @memoria.md, pare e me avise antes de realizar qualquer alteração. Explique qual decisão seria afetada e pergunte se desejo substituí-la.**
+## Regras
 
-## Regras inegociáveis
-
-1. **A copy do cliente é imutável.** Nenhum texto de `conteudo/` pode ser reescrito, resumido, cortado, traduzido ou "melhorado". Se um texto não couber no layout, **o layout muda**.
-2. **Não invente informação comercial ou técnica sobre o produto.** Se um dado não está na copy nem no briefing, ele não entra no site. Campo sem dado real fica de fora — nunca recebe valor genérico, traço ou estimativa.
-3. **Não invente headline, subtítulo, benefício, depoimento, número ou CTA.** Cada `**CTA:**` pertence à seção em que aparece; o cliente quis vários CTAs ao longo da página.
-4. Se um texto do cliente parecer problemático (afirmação forte, repetição, tamanho), **registre em @memoria.md como pendência** — não corrija por conta própria.
-5. **Não altere a stack técnica sem minha autorização.** Next.js App Router + TypeScript + Tailwind + pnpm, em `my-app/`. Nenhuma dependência nova sem autorização.
-6. **Não remova silenciosamente uma decisão aprovada.**
-7. **Preserve a consistência** visual e estrutural entre as seções e entre as páginas.
-8. **Antes de uma mudança grande, apresente um plano resumido.**
-9. **Depois de uma decisão importante aprovada, atualize @memoria.md.**
-10. **No fim de cada etapa, rode `pnpm lint` e `pnpm build` antes de dizer que terminou.**
-
-## Contexto curto do produto
-
-Kanak vende conjuntos completos de cama — colchão, base box, cabeceira estofada, baú/recamier e 4 travesseiros — em 3 modelos (Molas Ensacadas, sem pillow top, 5 anos; Anatômico Ortopédico, com pillow top, 8 anos; Magnético, com pillow top, garantia conforme o modelo) e 4 tamanhos (Solteiro 88×188, Casal 138×188, Queen 158×198, King 193×203), com 11 cores de veludo. Foco comercial 100% no kit; o King é o de maior margem. **Não existe checkout:** o cliente fala com a equipe pelo WhatsApp, recebe em casa, paga só na entrega e pode devolver sem pagar. Entrega em 9 estados. Público de 25 a 60 anos, classe B-/C+, que acessa à tarde e à noite, pelo celular, em casa, e costuma decidir junto com o parceiro(a).
-
-Tom: adulto e editorial. O briefing proíbe apelo de preço baixo, promessa de cura para dor de coluna, urgência agressiva, tom panfletário e poluição visual.
-
-## Detalhes operacionais
-
-- Todo CTA leva ao WhatsApp **(41) 99842-5771**, com mensagem pré-preenchida e parâmetro de origem. Os outros dois números aparecem só no texto do cliente.
-- O bloco `nextjs-agent-rules` em `my-app/AGENTS.md` é recriado pelo `next dev` — **não apague**.
-- As landing pages de anúncio são um site à parte: sem menu, sem navegação, layout próprio (mesma paleta).
-- Celular primeiro, de verdade. O desktop é a adaptação, não o contrário.
-- Nunca use texto, imagem, logo ou elemento de marca das referências. A identidade final é da Kanak.
+- Se algum pedido meu contradisser uma decisão registrada em @specs/site.md, @specs/design.md ou @memoria.md, pare e me avise antes de realizar qualquer alteração. Explique qual decisão seria afetada e pergunte se desejo substituí-la.
+- Não altere a stack técnica sem minha autorização.
+- Não remova uma decisão aprovada silenciosamente.
+- Não invente informações comerciais, técnicas ou de qualquer outra natureza sobre o produto (densidade, garantia, preços, prazos, depoimentos, certificações). Sem dado confirmado, use marcador de pendência e registre em @memoria.md.
+- A copy foi escrita pelo cliente e é imutável. Só entram as alterações já aprovadas: quadro "Ajustes de copy" do wireframe da landing e ajustes da Home aprovados em @specs/site.md (seção 6.4).
+- Os wireframes do Claude Design são a fonte de verdade da estrutura e da ordem das seções.
+- O site não é e-commerce: todo CTA leva ao WhatsApp, conforme o Mapa de CTAs. Nunca "Comprar" ou "Adicionar ao carrinho" no sentido de checkout.
+- Sempre preserve a consistência visual e estrutural entre as seções.
+- Antes de uma mudança grande, apresente um plano resumido.
+- Depois de uma decisão importante aprovada, atualize @memoria.md (decisão + data, sem transcrever conversas).
+- Idioma do site e da documentação: português do Brasil.

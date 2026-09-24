@@ -1,14 +1,14 @@
 import type { MetadataRoute } from "next";
+import { SITE } from "@/lib/site";
 
+/** Só a Home entra. As landings de anúncio são noindex (specs/site.md §10). */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://kanakcolchoes.com.br";
   return [
-    { url: `${base}/`, changeFrequency: "weekly", priority: 1 },
-    { url: `${base}/colchao-king-size`, changeFrequency: "weekly", priority: 0.9 },
     {
-      url: `${base}/colchao-king-size/anatomico-ortopedico`,
-      changeFrequency: "weekly",
-      priority: 0.8,
+      url: SITE.url,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1,
     },
   ];
 }
